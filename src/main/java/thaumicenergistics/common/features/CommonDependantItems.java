@@ -103,7 +103,7 @@ public class CommonDependantItems
 	 * @param def
 	 * @return
 	 */
-	private ItemStack getAEItem( final IItemDefinition def )
+	private static ItemStack getAEItem( final IItemDefinition def )
 	{
 		// Ensure there is a definition
 		if( def == null )
@@ -134,7 +134,7 @@ public class CommonDependantItems
 	 * @param alt
 	 * @return
 	 */
-	private Object getItemOrAlt( final boolean configDependency, final ItemStack preferred, final Object alt )
+	private static Object getItemOrAlt( final boolean configDependency, final ItemStack preferred, final Object alt )
 	{
 		if( ( preferred == null ) || ( !configDependency ) )
 		{
@@ -152,9 +152,9 @@ public class CommonDependantItems
 	 * @param alt
 	 * @return
 	 */
-	private Object getItemOrAlt( final IItemDefinition def, final Object alt )
+	private static Object getItemOrAlt( final IItemDefinition def, final Object alt )
 	{
-		ItemStack defItem = this.getAEItem( def );
+		ItemStack defItem = CommonDependantItems.getAEItem( def );
 		return( defItem == null ? alt : defItem );
 	}
 
@@ -162,36 +162,36 @@ public class CommonDependantItems
 	{
 		// Mats
 		IMaterials aeMaterials = AEApi.instance().definitions().materials();
-		this.EngineeringProcessor = this.getAEItem( aeMaterials.engProcessor() );
-		this.CalculationProcessor = this.getAEItem( aeMaterials.calcProcessor() );
-		this.LogicProcessor = this.getAEItem( aeMaterials.logicProcessor() );
-		this.CertusQuartz = this.getAEItem( aeMaterials.certusQuartzCrystal() );
-		this.ChargedCertusQuartz = this.getAEItem( aeMaterials.certusQuartzCrystalCharged() );
-		this.PureCertusQuartz = this.getAEItem( aeMaterials.purifiedCertusQuartzCrystal() );
-		this.WirelessReceiver = this.getAEItem( aeMaterials.wireless() );
-		this.AnnihilationCore = this.getAEItem( aeMaterials.annihilationCore() );
-		this.FormationCore = this.getAEItem( aeMaterials.formationCore() );
-		this.FluixCrystal = this.getAEItem( aeMaterials.fluixCrystal() );
+		this.EngineeringProcessor = CommonDependantItems.getAEItem( aeMaterials.engProcessor() );
+		this.CalculationProcessor = CommonDependantItems.getAEItem( aeMaterials.calcProcessor() );
+		this.LogicProcessor = CommonDependantItems.getAEItem( aeMaterials.logicProcessor() );
+		this.CertusQuartz = CommonDependantItems.getAEItem( aeMaterials.certusQuartzCrystal() );
+		this.ChargedCertusQuartz = CommonDependantItems.getAEItem( aeMaterials.certusQuartzCrystalCharged() );
+		this.PureCertusQuartz = CommonDependantItems.getAEItem( aeMaterials.purifiedCertusQuartzCrystal() );
+		this.WirelessReceiver = CommonDependantItems.getAEItem( aeMaterials.wireless() );
+		this.AnnihilationCore = CommonDependantItems.getAEItem( aeMaterials.annihilationCore() );
+		this.FormationCore = CommonDependantItems.getAEItem( aeMaterials.formationCore() );
+		this.FluixCrystal = CommonDependantItems.getAEItem( aeMaterials.fluixCrystal() );
 
 		// Blocks
 		IBlocks aeBlocks = AEApi.instance().definitions().blocks();
-		this.VibrantGlass = this.getItemOrAlt( aeBlocks.quartzVibrantGlass(), this.VanillaGlass );
-		this.MolecularAssembler = this.getAEItem( aeBlocks.molecularAssembler() );
-		this.QuartzGlass = this.getItemOrAlt( aeBlocks.quartzGlass(), this.VanillaGlass );
-		this.MECellWorkbench = this.getItemOrAlt( aeBlocks.cellWorkbench(), new ItemStack( Blocks.crafting_table ) );
-		this.MEInterface = this.getAEItem( aeBlocks.iface() );
-		this.DenseCell = (ItemStack)this.getItemOrAlt( aeBlocks.energyCellDense(), this.getAEItem( aeBlocks.energyCell() ) );
-		this.VibrationChamber = this.getAEItem( aeBlocks.vibrationChamber() );
+		this.VibrantGlass = CommonDependantItems.getItemOrAlt( aeBlocks.quartzVibrantGlass(), this.VanillaGlass );
+		this.MolecularAssembler = CommonDependantItems.getAEItem( aeBlocks.molecularAssembler() );
+		this.QuartzGlass = CommonDependantItems.getItemOrAlt( aeBlocks.quartzGlass(), this.VanillaGlass );
+		this.MECellWorkbench = CommonDependantItems.getItemOrAlt( aeBlocks.cellWorkbench(), new ItemStack( Blocks.crafting_table ) );
+		this.MEInterface = CommonDependantItems.getAEItem( aeBlocks.iface() );
+		this.DenseCell = (ItemStack)CommonDependantItems.getItemOrAlt( aeBlocks.energyCellDense(), CommonDependantItems.getAEItem( aeBlocks.energyCell() ) );
+		this.VibrationChamber = CommonDependantItems.getAEItem( aeBlocks.vibrationChamber() );
 
 		// Parts
 		IParts aeParts = AEApi.instance().definitions().parts();
-		this.MECharger = this.getAEItem( aeBlocks.charger() );
-		this.MEInterfacePart = this.getAEItem( aeParts.iface() );
-		this.METerminal = this.getAEItem( aeParts.terminal() );
-		this.MEP2P = this.getAEItem( aeParts.p2PTunnelME() );
+		this.MECharger = CommonDependantItems.getAEItem( aeBlocks.charger() );
+		this.MEInterfacePart = CommonDependantItems.getAEItem( aeParts.iface() );
+		this.METerminal = CommonDependantItems.getAEItem( aeParts.terminal() );
+		this.MEP2P = CommonDependantItems.getAEItem( aeParts.p2PTunnelME() );
 
 		// Items
-		this.CertusWrench = this.getAEItem( AEApi.instance().definitions().items().certusQuartzWrench() );
+		this.CertusWrench = CommonDependantItems.getAEItem( AEApi.instance().definitions().items().certusQuartzWrench() );
 
 	}
 
@@ -216,8 +216,8 @@ public class CommonDependantItems
 		this.WardedJar = new ItemStack( ConfigBlocks.blockJar, 1, 0 );
 		this.ArcaneWorkTable = new ItemStack( ConfigBlocks.blockTable, 1, 15 );
 		this.FilterTube = new ItemStack( ConfigBlocks.blockTube, 1, 3 );
-		this.WardedGlass = this.getItemOrAlt( Config.wardedStone, new ItemStack( ConfigBlocks.blockCosmeticOpaque, 1, 2 ), this.VanillaGlass );
-		this.EssentiaMirror = (ItemStack)this.getItemOrAlt( Config.allowMirrors, new ItemStack( ConfigBlocks.blockMirror, 1, 6 ), this.WardedJar );
+		this.WardedGlass = CommonDependantItems.getItemOrAlt( Config.wardedStone, new ItemStack( ConfigBlocks.blockCosmeticOpaque, 1, 2 ), this.VanillaGlass );
+		this.EssentiaMirror = (ItemStack)CommonDependantItems.getItemOrAlt( Config.allowMirrors, new ItemStack( ConfigBlocks.blockMirror, 1, 6 ), this.WardedJar );
 
 		// Items
 		this.Thaumometer = new ItemStack( ConfigItems.itemThaumometer );

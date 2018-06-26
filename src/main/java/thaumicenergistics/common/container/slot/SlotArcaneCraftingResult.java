@@ -139,7 +139,7 @@ public class SlotArcaneCraftingResult
 				if( slotContainerStack.isItemStackDamageable() )
 				{
 					// Did we kill it?
-					if( slotContainerStack.getItemDamage() >= slotContainerStack.getMaxDamage() )
+					if( slotContainerStack.getMetadata() >= slotContainerStack.getMaxDurability() )
 					{
 						// Fire forge event
 						MinecraftForge.EVENT_BUS.post( new PlayerDestroyItemEvent( player, slotContainerStack ) );

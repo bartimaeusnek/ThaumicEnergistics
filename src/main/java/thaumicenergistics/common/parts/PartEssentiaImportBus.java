@@ -78,7 +78,7 @@ public class PartEssentiaImportBus
 		}
 
 		// Get the aspect in the container
-		Aspect aspect = EssentiaTileContainerHelper.INSTANCE.getAspectInContainer( this.facingContainer );
+		Aspect aspect = EssentiaTileContainerHelper.getAspectInContainer( this.facingContainer );
 
 		// Ensure the aspect is allowed to be transfered
 		if( ( aspect == null ) || ( !this.aspectTransferAllowed( aspect ) ) )
@@ -193,7 +193,7 @@ public class PartEssentiaImportBus
 
 		// Lights
 		helper.setBounds( 6.0F, 6.0F, 11.0F, 10.0F, 10.0F, 12.0F );
-		this.renderInventoryBusLights( helper, renderer );
+		ThEPartBase.renderInventoryBusLights( helper, renderer );
 	}
 
 	@SideOnly(Side.CLIENT)

@@ -265,12 +265,12 @@ public class PartEssentiaTerminal
 		if( EffectiveSide.isServerSide() )
 		{
 			// Launch the gui
-			ThEGuiHandler.launchGui( this, player, host.getWorldObj(), host.xCoord, host.yCoord, host.zCoord );
+			ThEGuiHandler.launchGui( this, player, host.getWorld(), host.xCoord, host.yCoord, host.zCoord );
 		}
 		else
 		{
 			// Ask the server to change the GUI
-			Packet_S_ChangeGui.sendGuiChangeToPart( this, player, host.getWorldObj(), host.xCoord, host.yCoord, host.zCoord );
+			Packet_S_ChangeGui.sendGuiChangeToPart( this, player, host.getWorld(), host.xCoord, host.yCoord, host.zCoord );
 		}
 	}
 
@@ -381,7 +381,7 @@ public class PartEssentiaTerminal
 		helper.renderInventoryFace( BlockTextureManager.ESSENTIA_TERMINAL.getTextures()[2], ForgeDirection.SOUTH, renderer );
 
 		helper.setBounds( 5.0F, 5.0F, 12.0F, 11.0F, 11.0F, 13.0F );
-		this.renderInventoryBusLights( helper, renderer );
+		ThEPartBase.renderInventoryBusLights( helper, renderer );
 	}
 
 	@SideOnly(Side.CLIENT)

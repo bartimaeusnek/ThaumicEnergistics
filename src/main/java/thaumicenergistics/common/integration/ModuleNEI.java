@@ -97,7 +97,7 @@ public class ModuleNEI
 					}
 				}
 			}
-			catch( Exception e )
+			catch(@SuppressWarnings("unused") Exception e )
 			{
 				// Silently ignored.
 			}

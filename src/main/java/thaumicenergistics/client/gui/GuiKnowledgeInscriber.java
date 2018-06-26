@@ -103,7 +103,7 @@ public class GuiKnowledgeInscriber
 		this.particles = new GuiParticleAnimator[ContainerKnowledgeInscriber.CRAFTING_COLS * ContainerKnowledgeInscriber.CRAFTING_ROWS];
 		for( int index = 0; index < this.particles.length; ++index )
 		{
-			this.particles[index] = this.createSaveParticle( index );
+			this.particles[index] = GuiKnowledgeInscriber.createSaveParticle( index );
 		}
 	}
 
@@ -113,7 +113,7 @@ public class GuiKnowledgeInscriber
 	 * @param slotNumber
 	 * @return
 	 */
-	private GuiParticleAnimator createSaveParticle( final int slotNumber )
+	private static GuiParticleAnimator createSaveParticle( final int slotNumber )
 	{
 		int startX = ContainerKnowledgeInscriber.CRAFTING_SLOT_X +
 						( ( slotNumber % ContainerKnowledgeInscriber.CRAFTING_COLS ) * ContainerKnowledgeInscriber.CRAFTING_SLOT_SPACING );

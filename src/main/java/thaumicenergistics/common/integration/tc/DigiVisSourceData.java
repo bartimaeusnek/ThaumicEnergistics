@@ -204,7 +204,7 @@ public class DigiVisSourceData
 				this.digiVisSource = new WeakReference<IDigiVisSource>( visSource );
 			}
 		}
-		catch( Exception e )
+		catch(@SuppressWarnings("unused") Exception e )
 		{
 		}
 	}
@@ -230,7 +230,7 @@ public class DigiVisSourceData
 			}
 
 		}
-		catch( Exception e )
+		catch(@SuppressWarnings("unused") Exception e )
 		{
 		}
 

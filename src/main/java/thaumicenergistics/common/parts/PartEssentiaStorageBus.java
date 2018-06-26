@@ -482,7 +482,7 @@ public class PartEssentiaStorageBus
 
 		// Back
 		helper.setBounds( 5.0F, 5.0F, 13.0F, 11.0F, 11.0F, 14.0F );
-		this.renderInventoryBusLights( helper, renderer );
+		ThEPartBase.renderInventoryBusLights( helper, renderer );
 	}
 
 	/**

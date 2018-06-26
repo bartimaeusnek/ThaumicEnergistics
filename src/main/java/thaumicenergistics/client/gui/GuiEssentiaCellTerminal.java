@@ -3,9 +3,11 @@ package thaumicenergistics.client.gui;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
+
 import appeng.api.config.ViewItems;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -18,7 +20,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
 import thaumcraft.api.aspects.Aspect;
-import thaumicenergistics.api.IThEWirelessEssentiaTerminal;
 import thaumicenergistics.api.gui.IAspectSelectorContainer;
 import thaumicenergistics.api.gui.IAspectSelectorGui;
 import thaumicenergistics.api.storage.IAspectStack;
@@ -40,6 +41,7 @@ import thaumicenergistics.common.parts.PartEssentiaTerminal;
 import thaumicenergistics.common.registries.ThEStrings;
 import thaumicenergistics.common.storage.AspectStackComparator;
 import thaumicenergistics.common.storage.AspectStackComparator.AspectStackComparatorMode;
+import thaumicenergistics.common.utils.ThELog;
 
 /**
  * {@link PartEssentiaTerminal}, {@link ItemWirelessEssentiaTerminal}, and {@link ItemEssentiaCell} GUI
@@ -205,7 +207,7 @@ public class GuiEssentiaCellTerminal
 
 		// Create the comparator
 		this.stackComparator = new AspectStackComparator();
-
+		
 	}
 
 	/**
@@ -267,17 +269,17 @@ public class GuiEssentiaCellTerminal
 		}
 
 		// Ensure the stack's item implements the wireless interface
-		if( !( wirelessTerminal.getItem() instanceof IThEWirelessEssentiaTerminal ) )
+		if( !( wirelessTerminal.getItem() instanceof ItemWirelessEssentiaTerminal ) )
 		{
 			// Invalid item.
 			return null;
 		}
 
 		// Get the interface
-		IThEWirelessEssentiaTerminal terminalInterface = (IThEWirelessEssentiaTerminal)wirelessTerminal.getItem();
+		ItemWirelessEssentiaTerminal terminalInterface = (ItemWirelessEssentiaTerminal)wirelessTerminal.getItem();
 
 		// Create the handler
-		HandlerWirelessEssentiaTerminal handler = new HandlerWirelessEssentiaTerminal( player, null, terminalInterface, wirelessTerminal );
+		HandlerWirelessEssentiaTerminal handler = new HandlerWirelessEssentiaTerminal( player, terminalInterface.getEncryptionKey(wirelessTerminal), terminalInterface, wirelessTerminal );
 
 		// Create the gui
 		return new GuiEssentiaCellTerminal( player, new ContainerWirelessEssentiaTerminal( player, handler ),
@@ -293,7 +295,7 @@ public class GuiEssentiaCellTerminal
 	 */
 	private boolean isMouseOverWidgetArea( final int mouseX, final int mouseY )
 	{
-		return ThEGuiHelper.INSTANCE.isPointInGuiRegion(
+		return ThEGuiHelper.isPointInGuiRegion(
 			GuiConstants_ECT.WIDGET_OFFSET_Y, GuiConstants_ECT.WIDGET_OFFSET_X,
 			GuiConstants_ECT.WIDGET_ROWS_PER_PAGE * ThEWidget.WIDGET_SIZE,
 			GuiConstants_ECT.WIDGETS_PER_ROW * ThEWidget.WIDGET_SIZE,

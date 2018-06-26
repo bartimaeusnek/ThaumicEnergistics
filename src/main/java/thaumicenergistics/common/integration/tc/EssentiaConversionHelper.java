@@ -35,13 +35,13 @@ public final class EssentiaConversionHelper
 	 * @param fluidStack
 	 * @return Aspect stack if converted, null otherwise.
 	 */
-	public AspectStack convertAEFluidStackToAspectStack( final IAEFluidStack fluidStack )
+	public static AspectStack convertAEFluidStackToAspectStack( final IAEFluidStack fluidStack )
 	{
 		// Is the fluid an essentia gas?
 		if( fluidStack.getFluid() instanceof GaseousEssentia )
 		{
 			// Create an aspect stack to match the fluid
-			return new AspectStack( ( (GaseousEssentia)fluidStack.getFluid() ).getAspect(), this.convertFluidAmountToEssentiaAmount( fluidStack
+			return new AspectStack( ( (GaseousEssentia)fluidStack.getFluid() ).getAspect(), EssentiaConversionHelper.convertFluidAmountToEssentiaAmount( fluidStack
 							.getStackSize() ) );
 		}
 
@@ -54,7 +54,7 @@ public final class EssentiaConversionHelper
 	 * @param essentiaAmount
 	 * @return
 	 */
-	public long convertEssentiaAmountToFluidAmount( final long essentiaAmount )
+	public static long convertEssentiaAmountToFluidAmount( final long essentiaAmount )
 	{
 		return essentiaAmount * ThaumicEnergistics.config.conversionMultiplier();
 	}
@@ -65,7 +65,7 @@ public final class EssentiaConversionHelper
 	 * @param fluidAmount
 	 * @return
 	 */
-	public long convertFluidAmountToEssentiaAmount( final long fluidAmount )
+	public static long convertFluidAmountToEssentiaAmount( final long fluidAmount )
 	{
 		return fluidAmount / ThaumicEnergistics.config.conversionMultiplier();
 	}
@@ -78,7 +78,7 @@ public final class EssentiaConversionHelper
 	 * @param essentiaAmount
 	 * @return
 	 */
-	public IAEFluidStack createAEFluidStackInEssentiaUnits( final Aspect aspect, final long essentiaAmount )
+	public static IAEFluidStack createAEFluidStackInEssentiaUnits( final Aspect aspect, final long essentiaAmount )
 	{
 		GaseousEssentia essentiaGas = GaseousEssentia.getGasFromAspect( aspect );
 
@@ -87,7 +87,7 @@ public final class EssentiaConversionHelper
 			return null;
 		}
 
-		return this.createAEFluidStackInFluidUnits( essentiaGas, this.convertEssentiaAmountToFluidAmount( essentiaAmount ) );
+		return EssentiaConversionHelper.createAEFluidStackInFluidUnits( essentiaGas, EssentiaConversionHelper.convertEssentiaAmountToFluidAmount( essentiaAmount ) );
 	}
 
 	/**
@@ -98,9 +98,9 @@ public final class EssentiaConversionHelper
 	 * @param essentiaAmount
 	 * @return
 	 */
-	public IAEFluidStack createAEFluidStackInEssentiaUnits( final GaseousEssentia essentiaGas, final long essentiaAmount )
+	public static IAEFluidStack createAEFluidStackInEssentiaUnits( final GaseousEssentia essentiaGas, final long essentiaAmount )
 	{
-		return this.createAEFluidStackInFluidUnits( essentiaGas, this.convertEssentiaAmountToFluidAmount( essentiaAmount ) );
+		return EssentiaConversionHelper.createAEFluidStackInFluidUnits( essentiaGas, EssentiaConversionHelper.convertEssentiaAmountToFluidAmount( essentiaAmount ) );
 	}
 
 	/**
@@ -111,7 +111,7 @@ public final class EssentiaConversionHelper
 	 * @param fluidAmount
 	 * @return
 	 */
-	public IAEFluidStack createAEFluidStackInFluidUnits( final GaseousEssentia essentiaGas, final long fluidAmount )
+	public static IAEFluidStack createAEFluidStackInFluidUnits( final GaseousEssentia essentiaGas, final long fluidAmount )
 	{
 		IAEFluidStack ret = null;
 		try
@@ -120,7 +120,7 @@ public final class EssentiaConversionHelper
 
 			ret.setStackSize( fluidAmount );
 		}
-		catch( Exception e )
+		catch(@SuppressWarnings("unused") Exception e )
 		{
 		}
 

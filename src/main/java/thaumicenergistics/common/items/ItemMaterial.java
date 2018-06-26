@@ -105,7 +105,7 @@ public class ItemMaterial
 
 	public ItemMaterial()
 	{
-		this.setMaxDamage( 0 );
+		this.setMaxDurability( 0 );
 		this.setHasSubtypes( true );
 		this.setCreativeTab( ThaumicEnergistics.ThETab );
 	}
@@ -140,7 +140,7 @@ public class ItemMaterial
 	@Override
 	public String getUnlocalizedName( final ItemStack itemStack )
 	{
-		int index = MathHelper.clamp_int( itemStack.getItemDamage(), 0, MaterialTypes.VALUES.length - 1 );
+		int index = MathHelper.clamp_int( itemStack.getMetadata(), 0, MaterialTypes.VALUES.length - 1 );
 
 		return MaterialTypes.VALUES[index].getUnlocalizedName();
 	}

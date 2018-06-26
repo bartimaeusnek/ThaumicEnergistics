@@ -127,7 +127,7 @@ public class RenderTileGearbox
 		TileGearBox gearBox = (TileGearBox)tileEntity;
 
 		// Render the gearbox
-		this.renderGearbox( gearBox, tileEntity.getWorldObj(), tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord );
+		this.renderGearbox( gearBox, tileEntity.getWorld(), tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord );
 
 		// Pop the GL matrix
 		GL11.glPopMatrix();

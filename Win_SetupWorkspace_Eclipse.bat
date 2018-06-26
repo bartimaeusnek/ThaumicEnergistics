@@ -1,0 +1,6 @@
+gradlew setupDecompWorkspace
+pause
+gradlew setupDevWorkspace
+pause
+gradlew eclipse
+pause

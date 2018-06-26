@@ -216,6 +216,8 @@ public class PartEssentiaLevelEmitter
 		case IGNORE:
 		case SIGNAL_PULSE:
 			break;
+		default:
+			break;
 
 		}
 
@@ -234,8 +236,8 @@ public class PartEssentiaLevelEmitter
 			ForgeDirection side = this.getSide();
 
 			// Update the neighbors
-			Platform.notifyBlocksOfNeighbors( hte.getWorldObj(), hte.xCoord, hte.yCoord, hte.zCoord );
-			Platform.notifyBlocksOfNeighbors( hte.getWorldObj(), hte.xCoord + side.offsetX, hte.yCoord + side.offsetX, hte.zCoord + side.offsetX );
+			Platform.notifyBlocksOfNeighbors( hte.getWorld(), hte.xCoord, hte.yCoord, hte.zCoord );
+			Platform.notifyBlocksOfNeighbors( hte.getWorld(), hte.xCoord + side.offsetX, hte.yCoord + side.offsetX, hte.zCoord + side.offsetX );
 		}
 	}
 
@@ -380,6 +382,8 @@ public class PartEssentiaLevelEmitter
 
 		case IGNORE:
 		case SIGNAL_PULSE:
+			break;
+		default:
 			break;
 		}
 

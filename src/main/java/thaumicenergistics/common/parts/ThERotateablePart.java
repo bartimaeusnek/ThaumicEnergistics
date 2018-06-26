@@ -84,6 +84,8 @@ public abstract class ThERotateablePart
 				case 3:
 					this.renderRotation = 2;
 					break;
+				default:
+					break;
 				}
 
 				// Mark for sync & save

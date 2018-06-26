@@ -57,6 +57,8 @@ public class Packet_S_AspectSlot
 			// Inform the part of the aspect change
 			this.part.setAspect( this.index, this.aspect, this.player );
 			break;
+		default:
+			break;
 		}
 	}
 
@@ -75,6 +77,8 @@ public class Packet_S_AspectSlot
 			// Read the aspect
 			this.aspect = ThEBasePacket.readAspect( stream );
 			break;
+		default:
+			break;
 		}
 	}
 
@@ -92,6 +96,8 @@ public class Packet_S_AspectSlot
 
 			// Write the aspect
 			ThEBasePacket.writeAspect( this.aspect, stream );
+			break;
+		default:
 			break;
 		}
 	}

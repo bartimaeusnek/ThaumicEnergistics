@@ -72,7 +72,7 @@ public enum BlockEnum
 		this.unlocalizedName = unlocalizedName;
 
 		// Set the block's name
-		block.setBlockName( this.unlocalizedName.getUnlocalized() );
+		block.setUnlocalizedName( this.unlocalizedName.getUnlocalized() );
 
 		// Set item
 		this.itemBlockClass = itemBlockClass;

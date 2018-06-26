@@ -57,7 +57,7 @@ public class BlockEssentiaVibrationChamber
 	 * @param z
 	 * @return
 	 */
-	private TileEssentiaVibrationChamber getEVCTile( final IBlockAccess world, final int x, final int y, final int z )
+	private static TileEssentiaVibrationChamber getEVCTile( final IBlockAccess world, final int x, final int y, final int z )
 	{
 		// Ensure the world is not null
 		if( world != null )
@@ -88,7 +88,7 @@ public class BlockEssentiaVibrationChamber
 		if( EffectiveSide.isServerSide() )
 		{
 			// Is the tile valid?
-			if( this.getEVCTile( world, x, y, z ) != null )
+			if( BlockEssentiaVibrationChamber.getEVCTile( world, x, y, z ) != null )
 			{
 				// Launch the GUI
 				ThEGuiHandler.launchGui( ThEGuiHandler.ESSENTIA_VIBRATION_CHAMBER, player, world, x, y, z );
@@ -108,7 +108,7 @@ public class BlockEssentiaVibrationChamber
 		}
 
 		// Get the chamber
-		TileEssentiaVibrationChamber chamber = this.getEVCTile( world, x, y, z );
+		TileEssentiaVibrationChamber chamber = BlockEssentiaVibrationChamber.getEVCTile( world, x, y, z );
 
 		// Validate
 		if( chamber == null )
@@ -163,7 +163,7 @@ public class BlockEssentiaVibrationChamber
 	public IIcon getIcon( final IBlockAccess world, final int x, final int y, final int z, final int side )
 	{
 		// Get the chamber
-		TileEssentiaVibrationChamber chamber = this.getEVCTile( world, x, y, z );
+		TileEssentiaVibrationChamber chamber = BlockEssentiaVibrationChamber.getEVCTile( world, x, y, z );
 
 		// Is the tile valid?
 		if( chamber == null )
@@ -222,7 +222,7 @@ public class BlockEssentiaVibrationChamber
 	public int getLightValue( final IBlockAccess world, final int x, final int y, final int z )
 	{
 		// Get the chamber
-		TileEssentiaVibrationChamber chamber = this.getEVCTile( world, x, y, z );
+		TileEssentiaVibrationChamber chamber = BlockEssentiaVibrationChamber.getEVCTile( world, x, y, z );
 		if( chamber != null )
 		{
 			// Return bright if chamber
@@ -245,7 +245,7 @@ public class BlockEssentiaVibrationChamber
 	public void onBlockPlacedBy( final World world, final int x, final int y, final int z, final EntityLivingBase player, final ItemStack itemStack )
 	{
 		// Get the chamber tile
-		TileEssentiaVibrationChamber chamber = this.getEVCTile( world, x, y, z );
+		TileEssentiaVibrationChamber chamber = BlockEssentiaVibrationChamber.getEVCTile( world, x, y, z );
 
 		// Is the tile valid?
 		if( chamber == null )
@@ -298,6 +298,8 @@ public class BlockEssentiaVibrationChamber
 			case 3:
 				face = ForgeDirection.WEST;
 				break;
+			default:
+				break;
 			}
 		}
 
@@ -311,7 +313,7 @@ public class BlockEssentiaVibrationChamber
 	 */
 	@SideOnly(Side.CLIENT)
 	@Override
-	public final void registerBlockIcons( final IIconRegister register )
+	public final void registerIcons( final IIconRegister register )
 	{
 		// Ignored
 	}
@@ -320,7 +322,7 @@ public class BlockEssentiaVibrationChamber
 	public boolean rotateBlock( final World world, final int x, final int y, final int z, final ForgeDirection axis )
 	{
 		// Cast
-		TileEssentiaVibrationChamber chamber = this.getEVCTile( world, x, y, z );
+		TileEssentiaVibrationChamber chamber = BlockEssentiaVibrationChamber.getEVCTile( world, x, y, z );
 
 		// Validate
 		if( chamber == null )

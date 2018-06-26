@@ -168,7 +168,7 @@ public class GuiArcaneAssembler
 		for( Aspect aspect : TileArcaneAssembler.PRIMALS )
 		{
 			int left = this.visBarPositionMap.get( aspect );
-			if( ThEGuiHelper.INSTANCE.isPointInGuiRegion( GuiArcaneAssembler.VIS_EMPTY_Y, left, GuiArcaneAssembler.VIS_BAR_HEIGHT,
+			if( ThEGuiHelper.isPointInGuiRegion( GuiArcaneAssembler.VIS_EMPTY_Y, left, GuiArcaneAssembler.VIS_BAR_HEIGHT,
 				GuiArcaneAssembler.VIS_BAR_WIDTH, mouseX, mouseY, this.guiLeft, this.guiTop ) )
 			{
 				// Add the aspect name to the tooltip

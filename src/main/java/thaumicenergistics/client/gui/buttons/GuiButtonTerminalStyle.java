@@ -32,7 +32,7 @@ public class GuiButtonTerminalStyle
 	@Override
 	public void getTooltip( final List<String> tooltip )
 	{
-		this.addAboutToTooltip( tooltip, ButtonToolTips.TerminalStyle.getLocal(), EnumChatFormatting.GRAY + this.tooltipStyle );
+		ThEStateButton.addAboutToTooltip( tooltip, ButtonToolTips.TerminalStyle.getLocal(), EnumChatFormatting.GRAY + this.tooltipStyle );
 	}
 
 	public void setTerminalStyle( final TerminalStyle style )

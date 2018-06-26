@@ -64,6 +64,8 @@ public class Packet_C_AspectSlot
 		case Packet_C_AspectSlot.MODE_LIST_UPDATE:
 			( (IAspectSlotGui)gui ).updateAspects( this.filterAspects );
 			break;
+		default:
+			break;
 		}
 
 	}
@@ -86,6 +88,8 @@ public class Packet_C_AspectSlot
 				this.filterAspects.add( ThEBasePacket.readAspect( stream ) );
 			}
 			break;
+		default:
+			break;
 		}
 	}
 
@@ -103,6 +107,8 @@ public class Packet_C_AspectSlot
 			{
 				ThEBasePacket.writeAspect( this.filterAspects.get( index ), stream );
 			}
+			break;
+		default:
 			break;
 		}
 	}

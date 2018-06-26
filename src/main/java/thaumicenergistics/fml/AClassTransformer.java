@@ -38,7 +38,7 @@ public abstract class AClassTransformer
 	 * @param opcode
 	 * @return
 	 */
-	protected AbstractInsnNode findFirstOpCode( final InsnList instructions, final int opcode )
+	protected static AbstractInsnNode findFirstOpCode( final InsnList instructions, final int opcode )
 	{
 		for( int index = 0; index < instructions.size(); ++index )
 		{
@@ -57,7 +57,7 @@ public abstract class AClassTransformer
 	 * @param opcode
 	 * @return
 	 */
-	protected AbstractInsnNode findLastOpCode( final InsnList instructions, final int opcode )
+	protected static AbstractInsnNode findLastOpCode( final InsnList instructions, final int opcode )
 	{
 		for( int index = instructions.size() - 1; index > 0; --index )
 		{
@@ -78,7 +78,7 @@ public abstract class AClassTransformer
 	 * of occurrences to skip
 	 * @return
 	 */
-	protected AbstractInsnNode findLastType( final InsnList instructions, final int type, int skip )
+	protected static AbstractInsnNode findLastType( final InsnList instructions, final int type, int skip )
 	{
 		for( int index = instructions.size() - 1; index > 0; --index )
 		{
@@ -100,7 +100,7 @@ public abstract class AClassTransformer
 	 * @param opcode
 	 * @return
 	 */
-	protected AbstractInsnNode findNextOpCode( final AbstractInsnNode fromInstruction, final int opcode )
+	protected static AbstractInsnNode findNextOpCode( final AbstractInsnNode fromInstruction, final int opcode )
 	{
 		AbstractInsnNode nextInsn = fromInstruction;
 		do
@@ -124,7 +124,7 @@ public abstract class AClassTransformer
 	 * If true all -1 instructions will be skipped
 	 * @return The last instruction in the sequence.
 	 */
-	protected AbstractInsnNode findSequence( final InsnList instructions, final int opSequence[], final boolean skipNons )
+	protected static AbstractInsnNode findSequence( final InsnList instructions, final int opSequence[], final boolean skipNons )
 	{
 		int seqIndex = 0;
 		AbstractInsnNode insertionPoint = null;
@@ -169,12 +169,12 @@ public abstract class AClassTransformer
 	 *
 	 * @param text
 	 */
-	protected void log( final String text )
+	protected static void log( final String text )
 	{
 		FMLRelaunchLog.log( "ThE-Core", Level.INFO, text );
 	}
 
-	protected void logInstructionDetails( final AbstractInsnNode insn )
+	protected static void logInstructionDetails( final AbstractInsnNode insn )
 	{
 		// Visit the instruction
 		insn.accept( AClassTransformer.asmVisitor );
@@ -189,7 +189,7 @@ public abstract class AClassTransformer
 		AClassTransformer.asmPrinter.getText().clear();
 
 		// Log the details
-		this.log( sw.toString() );
+		AClassTransformer.log( sw.toString() );
 	}
 
 	/**
@@ -215,7 +215,7 @@ public abstract class AClassTransformer
 	{
 		try
 		{
-			this.log( String.format( "Transforming Class (%s)", this.classCanonicalName ) );
+			AClassTransformer.log( String.format( "Transforming Class (%s)", this.classCanonicalName ) );
 
 			// Create the class node and read in the class
 			ClassNode classNode = new ClassNode();
@@ -232,9 +232,9 @@ public abstract class AClassTransformer
 			// Return the modified class
 			return writer.toByteArray();
 		}
-		catch( Exception e )
+		catch( @SuppressWarnings("unused") Exception e )
 		{
-			this.log( String.format( "Unable to transform (%s)", this.classCanonicalName ) );
+			AClassTransformer.log( String.format( "Unable to transform (%s)", this.classCanonicalName ) );
 			this.onTransformFailure();
 		}
 		return classBytes;

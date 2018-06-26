@@ -251,6 +251,8 @@ public class GuiEssentiaCellWorkbench
 		case GuiEssentiaCellWorkbench.BUTTON_PARTITION_CURRENT_ID:
 			Packet_S_EssentiaCellWorkbench.sendPartitionToContents( this.player, this.workbench );
 			break;
+		default:
+			break;
 		}
 	}
 

@@ -93,7 +93,7 @@ public abstract class ThEBasePacket
 
 			return itemStack;
 		}
-		catch( IOException e )
+		catch( @SuppressWarnings("unused") IOException e )
 		{
 		}
 
@@ -211,7 +211,7 @@ public abstract class ThEBasePacket
 			{
 				itemStack.writeToPacket( stream );
 			}
-			catch( IOException e )
+			catch( @SuppressWarnings("unused") IOException e )
 			{
 			}
 		}
@@ -247,7 +247,7 @@ public abstract class ThEBasePacket
 	 * @param player
 	 * @param stream
 	 */
-	@SuppressWarnings("null")
+
 	protected static void writePlayer( final EntityPlayer player, final ByteBuf stream )
 	{
 		boolean validPlayer = ( player != null );
@@ -284,7 +284,7 @@ public abstract class ThEBasePacket
 	 */
 	protected static void writeTileEntity( final TileEntity entity, final ByteBuf stream )
 	{
-		writeWorld( entity.getWorldObj(), stream );
+		writeWorld( entity.getWorld(), stream );
 		stream.writeInt( entity.xCoord );
 		stream.writeInt( entity.yCoord );
 		stream.writeInt( entity.zCoord );

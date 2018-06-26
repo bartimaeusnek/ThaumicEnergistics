@@ -232,7 +232,7 @@ public class GuiArcaneCraftingTerminal
 	{
 		// Was the mouse right-clicked over the search field?
 		if( ( mouseButton == ThEGuiHelper.MOUSE_BUTTON_RIGHT ) &&
-						ThEGuiHelper.INSTANCE.isPointInGuiRegion( GuiConstants_ACT.SEARCH_POS_Y, GuiConstants_ACT.SEARCH_POS_X,
+						ThEGuiHelper.isPointInGuiRegion( GuiConstants_ACT.SEARCH_POS_Y, GuiConstants_ACT.SEARCH_POS_X,
 							GuiConstants_ACT.SEARCH_HEIGHT, GuiConstants_ACT.SEARCH_WIDTH, mouseX, mouseY, this.guiLeft, this.guiTop ) )
 		{
 			// Clear the search field
@@ -265,7 +265,7 @@ public class GuiArcaneCraftingTerminal
 	private boolean clickHandler_Widgets( final int mouseX, final int mouseY, final int mouseButton )
 	{
 		// Was the click inside the ME grid?
-		if( ThEGuiHelper.INSTANCE.isPointInGuiRegion( GuiConstants_ACT.ME_ITEM_POS_Y, GuiConstants_ACT.ME_ITEM_POS_X,
+		if( ThEGuiHelper.isPointInGuiRegion( GuiConstants_ACT.ME_ITEM_POS_Y, GuiConstants_ACT.ME_ITEM_POS_X,
 			this.numberOfWidgetRows * GuiConstants_ACT.ME_ROW_HEIGHT, GuiConstants_ACT.ME_GRID_WIDTH, mouseX, mouseY, this.guiLeft,
 			this.guiTop ) )
 		{
@@ -303,7 +303,7 @@ public class GuiArcaneCraftingTerminal
 	private void doMEWheelAction( final int deltaZ, final int mouseX, final int mouseY )
 	{
 		// Is the mouse inside the ME area?
-		if( ThEGuiHelper.INSTANCE.isPointInGuiRegion( GuiConstants_ACT.ME_ITEM_POS_Y, GuiConstants_ACT.ME_ITEM_POS_X,
+		if( ThEGuiHelper.isPointInGuiRegion( GuiConstants_ACT.ME_ITEM_POS_Y, GuiConstants_ACT.ME_ITEM_POS_X,
 			this.numberOfWidgetRows * GuiConstants_ACT.ME_ROW_HEIGHT, GuiConstants_ACT.ME_GRID_WIDTH,
 			mouseX, mouseY, this.guiLeft, this.guiTop ) )
 		{
@@ -480,7 +480,7 @@ public class GuiArcaneCraftingTerminal
 		{
 			this.meAspectBridge = new MEItemAspectBridgeContainer( this.widgetCount );
 		}
-		catch( Exception e )
+		catch(@SuppressWarnings("unused") Exception e )
 		{
 			this.meAspectBridge = null;
 		}
@@ -890,6 +890,8 @@ public class GuiArcaneCraftingTerminal
 			case NAME:
 				this.sortingOrder = ( wasLeftClick ? SortOrder.AMOUNT : SortOrder.MOD );
 				break;
+			default:
+				break;
 			}
 			sortingChanged = true;
 			break;
@@ -904,6 +906,8 @@ public class GuiArcaneCraftingTerminal
 
 			case DESCENDING:
 				this.sortingDirection = SortDir.ASCENDING;
+				break;
+			default:
 				break;
 
 			}
@@ -970,6 +974,8 @@ public class GuiArcaneCraftingTerminal
 			this.cachedItemTooltip.clear();
 			this.lastTooltipUpdateTime = 0;
 
+			break;
+		default:
 			break;
 		}
 

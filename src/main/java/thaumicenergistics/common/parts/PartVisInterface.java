@@ -397,7 +397,7 @@ public class PartVisInterface
 		if( tVR != null )
 		{
 			// Ensure it is still there
-			if( tVR == this.getHostTile().getWorldObj().getTileEntity( tVR.xCoord, tVR.yCoord, tVR.zCoord ) )
+			if( tVR == this.getHostTile().getWorld().getTileEntity( tVR.xCoord, tVR.yCoord, tVR.zCoord ) )
 			{
 				return tVR;
 			}
@@ -643,7 +643,7 @@ public class PartVisInterface
 
 		// Back
 		helper.setBounds( 5.0F, 5.0F, 13.0F, 11.0F, 11.0F, 14.0F );
-		this.renderInventoryBusLights( helper, renderer );
+		ThEPartBase.renderInventoryBusLights( helper, renderer );
 
 	}
 
@@ -725,7 +725,7 @@ public class PartVisInterface
 					this.visProviderSubTile = new VisProviderProxy( this );
 
 					// Register the provider
-					VisNetHandler.addSource( this.getHostTile().getWorldObj(), this.visProviderSubTile );
+					VisNetHandler.addSource( this.getHostTile().getWorld(), this.visProviderSubTile );
 				}
 				else if( hasProvider )
 				{

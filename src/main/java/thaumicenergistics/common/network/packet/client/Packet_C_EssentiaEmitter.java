@@ -100,6 +100,8 @@ public class Packet_C_EssentiaEmitter
 				// Update redstone mode
 				( (GuiEssentiaLevelEmitter)gui ).onReceiveRedstoneMode( this.redstoneMode );
 				break;
+			default:
+				break;
 			}
 		}
 	}
@@ -118,6 +120,8 @@ public class Packet_C_EssentiaEmitter
 			// Read the redstone mode ordinal
 			this.redstoneMode = EnumCache.AE_REDSTONE_MODES[stream.readInt()];
 			break;
+		default:
+			break;
 		}
 	}
 
@@ -135,6 +139,8 @@ public class Packet_C_EssentiaEmitter
 			// Write the redstone mode ordinal
 			stream.writeInt( this.redstoneMode.ordinal() );
 
+			break;
+		default:
 			break;
 		}
 	}

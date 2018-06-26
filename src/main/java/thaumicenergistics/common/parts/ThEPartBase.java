@@ -7,7 +7,6 @@ import java.util.Random;
 import appeng.api.AEApi;
 import appeng.api.config.SecurityPermissions;
 import appeng.api.implementations.IPowerChannelState;
-import appeng.api.networking.IGridHost;
 import appeng.api.networking.IGridNode;
 import appeng.api.networking.energy.IEnergyGrid;
 import appeng.api.networking.events.MENetworkChannelsChanged;
@@ -48,7 +47,7 @@ import thaumicenergistics.common.utils.ThEUtils;
  *
  */
 public abstract class ThEPartBase
-	implements IPart, IGridHost, IActionHost, IPowerChannelState
+	implements IPart, IActionHost, IPowerChannelState
 {
 	private final static String NBT_KEY_OWNER = "Owner";
 
@@ -247,7 +246,7 @@ public abstract class ThEPartBase
 		}
 
 		// Get the world
-		World world = this.hostTile.getWorldObj();
+		World world = this.hostTile.getWorld();
 
 		// Get our location
 		int x = this.hostTile.xCoord;
@@ -276,7 +275,7 @@ public abstract class ThEPartBase
 		this.node.setPlayerID( this.ownerID );
 
 		// Update state
-		if( ( this.hostTile != null ) && ( this.host != null ) && ( this.hostTile.getWorldObj() != null ) )
+		if( ( this.hostTile != null ) && ( this.host != null ) && ( this.hostTile.getWorld() != null ) )
 		{
 			try
 			{
@@ -328,6 +327,8 @@ public abstract class ThEPartBase
 		return AECableType.SMART;
 	}
 
+	
+	@SuppressWarnings({ "static-method", "unused" })
 	public Object getClientGuiElement( final EntityPlayer player )
 	{
 		return null;
@@ -424,10 +425,11 @@ public abstract class ThEPartBase
 	 */
 	public final DimensionalCoord getLocation()
 	{
-		return new DimensionalCoord( this.hostTile.getWorldObj(), this.hostTile.xCoord, this.hostTile.yCoord, this.hostTile.zCoord );
+		return new DimensionalCoord( this.hostTile.getWorld(), this.hostTile.xCoord, this.hostTile.yCoord, this.hostTile.zCoord );
 	}
 
-	public Object getServerGuiElement( final EntityPlayer player )
+	@SuppressWarnings("static-method")
+	public Object getServerGuiElement( @SuppressWarnings("unused") final EntityPlayer player )
 	{
 		return null;
 	}
@@ -559,7 +561,7 @@ public abstract class ThEPartBase
 				}
 			}
 		}
-		catch( Exception e )
+		catch( @SuppressWarnings("unused") Exception e )
 		{
 			// Network unavailable, return cached value.
 		}
@@ -637,7 +639,7 @@ public abstract class ThEPartBase
 		if( EffectiveSide.isServerSide() )
 		{
 			// Launch the gui
-			ThEGuiHandler.launchGui( this, player, this.hostTile.getWorldObj(), this.hostTile.xCoord, this.hostTile.yCoord, this.hostTile.zCoord );
+			ThEGuiHandler.launchGui( this, player, this.hostTile.getWorld(), this.hostTile.xCoord, this.hostTile.yCoord, this.hostTile.zCoord );
 		}
 
 		return true;
@@ -718,7 +720,7 @@ public abstract class ThEPartBase
 	public abstract void renderInventory( IPartRenderHelper helper, RenderBlocks renderer );
 
 	@SideOnly(Side.CLIENT)
-	public void renderInventoryBusLights( final IPartRenderHelper helper, final RenderBlocks renderer )
+	public static void renderInventoryBusLights( final IPartRenderHelper helper, final RenderBlocks renderer )
 	{
 		// Set color to white
 		helper.setInvColor( 0xFFFFFF );
@@ -808,7 +810,7 @@ public abstract class ThEPartBase
 		this.getDrops( drops, false );
 
 		// Drop it
-		appeng.util.Platform.spawnDrops( this.hostTile.getWorldObj(), this.hostTile.xCoord, this.hostTile.yCoord, this.hostTile.zCoord, drops );
+		appeng.util.Platform.spawnDrops( this.hostTile.getWorld(), this.hostTile.xCoord, this.hostTile.yCoord, this.hostTile.zCoord, drops );
 
 		// Remove the part
 		this.host.removePart( this.cableSide, false );
@@ -825,7 +827,7 @@ public abstract class ThEPartBase
 	}
 
 	@MENetworkEventSubscribe
-	public final void setPower( final MENetworkPowerStatusChange event )
+	public final void setPower(@SuppressWarnings("unused") final MENetworkPowerStatusChange event )
 	{
 		this.updateStatus();
 	}
@@ -844,7 +846,7 @@ public abstract class ThEPartBase
 	}
 
 	@MENetworkEventSubscribe
-	public void updateChannels( final MENetworkChannelsChanged event )
+	public void updateChannels(@SuppressWarnings("unused") final MENetworkChannelsChanged event )
 	{
 		this.updateStatus();
 	}

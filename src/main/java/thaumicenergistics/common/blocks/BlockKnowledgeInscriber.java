@@ -155,7 +155,7 @@ public class BlockKnowledgeInscriber
 	 */
 	@SideOnly(Side.CLIENT)
 	@Override
-	public final void registerBlockIcons( final IIconRegister register )
+	public final void registerIcons( final IIconRegister register )
 	{
 		// Ignored
 	}

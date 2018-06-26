@@ -69,7 +69,7 @@ public final class EssentiaTileContainerHelper
 		Aspect gasAspect = ( (GaseousEssentia)fluid ).getAspect();
 
 		// Get the amount to extract
-		long amountToDrain_EU = EssentiaConversionHelper.INSTANCE.convertFluidAmountToEssentiaAmount( request.amount );
+		long amountToDrain_EU = EssentiaConversionHelper.convertFluidAmountToEssentiaAmount( request.amount );
 
 		// Extract
 		long extractedAmount_EU = this.extractFromContainer( container, (int)amountToDrain_EU, gasAspect, mode );
@@ -82,7 +82,7 @@ public final class EssentiaTileContainerHelper
 		}
 
 		// Return the extracted amount
-		return new FluidStack( fluid, (int)EssentiaConversionHelper.INSTANCE.convertEssentiaAmountToFluidAmount( extractedAmount_EU ) );
+		return new FluidStack( fluid, (int)EssentiaConversionHelper.convertEssentiaAmountToFluidAmount( extractedAmount_EU ) );
 	}
 
 	/**
@@ -142,10 +142,10 @@ public final class EssentiaTileContainerHelper
 	 * @param container
 	 * @return
 	 */
-	public Aspect getAspectInContainer( final IAspectContainer container )
+	public static Aspect getAspectInContainer( final IAspectContainer container )
 	{
 		// Get the aspect list from the container
-		IAspectStack containerStack = this.getAspectStackFromContainer( container );
+		IAspectStack containerStack = EssentiaTileContainerHelper.getAspectStackFromContainer( container );
 
 		// Did we get a stack?
 		if( containerStack == null )
@@ -156,7 +156,7 @@ public final class EssentiaTileContainerHelper
 		return containerStack.getAspect();
 	}
 
-	public IAspectStack getAspectStackFromContainer( final IAspectContainer container )
+	public static IAspectStack getAspectStackFromContainer( final IAspectContainer container )
 	{
 		// Ensure we have a container
 		if( container == null )
@@ -195,7 +195,7 @@ public final class EssentiaTileContainerHelper
 	 * @param container
 	 * @return
 	 */
-	public List<IAspectStack> getAspectStacksFromContainer( final IAspectContainer container )
+	public static List<IAspectStack> getAspectStacksFromContainer( final IAspectContainer container )
 	{
 		List<IAspectStack> stacks = new ArrayList<IAspectStack>();
 
@@ -237,12 +237,12 @@ public final class EssentiaTileContainerHelper
 		return this.perms.getAspectContainerTileCapacity( container );
 	}
 
-	public int getContainerStoredAmount( final IAspectContainer container )
+	public static int getContainerStoredAmount( final IAspectContainer container )
 	{
 		int stored = 0;
 
 		// Get the essentia list
-		for( IAspectStack essentia : this.getAspectStacksFromContainer( container ) )
+		for( IAspectStack essentia : EssentiaTileContainerHelper.getAspectStacksFromContainer( container ) )
 		{
 			if( essentia != null )
 			{
@@ -273,7 +273,7 @@ public final class EssentiaTileContainerHelper
 		}
 
 		// Get the aspect in the container
-		IAspectStack storedEssentia = this.getAspectStackFromContainer( container );
+		IAspectStack storedEssentia = EssentiaTileContainerHelper.getAspectStackFromContainer( container );
 
 		// Match types on jars
 		if( ( storedEssentia != null ) && ( container instanceof TileJarFillable ) )
@@ -292,7 +292,7 @@ public final class EssentiaTileContainerHelper
 		}
 
 		// Get how much the container can hold
-		int containerCurrentCapacity = this.getContainerCapacity( container ) - this.getContainerStoredAmount( container );
+		int containerCurrentCapacity = this.getContainerCapacity( container ) - EssentiaTileContainerHelper.getContainerStoredAmount( container );
 
 		// Is there more to fill than the container will hold?
 		if( amountToFill > containerCurrentCapacity )
@@ -352,12 +352,12 @@ public final class EssentiaTileContainerHelper
 		Aspect gasAspect = ( (GaseousEssentia)fluid ).getAspect();
 
 		// Get the amount to fill
-		long amountToFill = EssentiaConversionHelper.INSTANCE.convertFluidAmountToEssentiaAmount( fluidStack.getStackSize() );
+		long amountToFill = EssentiaConversionHelper.convertFluidAmountToEssentiaAmount( fluidStack.getStackSize() );
 
 		// Inject
 		long injectedAmount_EU = this.injectEssentiaIntoContainer( container, (int)amountToFill, gasAspect, mode );
 
-		return EssentiaConversionHelper.INSTANCE.convertEssentiaAmountToFluidAmount( injectedAmount_EU );
+		return EssentiaConversionHelper.convertEssentiaAmountToFluidAmount( injectedAmount_EU );
 	}
 
 	/**

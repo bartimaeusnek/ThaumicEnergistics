@@ -124,6 +124,8 @@ public class Packet_S_EssentiaEmitter
 			// Toggle the redstone mode
 			this.part.onClientToggleRedstoneMode( this.player );
 			break;
+		default:
+			break;
 		}
 	}
 
@@ -152,6 +154,8 @@ public class Packet_S_EssentiaEmitter
 			// Read the adjustment amount
 			this.adjustmentAmount = stream.readInt();
 			break;
+		default:
+			break;
 		}
 	}
 
@@ -179,6 +183,8 @@ public class Packet_S_EssentiaEmitter
 
 			// Write the adjustment amount
 			stream.writeInt( this.adjustmentAmount );
+			break;
+		default:
 			break;
 		}
 	}

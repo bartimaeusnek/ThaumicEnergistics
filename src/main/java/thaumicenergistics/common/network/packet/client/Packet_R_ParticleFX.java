@@ -110,6 +110,8 @@ public class Packet_R_ParticleFX
 			// Read the color
 			this.aspectColor = stream.readInt();
 			break;
+		default:
+			break;
 		}
 
 	}
@@ -130,6 +132,8 @@ public class Packet_R_ParticleFX
 
 			// Write the color
 			stream.writeInt( this.aspectColor );
+			break;
+		default:
 			break;
 		}
 	}
@@ -154,6 +158,8 @@ public class Packet_R_ParticleFX
 		{
 		case Packet_R_ParticleFX.MODE_WRENCH_FX:
 			this.addWrenchFX();
+			break;
+		default:
 			break;
 		}
 	}

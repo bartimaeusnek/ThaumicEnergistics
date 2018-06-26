@@ -271,7 +271,7 @@ public class GuiEssentiaLevelEmitter
 			{
 				wantedAmount = Long.parseLong( this.amountField.getText() );
 			}
-			catch( NumberFormatException e )
+			catch( @SuppressWarnings("unused") NumberFormatException e )
 			{
 			}
 
@@ -318,7 +318,7 @@ public class GuiEssentiaLevelEmitter
 				// Update the server
 				Packet_S_EssentiaEmitter.sendWantedAmountDelta( adjustment, this.part, this.player );
 			}
-			catch( NumberFormatException e )
+			catch( @SuppressWarnings("unused") NumberFormatException e )
 			{
 			}
 		}

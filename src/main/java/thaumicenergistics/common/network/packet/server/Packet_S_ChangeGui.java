@@ -8,6 +8,7 @@ import thaumicenergistics.common.ThEGuiHandler;
 import thaumicenergistics.common.network.NetworkHandler;
 import thaumicenergistics.common.network.ThEBasePacket;
 import thaumicenergistics.common.parts.ThEPartBase;
+import thaumicenergistics.common.utils.ThELog;
 
 /**
  * Server-bound gui change request packet.
@@ -97,11 +98,14 @@ public class Packet_S_ChangeGui
 
 		// Send it
 		NetworkHandler.sendPacketToServer( packet );
+		if (packet!=null)
+			ThELog.log.warn("packet send");
 	}
 
 	@Override
 	public void execute()
 	{
+		ThELog.log.warn("packet recived");
 		switch ( this.mode )
 		{
 		case MODE_REGULAR:
@@ -115,8 +119,12 @@ public class Packet_S_ChangeGui
 			break;
 
 		case MODE_WIRELESS:
+			ThELog.log.warn("MODE_WIRELESS");
 			// Launch wireless
 			ThEApi.instance().interact().openWirelessTerminalGui( this.player );
+			ThELog.log.warn("Open GUI at"+this.player.getDisplayName());
+			break;
+		default:
 			break;
 		}
 

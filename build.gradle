@@ -21,20 +21,23 @@ plugins {
 
 apply plugin: 'forge'
 apply plugin: 'java'
-  compileJava {
-    options.compilerArgs << '-Xlint:unchecked'
+  tasks.withType(JavaCompile) {
+    options.compilerArgs << '-Xlint:-unchecked'
 }
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-version = "1.1.2.0"
+version = "1.1.2.1"
 group= "thaumicenergistics" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "thaumicenergistics"
 
 minecraft {
-    version = "1.7.10-10.13.4.1566-1.7.10"
+    version = "1.7.10-10.13.4.1614-1.7.10"
+	replaceIn "ThaumicEnergistics.java"
+    replace "@version@", project.version
     runDir = "eclipse/assets"
+	mappings = "stable_12"
 }
 
 repositories {
@@ -59,7 +62,7 @@ repositories {
 dependencies {
     compile "mcp.mobius.waila:Waila:1.5.10_1.7.10"
     compile "net.industrial-craft:industrialcraft-2:2.2.726-experimental:api"
-    compile "Azanor:Thaumcraft:4.2.3.5:deobf@jar"
+    //compile "Azanor:Thaumcraft:4.2.3.5:deobf@jar"
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..
     //compile "some.group:artifact:version:classifier"
@@ -93,6 +96,11 @@ processResources
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
+}
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    from sourceSets.main.java
+    appendix = 'deobf'
 }
 
 jar {

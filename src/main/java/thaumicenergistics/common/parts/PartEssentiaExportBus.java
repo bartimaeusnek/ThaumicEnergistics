@@ -82,7 +82,7 @@ public class PartEssentiaExportBus
 			if( EssentiaTileContainerHelper.INSTANCE.injectEssentiaIntoContainer( this.facingContainer, 1, filterAspect, Actionable.SIMULATE ) <= 0 )
 			{
 				if( !( ( this.isVoidAllowed ) &&
-								( EssentiaTileContainerHelper.INSTANCE.getAspectInContainer( this.facingContainer ) == filterAspect ) ) )
+								( EssentiaTileContainerHelper.getAspectInContainer( this.facingContainer ) == filterAspect ) ) )
 				{
 					// Container will not accept any of this, and cannot void(essentia type wrong)
 					continue;
@@ -248,7 +248,7 @@ public class PartEssentiaExportBus
 
 		// Lights
 		helper.setBounds( 6.0F, 6.0F, 11.0F, 10.0F, 10.0F, 12.0F );
-		this.renderInventoryBusLights( helper, renderer );
+		ThEPartBase.renderInventoryBusLights( helper, renderer );
 	}
 
 	@Override
@@ -320,7 +320,7 @@ public class PartEssentiaExportBus
 	/**
 	 * Called when a player has requested to change the void mode
 	 */
-	public void toggleVoidMode( final EntityPlayer player )
+	public void toggleVoidMode( @SuppressWarnings("unused") final EntityPlayer player )
 	{
 		// Swap void modes
 		this.isVoidAllowed = !this.isVoidAllowed;

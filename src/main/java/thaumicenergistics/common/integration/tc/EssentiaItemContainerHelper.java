@@ -99,7 +99,7 @@ public final class EssentiaItemContainerHelper
 	 * @param itemStack
 	 * @return
 	 */
-	private Aspect getAspectFromAnyContainerItem( final ItemStack itemStack )
+	private static Aspect getAspectFromAnyContainerItem( final ItemStack itemStack )
 	{
 		// Is it a container?
 		if( itemStack.getItem() instanceof IEssentiaContainerItem )
@@ -124,7 +124,7 @@ public final class EssentiaItemContainerHelper
 	 * @param metadata
 	 * @return
 	 */
-	public ItemStack createEmptyJar( final int metadata )
+	public static ItemStack createEmptyJar( final int metadata )
 	{
 		// Create and return the jar
 		return new ItemStack( ConfigBlocks.blockJar, 1, metadata );
@@ -135,7 +135,7 @@ public final class EssentiaItemContainerHelper
 	 *
 	 * @return
 	 */
-	public ItemStack createEmptyPhial()
+	public static ItemStack createEmptyPhial()
 	{
 		// Create and return the phial
 		return new ItemStack( ConfigItems.itemEssence, 1, 0 );
@@ -159,7 +159,7 @@ public final class EssentiaItemContainerHelper
 		if( ( aspect == null ) || ( ( amount <= 0 ) && !withLabel ) )
 		{
 			// Create an empty jar
-			jar = this.createEmptyJar( metadata );
+			jar = EssentiaItemContainerHelper.createEmptyJar( metadata );
 		}
 		else
 		{
@@ -197,11 +197,11 @@ public final class EssentiaItemContainerHelper
 	 * @param aspect
 	 * @return
 	 */
-	public ItemStack createFilledPhial( final Aspect aspect )
+	public static ItemStack createFilledPhial( final Aspect aspect )
 	{
 		if( aspect == null )
 		{
-			return this.createEmptyPhial();
+			return EssentiaItemContainerHelper.createEmptyPhial();
 		}
 
 		// Create the phial
@@ -219,10 +219,10 @@ public final class EssentiaItemContainerHelper
 	 * @param jar
 	 * @return
 	 */
-	public boolean doesJarHaveLabel( final ItemStack jar )
+	public static boolean doesJarHaveLabel( final ItemStack jar )
 	{
 		// If the jar's label aspect is not null, there is a label
-		return( this.getJarLabelAspect( jar ) != null );
+		return( EssentiaItemContainerHelper.getJarLabelAspect( jar ) != null );
 	}
 
 	/**
@@ -245,7 +245,7 @@ public final class EssentiaItemContainerHelper
 		Item containerItem = container.getItem();
 
 		// Get the info about the container
-		IThEEssentiaContainerPermission info = this.getContainerInfo( containerItem, container.getItemDamage() );
+		IThEEssentiaContainerPermission info = this.getContainerInfo( containerItem, container.getMetadata() );
 
 		// Ensure we got info
 		if( info == null )
@@ -308,20 +308,20 @@ public final class EssentiaItemContainerHelper
 			if( containerItem instanceof ItemEssence )
 			{
 				// Create an empty phial for the output
-				resultStack = this.createEmptyPhial();
+				resultStack = EssentiaItemContainerHelper.createEmptyPhial();
 			}
 			else if( containerItem instanceof ItemJarFilled )
 			{
 				// Was the jar labeled?
-				if( this.doesJarHaveLabel( container ) )
+				if( EssentiaItemContainerHelper.doesJarHaveLabel( container ) )
 				{
 					// Create an empty labeled jar
-					resultStack = this.createFilledJar( aspectStack.getAspect(), 0, container.getItemDamage(), true );
+					resultStack = this.createFilledJar( aspectStack.getAspect(), 0, container.getMetadata(), true );
 				}
 				else
 				{
 					// Create an empty jar for the output
-					resultStack = this.createEmptyJar( container.getItemDamage() );
+					resultStack = EssentiaItemContainerHelper.createEmptyJar( container.getMetadata() );
 				}
 			}
 
@@ -409,7 +409,7 @@ public final class EssentiaItemContainerHelper
 		// Ensure the item is a valid container
 		if( this.getItemType( itemStack ) == AspectItemType.EssentiaContainer )
 		{
-			return this.getAspectFromAnyContainerItem( itemStack );
+			return EssentiaItemContainerHelper.getAspectFromAnyContainerItem( itemStack );
 		}
 
 		return null;
@@ -454,7 +454,7 @@ public final class EssentiaItemContainerHelper
 			Item containerItem = container.getItem();
 
 			// Get the info about the container
-			IThEEssentiaContainerPermission info = this.getContainerInfo( containerItem, container.getItemDamage() );
+			IThEEssentiaContainerPermission info = this.getContainerInfo( containerItem, container.getMetadata() );
 
 			// Did we get any info?
 			if( info != null )
@@ -497,7 +497,7 @@ public final class EssentiaItemContainerHelper
 		// Is the itemstack not null?
 		if( itemStack != null )
 		{
-			return this.perms.getEssentiaContainerInfo( itemStack.getItem().getClass(), itemStack.getItemDamage() );
+			return this.perms.getEssentiaContainerInfo( itemStack.getItem().getClass(), itemStack.getMetadata() );
 		}
 
 		return null;
@@ -553,9 +553,11 @@ public final class EssentiaItemContainerHelper
 		case CrystallizedEssentia:
 		case EssentiaContainer:
 		case WispEssence:
-			return this.getAspectFromAnyContainerItem( itemStack );
+			return EssentiaItemContainerHelper.getAspectFromAnyContainerItem( itemStack );
 
 		case Invalid:
+			break;
+		default:
 			break;
 
 		}
@@ -604,7 +606,7 @@ public final class EssentiaItemContainerHelper
 				}
 
 				// Label?
-				if( ( item instanceof ItemResource ) && ( itemStack.getItemDamage() == 13 ) )
+				if( ( item instanceof ItemResource ) && ( itemStack.getMetadata() == 13 ) )
 				{
 					return AspectItemType.JarLabel;
 				}
@@ -622,7 +624,7 @@ public final class EssentiaItemContainerHelper
 	 * @param jar
 	 * @return
 	 */
-	public Aspect getJarLabelAspect( final ItemStack jar )
+	public static Aspect getJarLabelAspect( final ItemStack jar )
 	{
 		Aspect labelAspect = null;
 
@@ -670,11 +672,11 @@ public final class EssentiaItemContainerHelper
 		// Is the container a labeled jar?
 		if( containerItem instanceof ItemJarFilled )
 		{
-			if( this.doesJarHaveLabel( container ) )
+			if( EssentiaItemContainerHelper.doesJarHaveLabel( container ) )
 			{
 				// Does the label match the aspect we are going to fill
 				// with?
-				if( aspectStack.getAspect() != this.getJarLabelAspect( container ) )
+				if( aspectStack.getAspect() != EssentiaItemContainerHelper.getJarLabelAspect( container ) )
 				{
 					// Aspect does not match the jar's label
 					return null;
@@ -693,7 +695,7 @@ public final class EssentiaItemContainerHelper
 		}
 
 		// Get the info about the container
-		IThEEssentiaContainerPermission info = this.getContainerInfo( containerItem, container.getItemDamage() );
+		IThEEssentiaContainerPermission info = this.getContainerInfo( containerItem, container.getMetadata() );
 
 		// Ensure we got the info
 		if( info == null )
@@ -747,13 +749,13 @@ public final class EssentiaItemContainerHelper
 		if( containerItem instanceof ItemEssence )
 		{
 			// Create a new phial
-			resultStack = this.createFilledPhial( aspectStack.getAspect() );
+			resultStack = EssentiaItemContainerHelper.createFilledPhial( aspectStack.getAspect() );
 		}
 		// Is it an empty jar?
 		else if( containerItem instanceof BlockJarItem )
 		{
 			// Create a fillable jar
-			resultStack = this.createFilledJar( aspectStack.getAspect(), amountToFill, container.getItemDamage(), false );
+			resultStack = this.createFilledJar( aspectStack.getAspect(), amountToFill, container.getMetadata(), false );
 		}
 
 		// Have we already set the result?

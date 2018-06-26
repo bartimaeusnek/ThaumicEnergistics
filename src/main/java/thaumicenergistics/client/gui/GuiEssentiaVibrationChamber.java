@@ -152,7 +152,7 @@ public class GuiEssentiaVibrationChamber
 	public void drawGuiContainerForegroundLayer( final int mouseX, final int mouseY )
 	{
 		// Is the mouse over the essentia storage?
-		if( ThEGuiHelper.INSTANCE.isPointInGuiRegion( GuiEssentiaVibrationChamber.VIAL_POS_Y, GuiEssentiaVibrationChamber.VIAL_POS_X,
+		if( ThEGuiHelper.isPointInGuiRegion( GuiEssentiaVibrationChamber.VIAL_POS_Y, GuiEssentiaVibrationChamber.VIAL_POS_X,
 			GuiEssentiaVibrationChamber.VIAL_HEIGHT, GuiEssentiaVibrationChamber.VIAL_WIDTH, mouseX, mouseY, this.guiLeft, this.guiTop ) )
 		{
 			// Get the stored Aspect
@@ -174,7 +174,7 @@ public class GuiEssentiaVibrationChamber
 			}
 		}
 		// Is the mouse over the fire?
-		else if( ThEGuiHelper.INSTANCE.isPointInGuiRegion( GuiEssentiaVibrationChamber.FIRE_POS_Y, GuiEssentiaVibrationChamber.FIRE_POS_X,
+		else if( ThEGuiHelper.isPointInGuiRegion( GuiEssentiaVibrationChamber.FIRE_POS_Y, GuiEssentiaVibrationChamber.FIRE_POS_X,
 			GuiEssentiaVibrationChamber.FIRE_HEIGHT, GuiEssentiaVibrationChamber.FIRE_WIDTH, mouseX, mouseY, this.guiLeft, this.guiTop ) )
 		{
 			// Get the aspect being processed
@@ -194,7 +194,7 @@ public class GuiEssentiaVibrationChamber
 			}
 		}
 		// Is the mouse over the power bar?
-		else if( ThEGuiHelper.INSTANCE.isPointInGuiRegion( GuiEssentiaVibrationChamber.POWER_POS_Y, GuiEssentiaVibrationChamber.POWER_POS_X,
+		else if( ThEGuiHelper.isPointInGuiRegion( GuiEssentiaVibrationChamber.POWER_POS_Y, GuiEssentiaVibrationChamber.POWER_POS_X,
 			GuiEssentiaVibrationChamber.POWER_HEIGHT, GuiEssentiaVibrationChamber.POWER_WIDTH, mouseX, mouseY, this.guiLeft, this.guiTop ) )
 		{
 			// Add the power per tick

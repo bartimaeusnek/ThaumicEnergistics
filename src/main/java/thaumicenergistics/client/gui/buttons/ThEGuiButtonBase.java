@@ -43,7 +43,7 @@ public abstract class ThEGuiButtonBase
 	 */
 	public boolean isMouseOverButton( final int mouseX, final int mouseY )
 	{
-		return ThEGuiHelper.INSTANCE.isPointInRegion( this.yPosition, this.xPosition, this.height, this.width, mouseX, mouseY );
+		return ThEGuiHelper.isPointInRegion( this.yPosition, this.xPosition, this.height, this.width, mouseX, mouseY );
 	}
 
 }

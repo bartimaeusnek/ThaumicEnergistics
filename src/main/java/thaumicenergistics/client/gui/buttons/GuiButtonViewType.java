@@ -41,7 +41,7 @@ public class GuiButtonViewType
 	@Override
 	public void getTooltip( final List<String> tooltip )
 	{
-		this.addAboutToTooltip( tooltip, ButtonToolTips.View.getLocal(), EnumChatFormatting.GRAY + this.tooltipViewType );
+		ThEStateButton.addAboutToTooltip( tooltip, ButtonToolTips.View.getLocal(), EnumChatFormatting.GRAY + this.tooltipViewType );
 	}
 
 	/**
@@ -66,6 +66,8 @@ public class GuiButtonViewType
 		case STORED:
 			this.tooltipViewType = ButtonToolTips.StoredItems.getLocal();
 			this.stateIcon = AEStateIconsEnum.VIEW_TYPE_STORED;
+			break;
+		default:
 			break;
 		}
 	}

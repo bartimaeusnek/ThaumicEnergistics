@@ -32,7 +32,7 @@ public class ThEItemDescription
 
 	ThEItemDescription( final ItemStack stack )
 	{
-		this( stack.getItem(), stack.getItemDamage() );
+		this( stack.getItem(), stack.getMetadata() );
 	}
 
 	@Override

@@ -159,6 +159,8 @@ public abstract class ThEPartEssentiaIOBus_Base
 			case SIGNAL_PULSE:
 				canWork = false;
 				break;
+			default:
+				break;
 			}
 		}
 
@@ -408,6 +410,7 @@ public abstract class ThEPartEssentiaIOBus_Base
 		return this.upgradeInventory;
 	}
 
+	@SuppressWarnings("static-method")
 	public boolean isVoidAllowed()
 	{
 		return false;

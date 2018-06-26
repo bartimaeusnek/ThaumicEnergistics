@@ -31,7 +31,7 @@ public class GuiButtonSearchMode
 	@Override
 	public void getTooltip( final List<String> tooltip )
 	{
-		this.addAboutToTooltip( tooltip, ButtonToolTips.SearchMode.getLocal(), EnumChatFormatting.GRAY + this.tooltipMode );
+		ThEStateButton.addAboutToTooltip( tooltip, ButtonToolTips.SearchMode.getLocal(), EnumChatFormatting.GRAY + this.tooltipMode );
 	}
 
 	/**
@@ -61,6 +61,8 @@ public class GuiButtonSearchMode
 		case NEI_MANUAL_SEARCH:
 			this.tooltipMode = ButtonToolTips.SearchMode_NEIStandard.getLocal();
 			this.stateIcon = AEStateIconsEnum.SEARCH_MODE_NEI_MANUAL;
+			break;
+		default:
 			break;
 
 		}

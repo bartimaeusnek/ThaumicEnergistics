@@ -70,7 +70,7 @@ public abstract class WrapperPacket
 			// Pass to packet
 			this.embeddedPacket.fromBytes( stream );
 		}
-		catch( Exception e )
+		catch(@SuppressWarnings("unused") Exception e )
 		{
 			// Packet did not have default constructor
 			ThELog.warning( "Unable to construct packet %s", epClass.getCanonicalName() );

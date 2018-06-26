@@ -23,7 +23,7 @@ public class EssentiaTransportHelper
 		// Intentionally Empty
 	}
 
-	public void takeEssentiaFromTransportNeighbors(	final IEssentiaTransportWithSimulate destination, final World world, final int x, final int y,
+	public static void takeEssentiaFromTransportNeighbors(	final IEssentiaTransportWithSimulate destination, final World world, final int x, final int y,
 													final int z )
 	{
 		// Null checks

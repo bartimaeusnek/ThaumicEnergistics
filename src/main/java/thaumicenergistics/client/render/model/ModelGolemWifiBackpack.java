@@ -67,21 +67,21 @@ public class ModelGolemWifiBackpack
 		this.Antenna.setRotationPoint( 0, 0, 0f );
 		this.Antenna.setTextureSize( this.textureWidth, this.textureHeight );
 		this.Antenna.mirror = true;
-		this.setSubmodelRotation( this.Antenna, 3.14f, 0, 0 );
+		ModelGolemWifiBackpack.setSubmodelRotation( this.Antenna, 3.14f, 0, 0 );
 
 		this.PackBack = new ModelRenderer( this, 0, 0 );
 		this.PackBack.addBox( -1f, -3f, -3f, 2, 6, 6 );
 		this.PackBack.setRotationPoint( 0, 0, 0f );
 		this.PackBack.setTextureSize( this.textureWidth, this.textureHeight );
 		this.PackBack.mirror = true;
-		this.setSubmodelRotation( this.PackBack, 3.14f, 0, 0 );
+		ModelGolemWifiBackpack.setSubmodelRotation( this.PackBack, 3.14f, 0, 0 );
 
 		this.PackFront = new ModelRenderer( this, 2, 0 );
 		this.PackFront.addBox( -1.5f, -1f, -2f, 1, 2, 4 );
 		this.PackFront.setRotationPoint( 0, 0, 0f );
 		this.PackFront.setTextureSize( this.textureWidth, this.textureHeight );
 		this.PackFront.mirror = true;
-		this.setSubmodelRotation( this.PackFront, 3.14f, 0, 0 );
+		ModelGolemWifiBackpack.setSubmodelRotation( this.PackFront, 3.14f, 0, 0 );
 
 		this.pearl_MinU = 8.0f / this.textureWidth;
 		this.pearl_MaxU = 13.5f / this.textureWidth;
@@ -175,7 +175,7 @@ public class ModelGolemWifiBackpack
 
 	}
 
-	private void setSubmodelRotation( final ModelRenderer model, final float x, final float y, final float z )
+	private static void setSubmodelRotation( final ModelRenderer model, final float x, final float y, final float z )
 	{
 		model.rotateAngleX = x;
 		model.rotateAngleY = y;

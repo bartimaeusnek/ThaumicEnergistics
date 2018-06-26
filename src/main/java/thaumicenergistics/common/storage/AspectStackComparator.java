@@ -89,7 +89,7 @@ public class AspectStackComparator
 	 * @param right
 	 * @return
 	 */
-	private int compareByAmount( final IAspectStack left, final IAspectStack right )
+	private static int compareByAmount( final IAspectStack left, final IAspectStack right )
 	{
 		return (int)( right.getStackSize() - left.getStackSize() );
 	}
@@ -101,7 +101,7 @@ public class AspectStackComparator
 	 * @param right
 	 * @return
 	 */
-	private int compareByName( final IAspectStack left, final IAspectStack right )
+	private static int compareByName( final IAspectStack left, final IAspectStack right )
 	{
 		return left.getAspectName().compareTo( right.getAspectName() );
 	}
@@ -116,20 +116,22 @@ public class AspectStackComparator
 		{
 		case MODE_ALPHABETIC:
 			// Compare tags
-			return this.compareByName( left, right );
+			return AspectStackComparator.compareByName( left, right );
 
 		case MODE_AMOUNT:
 			// Compare amounts
-			int comparedAmounts = this.compareByAmount( left, right );
+			int comparedAmounts = AspectStackComparator.compareByAmount( left, right );
 
 			// Are the amounts equal?
 			if( comparedAmounts == 0 )
 			{
 				// Compare tags
-				comparedAmounts = this.compareByName( left, right );
+				comparedAmounts = AspectStackComparator.compareByName( left, right );
 			}
 
 			return comparedAmounts;
+		default:
+			break;
 		}
 
 		return 0;

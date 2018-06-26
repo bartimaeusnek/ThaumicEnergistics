@@ -308,6 +308,8 @@ public class Packet_S_ArcaneCraftingTerminal
 				// Request armor swap
 				( (ContainerPartArcaneCraftingTerminal)this.player.openContainer ).onClientRequestSwapArmor( this.player );
 				break;
+			default:
+				break;
 			}
 		}
 	}
@@ -364,6 +366,8 @@ public class Packet_S_ArcaneCraftingTerminal
 		case Packet_S_ArcaneCraftingTerminal.MODE_REQUEST_AUTO_CRAFT:
 			// Read the requested item
 			this.itemStack = ThEBasePacket.readAEItemStack( stream );
+			break;
+		default:
 			break;
 		}
 
@@ -424,6 +428,8 @@ public class Packet_S_ArcaneCraftingTerminal
 		case Packet_S_ArcaneCraftingTerminal.MODE_REQUEST_AUTO_CRAFT:
 			// Write the requested item
 			ThEBasePacket.writeAEItemStack( this.itemStack, stream );
+			break;
+		default:
 			break;
 		}
 	}

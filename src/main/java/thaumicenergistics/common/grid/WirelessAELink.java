@@ -1,7 +1,6 @@
 package thaumicenergistics.common.grid;
 
 import java.util.ArrayList;
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import appeng.api.AEApi;
 import appeng.api.implementations.tiles.IWirelessAccessPoint;
@@ -26,6 +25,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import thaumicenergistics.api.grid.IEssentiaGrid;
 import thaumicenergistics.api.grid.IMEEssentiaMonitor;
+import thaumicenergistics.common.utils.ThELog;
 
 /**
  * Provides wireless access to a ME network.
@@ -44,7 +44,7 @@ public abstract class WirelessAELink
 	/**
 	 * Encryption key used to access the network.
 	 */
-	protected final String encryptionKey;
+	protected String encryptionKey;
 
 	/**
 	 * Access point used to communicate with the AE network.
@@ -61,7 +61,7 @@ public abstract class WirelessAELink
 	 */
 	protected BaseActionSource actionSource;
 
-	public WirelessAELink( final @Nullable EntityPlayer player, @Nonnull final String encryptionKey )
+	public WirelessAELink( final @Nullable EntityPlayer player, String encryptionKey )
 	{
 		// Set the player
 		this.player = player;
@@ -115,6 +115,7 @@ public abstract class WirelessAELink
 		IMachineSet accessPoints = grid.getMachines( TileWireless.class );
 		if( accessPoints.isEmpty() )
 		{
+			ThELog.log.warn("grid couldnt find any TileWireless.class");
 			return null;
 		}
 
@@ -137,7 +138,9 @@ public abstract class WirelessAELink
 				}
 			}
 		}
-
+		if (aps.isEmpty())
+			ThELog.log.warn("aps.isEmpty()");
+		
 		return aps;
 	}
 
@@ -181,20 +184,24 @@ public abstract class WirelessAELink
 		long encryptionValue;
 		try
 		{
-			encryptionValue = Long.parseLong( encryptionKey );
+			encryptionValue = Long.parseLong( encryptionKey);
 		}
-		catch( NumberFormatException e )
+		catch( @SuppressWarnings("unused") NumberFormatException e )
 		{
+			e.printStackTrace();
 			// Invalid security key
 			return null;
 		}
+		
+		
 
 		// Get the linked source
-		Object source = AEApi.instance().registries().locatable().getLocatableBy( encryptionValue );
-
+			Object source = AEApi.instance().registries().locatable().getLocatableBy( encryptionValue );
+			
 		// Ensure it is a security terminal
 		if( !( source instanceof TileSecurity ) )
 		{
+			ThELog.log.warn("no TileSecurity");
 			// Invalid security terminal
 			return null;
 		}
@@ -208,8 +215,10 @@ public abstract class WirelessAELink
 		{
 			grid = securityHost.getGridNode( ForgeDirection.UNKNOWN ).getGrid();
 		}
-		catch( Exception e )
+		catch( @SuppressWarnings("unused") Exception e )
 		{
+			ThELog.log.warn("no GridNode");
+			e.printStackTrace();
 			// Can not find the grid
 			return null;
 		}
@@ -283,7 +292,7 @@ public abstract class WirelessAELink
 					apList = WirelessAELink.locateAPsInRange( w, x, y, z, this.encryptionKey );
 				}
 			}
-			catch( GridException e )
+			catch(@SuppressWarnings("unused") GridException e )
 			{
 				// :(
 			}
@@ -391,7 +400,7 @@ public abstract class WirelessAELink
 			// Get the energy grid
 			return this.accessPoint.getActionableNode().getGrid().getCache( IEnergyGrid.class );
 		}
-		catch( Exception e )
+		catch(@SuppressWarnings("unused") Exception e )
 		{
 			// Ignored
 		}
@@ -417,7 +426,7 @@ public abstract class WirelessAELink
 			// Get the network essentia monitor
 			return( (IMEEssentiaMonitor)this.accessPoint.getGrid().getCache( IEssentiaGrid.class ) );
 		}
-		catch( Exception e )
+		catch(@SuppressWarnings("unused") Exception e )
 		{
 			return null;
 		}
@@ -440,7 +449,7 @@ public abstract class WirelessAELink
 			// Return the monitor
 			return storageGrid.getFluidInventory();
 		}
-		catch( Exception e )
+		catch(@SuppressWarnings("unused") Exception e )
 		{
 			// Ignored
 		}
@@ -465,7 +474,7 @@ public abstract class WirelessAELink
 			// Return the monitor
 			return storageGrid.getItemInventory();
 		}
-		catch( Exception e )
+		catch(@SuppressWarnings("unused") Exception e )
 		{
 			// Ignored
 		}

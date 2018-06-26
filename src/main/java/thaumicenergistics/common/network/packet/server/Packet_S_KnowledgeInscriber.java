@@ -97,6 +97,8 @@ public class Packet_S_KnowledgeInscriber
 				// Request clear
 				( (ContainerKnowledgeInscriber)this.player.openContainer ).onClientRequestClearGrid();
 				break;
+			default:
+				break;
 			}
 		}
 	}

@@ -37,7 +37,7 @@ public class ItemAEPart
 	public ItemAEPart()
 	{
 		// Undamageable
-		this.setMaxDamage( 0 );
+		this.setMaxDurability( 0 );
 
 		// Has sub types
 		this.setHasSubtypes( true );

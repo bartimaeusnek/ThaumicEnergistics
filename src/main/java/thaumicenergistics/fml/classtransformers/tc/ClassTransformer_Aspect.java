@@ -21,7 +21,7 @@ public class ClassTransformer_Aspect
 		super( "thaumcraft.api.aspects.Aspect" );
 	}
 
-	private boolean transformConstructor( final MethodNode method )
+	private static boolean transformConstructor( final MethodNode method )
 	{
 		// Is this the full constructor?
 		// Check description
@@ -31,7 +31,7 @@ public class ClassTransformer_Aspect
 		}
 
 		int opSequence[] = new int[] { Opcodes.GETSTATIC, Opcodes.ALOAD, Opcodes.ALOAD, Opcodes.INVOKEVIRTUAL, Opcodes.POP };
-		AbstractInsnNode insertionPoint = this.findSequence( method.instructions, opSequence, false );
+		AbstractInsnNode insertionPoint = AClassTransformer.findSequence( method.instructions, opSequence, false );
 
 		// Insert the hook
 		// AspectHooks.hook_AspectInit( this )
@@ -66,7 +66,7 @@ public class ClassTransformer_Aspect
 			// Constructor
 			if( method.name.equals( AClassTransformer.InstanceConstructorName ) )
 			{
-				if( this.transformConstructor( method ) )
+				if( ClassTransformer_Aspect.transformConstructor( method ) )
 				{
 					return; // Stop searching.
 				}

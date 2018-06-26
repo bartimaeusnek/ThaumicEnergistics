@@ -30,7 +30,7 @@ public class ItemStorageComponent
 	public ItemStorageComponent()
 	{
 		// No damage
-		this.setMaxDamage( 0 );
+		this.setMaxDurability( 0 );
 
 		// Has subtypes
 		this.setHasSubtypes( true );
@@ -42,7 +42,7 @@ public class ItemStorageComponent
 	@Override
 	public int getBytes( final ItemStack itemStack )
 	{
-		return EnumEssentiaStorageTypes.fromIndex[itemStack.getItemDamage()].capacity;
+		return EnumEssentiaStorageTypes.fromIndex[itemStack.getMetadata()].capacity;
 	}
 
 	@Override
@@ -56,7 +56,7 @@ public class ItemStorageComponent
 	public EnumRarity getRarity( final ItemStack itemStack )
 	{
 		// Return the rarity
-		return EnumEssentiaStorageTypes.fromIndex[itemStack.getItemDamage()].rarity;
+		return EnumEssentiaStorageTypes.fromIndex[itemStack.getMetadata()].rarity;
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class ItemStorageComponent
 	@Override
 	public String getUnlocalizedName( final ItemStack itemStack )
 	{
-		return EnumEssentiaStorageTypes.fromIndex[itemStack.getItemDamage()].componentName.getUnlocalized();
+		return EnumEssentiaStorageTypes.fromIndex[itemStack.getMetadata()].componentName.getUnlocalized();
 	}
 
 	@Override

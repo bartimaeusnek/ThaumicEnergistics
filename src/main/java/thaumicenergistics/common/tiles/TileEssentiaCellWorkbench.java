@@ -113,7 +113,7 @@ public class TileEssentiaCellWorkbench
 	}
 
 	@Override
-	public void closeInventory()
+	public void closeChest()
 	{
 		// Ignored
 	}
@@ -198,7 +198,7 @@ public class TileEssentiaCellWorkbench
 	}
 
 	@Override
-	public boolean hasCustomInventoryName()
+	public boolean isCustomInventoryName()
 	{
 		return true;
 	}
@@ -229,7 +229,7 @@ public class TileEssentiaCellWorkbench
 	}
 
 	@Override
-	public void openInventory()
+	public void openChest()
 	{
 		// Ignored
 	}

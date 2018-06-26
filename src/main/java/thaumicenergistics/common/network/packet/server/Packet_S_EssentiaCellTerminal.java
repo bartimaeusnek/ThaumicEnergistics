@@ -195,6 +195,8 @@ public class Packet_S_EssentiaCellTerminal
 		case MODE_HELD_ITEM:
 			( (ContainerEssentiaCellTerminalBase)this.player.openContainer ).onInteractWithHeldItem( this.player, this.selectedAspect );
 			break;
+		default:
+			break;
 		}
 
 	}
@@ -216,6 +218,8 @@ public class Packet_S_EssentiaCellTerminal
 			// Read the flag
 			this.flag = stream.readBoolean();
 			break;
+		default:
+			break;
 		}
 	}
 
@@ -235,6 +239,8 @@ public class Packet_S_EssentiaCellTerminal
 		case MODE_VIEW_CHANGE:
 			// Write the flag
 			stream.writeBoolean( this.flag );
+			break;
+		default:
 			break;
 		}
 	}

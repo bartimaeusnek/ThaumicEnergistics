@@ -88,7 +88,7 @@ public abstract class ThEBaseGui
 	 */
 	private final boolean isPointWithinSlot( final Slot slot, final int x, final int y )
 	{
-		return ThEGuiHelper.INSTANCE.isPointInGuiRegion( slot.yDisplayPosition, slot.xDisplayPosition, 16, 16, x, y, this.guiLeft, this.guiTop );
+		return ThEGuiHelper.isPointInGuiRegion( slot.yDisplayPosition, slot.xDisplayPosition, 16, 16, x, y, this.guiLeft, this.guiTop );
 	}
 
 	/**
@@ -112,8 +112,8 @@ public abstract class ThEBaseGui
 				// Was mouse over the button?
 				if( button.mousePressed( this.mc, mouseX, mouseY ) )
 				{
-					// Play clicky sound
-					button.func_146113_a( this.mc.getSoundHandler() );
+					// Play clicky sound EDIT: USE MAPPINGS!
+					button.playPressSound( this.mc.getSoundHandler() );
 
 					// Call button click event
 					this.onButtonClicked( button, mouseButton );

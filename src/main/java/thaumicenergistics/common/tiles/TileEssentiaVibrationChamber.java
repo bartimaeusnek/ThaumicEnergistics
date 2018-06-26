@@ -278,7 +278,7 @@ public class TileEssentiaVibrationChamber
 				eGrid.injectPower( producedPower, Actionable.MODULATE );
 			}
 		}
-		catch( GridAccessException g )
+		catch(@SuppressWarnings("unused") GridAccessException g )
 		{
 			// Silently ignore.
 		}
@@ -633,7 +633,7 @@ public class TileEssentiaVibrationChamber
 		if( replenish )
 		{
 			// Replenish essentia
-			EssentiaTransportHelper.INSTANCE.takeEssentiaFromTransportNeighbors( this, this.worldObj, this.xCoord, this.yCoord, this.zCoord );
+			EssentiaTransportHelper.takeEssentiaFromTransportNeighbors( this, this.worldObj, this.xCoord, this.yCoord, this.zCoord );
 		}
 
 		// Update listeners

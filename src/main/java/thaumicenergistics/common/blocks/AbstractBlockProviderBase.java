@@ -162,7 +162,7 @@ public abstract class AbstractBlockProviderBase
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public final void registerBlockIcons( final IIconRegister register )
+	public final void registerIcons( final IIconRegister register )
 	{
 		// Ignored
 

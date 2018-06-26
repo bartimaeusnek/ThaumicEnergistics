@@ -29,7 +29,7 @@ public class ClassTransformer_EntityGolemBase
 		super( "thaumcraft.common.entities.golems.EntityGolemBase" );
 	}
 
-	private void insertMethod_GolemBase_onEntityUpdate( final ClassNode classNode, final boolean isObf )
+	private static void insertMethod_GolemBase_onEntityUpdate( final ClassNode classNode, final boolean isObf )
 	{
 		// Create the onEntityUpdate() method
 		String oEU_Name = ( isObf ? "func_70030_z" : "onEntityUpdate" );
@@ -60,16 +60,16 @@ public class ClassTransformer_EntityGolemBase
 		classNode.methods.add( onEntityUpdate );
 	}
 
-	private void transformMethod_CustomInteraction( final MethodNode method )
+	private static void transformMethod_CustomInteraction( final MethodNode method )
 	{
 		int opSequence[] = new int[] { Opcodes.ALOAD, Opcodes.INVOKEVIRTUAL, Opcodes.ICONST_M1 };
-		AbstractInsnNode insertionPoint = this.findSequence( method.instructions, opSequence, false );
+		AbstractInsnNode insertionPoint = AClassTransformer.findSequence( method.instructions, opSequence, false );
 
 		// Go two back
 		insertionPoint = insertionPoint.getPrevious().getPrevious();
 
 		// Find the last label
-		LabelNode lastLabel = (LabelNode)this.findLastType( method.instructions, AbstractInsnNode.LABEL, 1 );
+		LabelNode lastLabel = (LabelNode)AClassTransformer.findLastType( method.instructions, AbstractInsnNode.LABEL, 1 );
 
 		// Insert the hook
 		// GolemHooks.hook_CustomInteraction( this, player, this.hookHandlers );
@@ -99,10 +99,10 @@ public class ClassTransformer_EntityGolemBase
 		method.instructions.insertBefore( insertionPoint, instructionList );
 	}
 
-	private void transformMethod_EntityInit( final MethodNode method )
+	private static void transformMethod_EntityInit( final MethodNode method )
 	{
 		// Locate the return statement
-		AbstractInsnNode insertionPoint = this.findLastOpCode( method.instructions, Opcodes.RETURN );
+		AbstractInsnNode insertionPoint = AClassTransformer.findLastOpCode( method.instructions, Opcodes.RETURN );
 
 		// Insert the hookHandlers initializer
 		// hookHandlers = new HashMap<IGolemHookHandler, Object>();
@@ -145,10 +145,10 @@ public class ClassTransformer_EntityGolemBase
 
 	}
 
-	private void transformMethod_ReadEntityFromNBT( final MethodNode method )
+	private static void transformMethod_ReadEntityFromNBT( final MethodNode method )
 	{
 		// Locate the super call
-		AbstractInsnNode insertionPoint = this.findFirstOpCode( method.instructions, Opcodes.INVOKESPECIAL );
+		AbstractInsnNode insertionPoint = AClassTransformer.findFirstOpCode( method.instructions, Opcodes.INVOKESPECIAL );
 
 		// Insert the hook
 		// GolemHooks.hook_ReadEntityFromNBT( this, this.hookHandlers, nbt);
@@ -176,12 +176,12 @@ public class ClassTransformer_EntityGolemBase
 		method.instructions.insert( insertionPoint, instructionList );
 	}
 
-	private void transformMethod_SetupGolem( final MethodNode method )
+	private static void transformMethod_SetupGolem( final MethodNode method )
 	{
 		// Set the insertion point to the instruction before return
 		// Previous node is important, since the method returns a value, the previous
 		// instruction is what sets that return value.
-		AbstractInsnNode insertionPoint = this.findLastOpCode( method.instructions, Opcodes.IRETURN );
+		AbstractInsnNode insertionPoint = AClassTransformer.findLastOpCode( method.instructions, Opcodes.IRETURN );
 		insertionPoint = insertionPoint.getPrevious();
 
 		// Insert the hook
@@ -206,10 +206,10 @@ public class ClassTransformer_EntityGolemBase
 
 	}
 
-	private void transformMethod_WriteEntityToNBT( final MethodNode method )
+	private static void transformMethod_WriteEntityToNBT( final MethodNode method )
 	{
 		// Locate the return statement
-		AbstractInsnNode insertionPoint = this.findLastOpCode( method.instructions, Opcodes.RETURN );
+		AbstractInsnNode insertionPoint = AClassTransformer.findLastOpCode( method.instructions, Opcodes.RETURN );
 
 		// Insert the hook
 		// GolemHooks.hook_WriteEntityToNBT( this, this.hookHandlers, nbt);
@@ -269,32 +269,32 @@ public class ClassTransformer_EntityGolemBase
 			// Setup golem
 			if( method.name.equals( "setupGolem" ) )
 			{
-				this.transformMethod_SetupGolem( method );
+				ClassTransformer_EntityGolemBase.transformMethod_SetupGolem( method );
 			}
 			// Custom interaction
 			else if( method.name.equals( "customInteraction" ) )
 			{
-				this.transformMethod_CustomInteraction( method );
+				ClassTransformer_EntityGolemBase.transformMethod_CustomInteraction( method );
 			}
 			// Write entity NBT
 			else if( method.name.equals( "func_70014_b" ) || method.name.equals( "writeEntityToNBT" ) )
 			{
-				this.transformMethod_WriteEntityToNBT( method );
+				ClassTransformer_EntityGolemBase.transformMethod_WriteEntityToNBT( method );
 			}
 			//  Read entity from NBT
 			else if( method.name.equals( "func_70037_a" ) || method.name.equals( "readEntityFromNBT" ) )
 			{
-				this.transformMethod_ReadEntityFromNBT( method );
+				ClassTransformer_EntityGolemBase.transformMethod_ReadEntityFromNBT( method );
 			}
 			// Entity Init
 			else if( method.name.equals( "func_70088_a" ) || method.name.equals( "entityInit" ) )
 			{
-				this.transformMethod_EntityInit( method );
+				ClassTransformer_EntityGolemBase.transformMethod_EntityInit( method );
 			}
 		}
 
 		// Add the onEntityUpdate method.
-		this.insertMethod_GolemBase_onEntityUpdate( classNode, isObf );
+		ClassTransformer_EntityGolemBase.insertMethod_GolemBase_onEntityUpdate( classNode, isObf );
 	}
 
 }

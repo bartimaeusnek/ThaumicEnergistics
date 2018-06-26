@@ -36,7 +36,7 @@ public class RendererItemCraftingAspect
 		Aspect aspect = null;
 
 		// Is the stack setup?
-		if( ( stack.getItemDamage() == 0 ) && ( stack.hasTagCompound() ) )
+		if( ( stack.getMetadata() == 0 ) && ( stack.hasTagCompound() ) )
 		{
 			// Get the player
 			EntityPlayer player = Minecraft.getMinecraft().thePlayer;

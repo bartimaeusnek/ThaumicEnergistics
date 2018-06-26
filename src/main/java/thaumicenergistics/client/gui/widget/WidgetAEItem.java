@@ -76,11 +76,11 @@ public class WidgetAEItem
 				this.aeItemRenderer.setAeStack( this.aeItemStack );
 
 				// Draw the item
-				this.aeItemRenderer.renderItemAndEffectIntoGUI( WidgetAEItem.MC.fontRenderer, WidgetAEItem.TEXTURE_MANAGER,
+				this.aeItemRenderer.renderItemAndEffectIntoGUI( WidgetAEItem.MC.fontRendererObj, WidgetAEItem.TEXTURE_MANAGER,
 					this.aeItemStack.getItemStack(), this.xPosition + 1, this.yPosition + 1 );
 
 				// Draw the amount
-				this.aeItemRenderer.renderItemOverlayIntoGUI( WidgetAEItem.MC.fontRenderer, WidgetAEItem.TEXTURE_MANAGER,
+				this.aeItemRenderer.renderItemOverlayIntoGUI( WidgetAEItem.MC.fontRendererObj, WidgetAEItem.TEXTURE_MANAGER,
 					this.aeItemStack.getItemStack(), this.xPosition + 1, this.yPosition + 1 );
 
 				// Reset the z level
@@ -88,7 +88,7 @@ public class WidgetAEItem
 				this.aeItemRenderer.zLevel = 0.0F;
 			}
 		}
-		catch( Exception e )
+		catch( @SuppressWarnings("unused") Exception e )
 		{
 			// Silently ignore.
 		}
@@ -136,7 +136,7 @@ public class WidgetAEItem
 					tooltip.add( stackTooltip.get( index ) );
 				}
 			}
-			catch( Exception e )
+			catch( @SuppressWarnings("unused") Exception e )
 			{
 				tooltip.add( EnumChatFormatting.ITALIC + "<Unable to get item tooltip>" );
 			}

@@ -39,7 +39,7 @@ public class GuiButtonSetCellPartitioningToCurrent
 	public void getTooltip( final List<String> tooltip )
 	{
 		// Add the info
-		this.addAboutToTooltip( tooltip, StatCollector.translateToLocal( "gui.tooltips.appliedenergistics2.PartitionStorage" ),
+		ThEStateButton.addAboutToTooltip( tooltip, StatCollector.translateToLocal( "gui.tooltips.appliedenergistics2.PartitionStorage" ),
 			StatCollector.translateToLocal( "gui.tooltips.appliedenergistics2.PartitionStorageHint" ) );
 	}
 }

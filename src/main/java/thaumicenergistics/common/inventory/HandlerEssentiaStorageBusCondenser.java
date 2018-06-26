@@ -48,7 +48,7 @@ public class HandlerEssentiaStorageBusCondenser
 		}
 
 		// Ensure the fluid is an essentia gas
-		if( !this.isFluidEssentiaGas( fluidStack ) )
+		if( !HandlerEssentiaStorageBusBase.isFluidEssentiaGas( fluidStack ) )
 		{
 			// Not essentia gas.
 			return false;
@@ -101,7 +101,7 @@ public class HandlerEssentiaStorageBusCondenser
 		IAEFluidStack injectStack = input.copy();
 
 		// Set the amount to the Essentia units, NOT the fluid units
-		injectStack.setStackSize( 500 * EssentiaConversionHelper.INSTANCE.convertFluidAmountToEssentiaAmount( input.getStackSize() ) );
+		injectStack.setStackSize( 500 * EssentiaConversionHelper.convertFluidAmountToEssentiaAmount( input.getStackSize() ) );
 
 		// Inject the fluid
 		this.condenser.fill( this.partStorageBus.getSide().getOpposite(), injectStack.getFluidStack(), ( mode == Actionable.MODULATE ) );

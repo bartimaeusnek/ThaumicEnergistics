@@ -516,7 +516,7 @@ public class ContainerPartArcaneCraftingTerminal
 	 * @param potentialMatch
 	 * @return
 	 */
-	private boolean doStacksMatch( final IAEItemStack keyStack, final IAEItemStack potentialMatch )
+	private static boolean doStacksMatch( final IAEItemStack keyStack, final IAEItemStack potentialMatch )
 	{
 		// Do the stacks directly match?
 		if( keyStack.getItemStack().isItemEqual( potentialMatch.getItemStack() ) )
@@ -561,7 +561,7 @@ public class ContainerPartArcaneCraftingTerminal
 		ItemStack arcaneResult = null;
 
 		// Is there a matching recipe?
-		IArcaneRecipe matchingRecipe = ArcaneRecipeHelper.INSTANCE.findMatchingArcaneResult( this.terminal, 0,
+		IArcaneRecipe matchingRecipe = ArcaneRecipeHelper.findMatchingArcaneResult( this.terminal, 0,
 			ContainerPartArcaneCraftingTerminal.CRAFTING_GRID_TOTAL_SIZE, this.player );
 
 		if( matchingRecipe != null )
@@ -593,7 +593,7 @@ public class ContainerPartArcaneCraftingTerminal
 		}
 
 		// Return the result
-		return ContainerPartArcaneCraftingTerminal.CRAFT_MANAGER.findMatchingRecipe( craftingInventory, this.terminal.getWorldObj() );
+		return ContainerPartArcaneCraftingTerminal.CRAFT_MANAGER.findMatchingRecipe( craftingInventory, this.terminal.getWorld() );
 	}
 
 	/**
@@ -764,7 +764,7 @@ public class ContainerPartArcaneCraftingTerminal
 		ItemWandCasting wandItem = null;
 
 		// Get the cost
-		this.requiredAspects = ArcaneRecipeHelper.INSTANCE.getRecipeAspectCost( this.terminal, 0,
+		this.requiredAspects = ArcaneRecipeHelper.getRecipeAspectCost( this.terminal, 0,
 			ContainerPartArcaneCraftingTerminal.CRAFTING_GRID_TOTAL_SIZE, forRecipe );
 
 		// Ensure there is a cost
@@ -822,7 +822,7 @@ public class ContainerPartArcaneCraftingTerminal
 		if( hasAll )
 		{
 			// Get the result of the recipe.
-			return ArcaneRecipeHelper.INSTANCE.getRecipeOutput( this.terminal, 0,
+			return ArcaneRecipeHelper.getRecipeOutput( this.terminal, 0,
 				ContainerPartArcaneCraftingTerminal.CRAFTING_GRID_TOTAL_SIZE, forRecipe );
 		}
 
@@ -1041,7 +1041,7 @@ public class ContainerPartArcaneCraftingTerminal
 		TileEntity te = this.terminal.getHostTile();
 
 		// Launch the GUI
-		ThEGuiHandler.launchGui( ThEGuiHandler.AUTO_CRAFTING_AMOUNT, player, te.getWorldObj(), te.xCoord, te.yCoord, te.zCoord );
+		ThEGuiHandler.launchGui( ThEGuiHandler.AUTO_CRAFTING_AMOUNT, player, te.getWorld(), te.xCoord, te.yCoord, te.zCoord );
 
 		// Setup the amount container
 		if( player.openContainer instanceof ContainerCraftAmount )
@@ -1051,7 +1051,7 @@ public class ContainerPartArcaneCraftingTerminal
 
 			// Create the open context
 			cca.setOpenContext( new ContainerOpenContext( te ) );
-			cca.getOpenContext().setWorld( te.getWorldObj() );
+			cca.getOpenContext().setWorld( te.getWorld() );
 			cca.getOpenContext().setX( te.xCoord );
 			cca.getOpenContext().setY( te.yCoord );
 			cca.getOpenContext().setZ( te.zCoord );
@@ -1073,7 +1073,7 @@ public class ContainerPartArcaneCraftingTerminal
 	/**
 	 * Called when a client has clicked the clear grid button
 	 */
-	public void onClientRequestClearCraftingGrid( final EntityPlayer player )
+	public void onClientRequestClearCraftingGrid( @SuppressWarnings("unused") final EntityPlayer player )
 	{
 		this.clearCraftingGrid( true );
 	}
@@ -1285,6 +1285,9 @@ public class ContainerPartArcaneCraftingTerminal
 				// Extract 1
 				amountToExtract = 1;
 			}
+			break;
+		default:
+			break;
 		}
 
 		// Ensure we have some amount to extract
@@ -1591,7 +1594,7 @@ public class ContainerPartArcaneCraftingTerminal
 		for( IAEItemStack potentialMatch : networkItems )
 		{
 			// Does the request match?
-			if( this.doStacksMatch( requestStack, potentialMatch ) )
+			if( ContainerPartArcaneCraftingTerminal.doStacksMatch( requestStack, potentialMatch ) )
 			{
 				// Found a match
 				requestStack = potentialMatch.copy();

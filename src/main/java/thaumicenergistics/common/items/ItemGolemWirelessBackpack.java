@@ -87,7 +87,7 @@ public class ItemGolemWirelessBackpack
 		this.setMaxStackSize( 1 );
 
 		// Set non-damageable
-		this.setMaxDamage( 0 );
+		this.setMaxDurability( 0 );
 	}
 
 	@Override

@@ -32,7 +32,7 @@ public class ArcaneRecipeHelper
 	 * @param gridSize
 	 * @return
 	 */
-	private TileMagicWorkbench createBridgeInventory( final IInventory sourceInventory, final int firstSlotIndex, final int gridSize )
+	private static TileMagicWorkbench createBridgeInventory( final IInventory sourceInventory, final int firstSlotIndex, final int gridSize )
 	{
 		// Create a new workbench tile
 		TileMagicWorkbench workbenchTile = new TileMagicWorkbench();
@@ -56,11 +56,11 @@ public class ArcaneRecipeHelper
 	 * @param player
 	 * @return
 	 */
-	public IArcaneRecipe findMatchingArcaneResult(	final IInventory sourceInventory, final int firstSlotIndex, final int gridSize,
+	public static IArcaneRecipe findMatchingArcaneResult(	final IInventory sourceInventory, final int firstSlotIndex, final int gridSize,
 													final EntityPlayer player )
 	{
 		// Create a the workbench
-		TileMagicWorkbench workbenchTile = this.createBridgeInventory( sourceInventory, firstSlotIndex, gridSize );
+		TileMagicWorkbench workbenchTile = ArcaneRecipeHelper.createBridgeInventory( sourceInventory, firstSlotIndex, gridSize );
 
 		IArcaneRecipe arcaneRecipe = null;
 
@@ -94,7 +94,7 @@ public class ArcaneRecipeHelper
 	 * @param recipe
 	 * @return
 	 */
-	public AspectList getRecipeAspectCost(	final IInventory sourceInventory, final int firstSlotIndex, final int gridSize,
+	public static AspectList getRecipeAspectCost(	final IInventory sourceInventory, final int firstSlotIndex, final int gridSize,
 											final IArcaneRecipe recipe )
 	{
 		// Ensure the recipe is valid
@@ -103,7 +103,7 @@ public class ArcaneRecipeHelper
 			return null;
 		}
 
-		return recipe.getAspects( this.createBridgeInventory( sourceInventory, firstSlotIndex, gridSize ) );
+		return recipe.getAspects( ArcaneRecipeHelper.createBridgeInventory( sourceInventory, firstSlotIndex, gridSize ) );
 	}
 
 	/**
@@ -115,7 +115,7 @@ public class ArcaneRecipeHelper
 	 * @param recipe
 	 * @return
 	 */
-	public ItemStack getRecipeOutput( final IInventory sourceInventory, final int firstSlotIndex, final int gridSize, final IArcaneRecipe recipe )
+	public static ItemStack getRecipeOutput( final IInventory sourceInventory, final int firstSlotIndex, final int gridSize, final IArcaneRecipe recipe )
 	{
 		// Ensure the recipe is valid
 		if( recipe == null )
@@ -123,7 +123,7 @@ public class ArcaneRecipeHelper
 			return null;
 		}
 
-		return recipe.getCraftingResult( this.createBridgeInventory( sourceInventory, firstSlotIndex, gridSize ) );
+		return recipe.getCraftingResult( ArcaneRecipeHelper.createBridgeInventory( sourceInventory, firstSlotIndex, gridSize ) );
 	}
 
 }

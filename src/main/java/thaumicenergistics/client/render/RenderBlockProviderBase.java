@@ -58,7 +58,7 @@ public abstract class RenderBlockProviderBase
 	 * @param texture
 	 * @param glowAmount
 	 */
-	private void renderFaces( final IBlockAccess world, final int x, final int y, final int z, final IIcon texture, final int glowAmount )
+	private static void renderFaces( final IBlockAccess world, final int x, final int y, final int z, final IIcon texture, final int glowAmount )
 	{
 		Tessellator tessellator = Tessellator.instance;
 
@@ -220,7 +220,7 @@ public abstract class RenderBlockProviderBase
 		}
 
 		// Render the faces
-		this.renderFaces( world, x, y, z, texture, glow );
+		RenderBlockProviderBase.renderFaces( world, x, y, z, texture, glow );
 
 		return true;
 	}

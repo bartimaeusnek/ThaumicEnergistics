@@ -164,6 +164,8 @@ public class Packet_C_EssentiaCellTerminal
 				// Update the list
 				( (GuiEssentiaCellTerminal)gui ).onReceiveAspectListChange( this.change );
 				break;
+			default:
+				break;
 			}
 		}
 	}
@@ -198,6 +200,9 @@ public class Packet_C_EssentiaCellTerminal
 		case Packet_C_EssentiaCellTerminal.MODE_LIST_CHANGED:
 			// Read the stack
 			this.change = AspectStack.loadAspectStackFromStream( stream );
+			break;
+		default:
+			break;
 		}
 	}
 
@@ -229,6 +234,9 @@ public class Packet_C_EssentiaCellTerminal
 		case Packet_C_EssentiaCellTerminal.MODE_LIST_CHANGED:
 			// Write the stack
 			this.change.writeToStream( stream );
+			break;
+		default:
+			break;
 		}
 	}
 }

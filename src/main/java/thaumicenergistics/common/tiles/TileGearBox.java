@@ -360,7 +360,7 @@ public class TileGearBox
 	public void onDataPacket( final NetworkManager net, final S35PacketUpdateTileEntity packet )
 	{
 		// Read the sync data
-		this.readSyncData( packet.func_148857_g() );
+		this.readSyncData( packet.getNbtCompound() );
 	}
 
 	/*

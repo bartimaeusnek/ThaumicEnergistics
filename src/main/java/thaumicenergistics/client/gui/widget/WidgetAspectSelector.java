@@ -67,7 +67,7 @@ public class WidgetAspectSelector
 	 * @param color
 	 * @param thickness
 	 */
-	private void drawHollowRectWithCorners( final int posX, final int posY, final int width, final int height, final int color, final int thickness )
+	private static void drawHollowRectWithCorners( final int posX, final int posY, final int width, final int height, final int color, final int thickness )
 	{
 		// Calculate points
 
@@ -187,7 +187,7 @@ public class WidgetAspectSelector
 		if( selectedAspect == this.getAspect() )
 		{
 			// Draw the selection box
-			this.drawHollowRectWithCorners( this.xPosition, this.yPosition,
+			WidgetAspectSelector.drawHollowRectWithCorners( this.xPosition, this.yPosition,
 				ThEWidget.WIDGET_SIZE, ThEWidget.WIDGET_SIZE,
 				this.getBackgroundColor(), WidgetAspectSelector.borderThickness );
 		}

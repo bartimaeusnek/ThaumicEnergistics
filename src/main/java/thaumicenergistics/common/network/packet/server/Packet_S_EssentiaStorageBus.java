@@ -64,6 +64,8 @@ public class Packet_S_EssentiaStorageBus
 			// Request set void
 			this.part.onClientRequestSetVoidMode( this.player, this.isVoidAllowed );
 			break;
+		default:
+			break;
 		}
 	}
 
@@ -78,6 +80,8 @@ public class Packet_S_EssentiaStorageBus
 			// Read void
 			this.isVoidAllowed = stream.readBoolean();
 			break;
+		default:
+			break;
 		}
 	}
 
@@ -91,6 +95,8 @@ public class Packet_S_EssentiaStorageBus
 			ThEBasePacket.writePart( this.part, stream );
 			// Write void
 			stream.writeBoolean( this.isVoidAllowed );
+			break;
+		default:
 			break;
 		}
 	}

@@ -38,7 +38,7 @@ public class ItemBlockEssentiaVibrationChamber
 	 * @param evcStack
 	 * @return AspectStack or null
 	 */
-	private IAspectStack getStoredAspectStack( final ItemStack evcStack )
+	private static IAspectStack getStoredAspectStack( final ItemStack evcStack )
 	{
 		// Get the tag
 		NBTTagCompound data = evcStack.getTagCompound();
@@ -52,7 +52,7 @@ public class ItemBlockEssentiaVibrationChamber
 		return AspectStack.loadAspectStackFromNBT( data.getCompoundTag( TileEVCBase.NBTKEY_STORED ) );
 	}
 
-	private void setStoredAspectStack( final ItemStack evcStack, final IAspectStack aspectStack )
+	private static void setStoredAspectStack( final ItemStack evcStack, final IAspectStack aspectStack )
 	{
 		// Get the tag
 		NBTTagCompound data = evcStack.getTagCompound();
@@ -110,7 +110,7 @@ public class ItemBlockEssentiaVibrationChamber
 		{
 
 			// Load the stack
-			IAspectStack storedEssentia = this.getStoredAspectStack( evcStack );
+			IAspectStack storedEssentia = ItemBlockEssentiaVibrationChamber.getStoredAspectStack( evcStack );
 
 			// Add stored info
 			if( storedEssentia != null )
@@ -136,7 +136,7 @@ public class ItemBlockEssentiaVibrationChamber
 		if( evcStack.hasTagCompound() )
 		{
 			// Get the stored aspect
-			IAspectStack stored = this.getStoredAspectStack( evcStack );
+			IAspectStack stored = ItemBlockEssentiaVibrationChamber.getStoredAspectStack( evcStack );
 			if( ( stored != null ) && !stored.isEmpty() )
 			{
 				// Add it
@@ -162,6 +162,6 @@ public class ItemBlockEssentiaVibrationChamber
 		}
 
 		// Set the tag
-		this.setStoredAspectStack( evcStack, aspectStack );
+		ItemBlockEssentiaVibrationChamber.setStoredAspectStack( evcStack, aspectStack );
 	}
 }

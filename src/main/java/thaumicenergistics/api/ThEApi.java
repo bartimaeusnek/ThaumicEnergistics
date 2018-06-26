@@ -1,5 +1,6 @@
 package thaumicenergistics.api;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 import javax.annotation.Nonnull;
@@ -37,7 +38,7 @@ public abstract class ThEApi
 				// Attempt to get the API instance
 				ThEApi.api = (ThEApi)instanceAccessor.invoke( null );
 			}
-			catch( Throwable e )
+			catch(@SuppressWarnings("unused") ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 			{
 				// Unable to locate the API, return null
 				return null;

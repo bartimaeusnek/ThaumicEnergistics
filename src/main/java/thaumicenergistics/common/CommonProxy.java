@@ -24,7 +24,7 @@ public class CommonProxy
 	/**
 	 * Registers blocks with the game.
 	 */
-	public void registerBlocks()
+	public static void registerBlocks()
 	{
 		for( BlockEnum block : BlockEnum.VALUES )
 		{
@@ -35,7 +35,7 @@ public class CommonProxy
 	/**
 	 * Registers all ThE features
 	 */
-	public void registerFeatures()
+	public static void registerFeatures()
 	{
 		FeatureRegistry.instance().registerFeatures();
 	}
@@ -43,7 +43,7 @@ public class CommonProxy
 	/**
 	 * Registers fluids with the game.
 	 */
-	public void registerFluids()
+	public static void registerFluids()
 	{
 		GaseousEssentia.registerGases();
 	}
@@ -51,7 +51,7 @@ public class CommonProxy
 	/**
 	 * Registers items with the game.
 	 */
-	public void registerItems()
+	public static void registerItems()
 	{
 		for( ItemEnum item : ItemEnum.VALUES )
 		{
@@ -76,7 +76,7 @@ public class CommonProxy
 	/**
 	 * Adds tile entities to the AppEng2 SpatialIO whitelist
 	 */
-	public void registerSpatialIOMovables()
+	public static void registerSpatialIOMovables()
 	{
 		IMovableRegistry movableRegistry = AEApi.instance().registries().movable();
 		for( TileEnum tile : TileEnum.values() )
@@ -88,7 +88,7 @@ public class CommonProxy
 	/**
 	 * Registers tile entities with the game.
 	 */
-	public void registerTileEntities()
+	public static void registerTileEntities()
 	{
 		for( TileEnum tile : TileEnum.values() )
 		{

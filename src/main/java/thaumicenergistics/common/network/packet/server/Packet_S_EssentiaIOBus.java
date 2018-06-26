@@ -108,6 +108,8 @@ public class Packet_S_EssentiaIOBus
 				( (PartEssentiaExportBus)this.part ).toggleVoidMode( this.player );
 			}
 			break;
+		default:
+			break;
 		}
 	}
 
@@ -122,6 +124,8 @@ public class Packet_S_EssentiaIOBus
 			// Read the part
 			this.part = ( (ThEPartEssentiaIOBus_Base)ThEBasePacket.readPart( stream ) );
 			break;
+		default:
+			break;
 		}
 	}
 
@@ -135,6 +139,8 @@ public class Packet_S_EssentiaIOBus
 		case Packet_S_EssentiaIOBus.MODE_REQUEST_CHANGE_VOID_MODE:
 			// Write the part
 			ThEBasePacket.writePart( this.part, stream );
+			break;
+		default:
 			break;
 		}
 	}

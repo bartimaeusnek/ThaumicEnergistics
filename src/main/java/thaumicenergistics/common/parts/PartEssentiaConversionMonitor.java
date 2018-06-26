@@ -179,7 +179,7 @@ public class PartEssentiaConversionMonitor
 		}
 
 		// Is there a jar label?
-		Aspect jarLabelAspect = EssentiaItemContainerHelper.INSTANCE.getJarLabelAspect( heldItem );
+		Aspect jarLabelAspect = EssentiaItemContainerHelper.getJarLabelAspect( heldItem );
 		if( jarLabelAspect != null )
 		{
 			// Ensure it matches the tracker

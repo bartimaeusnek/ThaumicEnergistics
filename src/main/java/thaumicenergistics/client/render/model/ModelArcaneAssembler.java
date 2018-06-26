@@ -45,62 +45,62 @@ public class ModelArcaneAssembler
 		this.OuterFrameTop.setTextureSize( 64, 64 );
 		this.OuterFrameTop.mirror = true;
 
-		this.setRotation( this.OuterFrameTop, 0F, 0F, 0F );
+		ModelArcaneAssembler.setRotation( this.OuterFrameTop, 0F, 0F, 0F );
 		this.OuterFrameBottom = new ModelRenderer( this, 0, 0 );
 		this.OuterFrameBottom.addBox( -17F, 15F, -15F, 34, 2, 2 );
 		this.OuterFrameBottom.setRotationPoint( 0F, 0F, 0F );
 		this.OuterFrameBottom.setTextureSize( 64, 64 );
 		this.OuterFrameBottom.mirror = true;
 
-		this.setRotation( this.OuterFrameBottom, 0F, 0F, 0F );
+		ModelArcaneAssembler.setRotation( this.OuterFrameBottom, 0F, 0F, 0F );
 		this.OuterFrameLeft = new ModelRenderer( this, 0, 0 );
 		this.OuterFrameLeft.addBox( -17F, -17F, -15F, 34, 2, 2 );
 		this.OuterFrameLeft.setRotationPoint( 0F, 0F, 0F );
 		this.OuterFrameLeft.setTextureSize( 64, 64 );
 		this.OuterFrameLeft.mirror = true;
-		this.setRotation( this.OuterFrameLeft, 0F, 0F, -1.570796F );
+		ModelArcaneAssembler.setRotation( this.OuterFrameLeft, 0F, 0F, -1.570796F );
 
 		this.OuterFrameRight = new ModelRenderer( this, 0, 0 );
 		this.OuterFrameRight.addBox( -17F, -17F, -15F, 34, 2, 2 );
 		this.OuterFrameRight.setRotationPoint( 0F, 0F, 0F );
 		this.OuterFrameRight.setTextureSize( 64, 64 );
 		this.OuterFrameRight.mirror = true;
-		this.setRotation( this.OuterFrameRight, 0F, 0F, 1.570796F );
+		ModelArcaneAssembler.setRotation( this.OuterFrameRight, 0F, 0F, 1.570796F );
 
 		this.Glass = new ModelRenderer( this, 0, 37 );
 		this.Glass.addBox( -13F, -13F, -14F, 26, 26, 1 );
 		this.Glass.setRotationPoint( 0F, 0F, 0F );
 		this.Glass.setTextureSize( 64, 64 );
 		this.Glass.mirror = true;
-		this.setRotation( this.Glass, 0F, 0F, 0F );
+		ModelArcaneAssembler.setRotation( this.Glass, 0F, 0F, 0F );
 
 		this.InnerFrameTop = new ModelRenderer( this, 0, 4 );
 		this.InnerFrameTop.addBox( -15F, -15F, -15F, 30, 2, 2 );
 		this.InnerFrameTop.setRotationPoint( 0F, 0F, 0F );
 		this.InnerFrameTop.setTextureSize( 64, 64 );
 		this.InnerFrameTop.mirror = true;
-		this.setRotation( this.InnerFrameTop, 0F, 0F, 0F );
+		ModelArcaneAssembler.setRotation( this.InnerFrameTop, 0F, 0F, 0F );
 
 		this.InnerFrameBottom = new ModelRenderer( this, 0, 4 );
 		this.InnerFrameBottom.addBox( -15F, 13F, -15F, 30, 2, 2 );
 		this.InnerFrameBottom.setRotationPoint( 0F, 0F, 0F );
 		this.InnerFrameBottom.setTextureSize( 64, 64 );
 		this.InnerFrameBottom.mirror = true;
-		this.setRotation( this.InnerFrameBottom, 0F, 0F, 0F );
+		ModelArcaneAssembler.setRotation( this.InnerFrameBottom, 0F, 0F, 0F );
 
 		this.InnerFrameLeft = new ModelRenderer( this, 0, 4 );
 		this.InnerFrameLeft.addBox( -15F, -15F, -15F, 30, 2, 2 );
 		this.InnerFrameLeft.setRotationPoint( 0F, 0F, 0F );
 		this.InnerFrameLeft.setTextureSize( 64, 64 );
 		this.InnerFrameLeft.mirror = true;
-		this.setRotation( this.InnerFrameLeft, 0F, 0F, -1.570796F );
+		ModelArcaneAssembler.setRotation( this.InnerFrameLeft, 0F, 0F, -1.570796F );
 
 		this.InnerFrameRight = new ModelRenderer( this, 0, 4 );
 		this.InnerFrameRight.addBox( -15F, -15F, -15F, 30, 2, 2 );
 		this.InnerFrameRight.setRotationPoint( 0F, 0F, 0F );
 		this.InnerFrameRight.setTextureSize( 64, 64 );
 		this.InnerFrameRight.mirror = true;
-		this.setRotation( this.InnerFrameRight, 0F, 0F, 1.570796F );
+		ModelArcaneAssembler.setRotation( this.InnerFrameRight, 0F, 0F, 1.570796F );
 	}
 
 	/**
@@ -167,7 +167,7 @@ public class ModelArcaneAssembler
 		this.OuterFrameRight.render( f5 );
 	}
 
-	private void setRotation( final ModelRenderer model, final float x, final float y, final float z )
+	private static void setRotation( final ModelRenderer model, final float x, final float y, final float z )
 	{
 		model.rotateAngleX = x;
 		model.rotateAngleY = y;

@@ -1,6 +1,7 @@
 package thaumicenergistics.common.container;
 
 import javax.annotation.Nonnull;
+
 import appeng.api.AEApi;
 import appeng.api.config.Actionable;
 import appeng.api.config.Settings;
@@ -37,9 +38,7 @@ import thaumicenergistics.common.utils.EffectiveSide;
  * @author Nividica
  *
  */
-public class ContainerWirelessEssentiaTerminal
-	extends ContainerEssentiaCellTerminalBase
-{
+public class ContainerWirelessEssentiaTerminal extends ContainerEssentiaCellTerminalBase {
 
 	/**
 	 * After this many ticks, power will be extracted from the terminal just for
@@ -58,16 +57,15 @@ public class ContainerWirelessEssentiaTerminal
 	/**
 	 * Import and export inventory slots.
 	 */
-	private TheInternalInventory privateInventory = new TheInternalInventory( ThaumicEnergistics.MOD_ID + ".item.essentia.cell.inventory", 2, 64 )
-	{
+	private final TheInternalInventory privateInventory = new TheInternalInventory(
+			ThaumicEnergistics.MOD_ID + ".item.essentia.cell.inventory", 2, 64) {
 		@Override
-		public boolean isItemValidForSlot( final int slotID, final ItemStack itemStack )
-		{
+		public boolean isItemValidForSlot(final int slotID, final ItemStack itemStack) {
 			// Get the type
-			AspectItemType iType = EssentiaItemContainerHelper.INSTANCE.getItemType( itemStack );
+			final AspectItemType iType = EssentiaItemContainerHelper.INSTANCE.getItemType(itemStack);
 
 			// True if jar or jar label
-			return ( iType == AspectItemType.EssentiaContainer ) || ( iType == AspectItemType.JarLabel );
+			return (iType == AspectItemType.EssentiaContainer) || (iType == AspectItemType.JarLabel);
 		}
 	};
 
@@ -86,71 +84,60 @@ public class ContainerWirelessEssentiaTerminal
 	 * @param player
 	 * @param handler
 	 */
-	public ContainerWirelessEssentiaTerminal( final EntityPlayer player, final @Nonnull HandlerWirelessEssentiaTerminal handler )
-	{
+	public ContainerWirelessEssentiaTerminal(final EntityPlayer player,
+			final @Nonnull HandlerWirelessEssentiaTerminal handler) {
 		// Call super
-		super( player );
+		super(player);
 
 		// Bind our inventory
-		this.bindToInventory( this.privateInventory );
+		bindToInventory(privateInventory);
 
 		// Set the terminal slot index
-		this.terminalSlotIndex = player.inventory.currentItem;
+		terminalSlotIndex = player.inventory.currentItem;
 
 		// Set the handler
 		this.handler = handler;
 
 		// Client side?
-		if( EffectiveSide.isClientSide() )
-		{
+		if (EffectiveSide.isClientSide()) {
 			// Request a full update from the server
-			Packet_S_EssentiaCellTerminal.sendFullUpdateRequest( player );
+			Packet_S_EssentiaCellTerminal.sendFullUpdateRequest(player);
 		}
 	}
 
 	@Override
-	protected BaseActionSource getActionSource()
-	{
-		return this.handler.getActionHost();
+	protected BaseActionSource getActionSource() {
+		return handler.getActionHost();
 	}
 
 	@Override
-	protected IGrid getHostGrid()
-	{
-		try
-		{
-			return this.handler.getActionableNode().getGrid();
-		}
-		catch( Exception e )
-		{
+	protected IGrid getHostGrid() {
+		try {
+			return handler.getActionableNode().getGrid();
+		} catch (@SuppressWarnings("unused") final Exception e) {
 			return null;
 		}
 	}
 
 	@Override
-	protected Aspect getHostSelectedAspect()
-	{
-		return this.tmpSelectedAspect;
+	protected Aspect getHostSelectedAspect() {
+		return tmpSelectedAspect;
 	}
 
 	@Override
-	protected IMEEssentiaMonitor getNewMonitor()
-	{
-		return this.handler.getEssentiaInventory();
+	protected IMEEssentiaMonitor getNewMonitor() {
+		return handler.getEssentiaInventory();
 	}
 
 	@Override
-	protected void setHostSelectedAspect( final Aspect aspect )
-	{
-		this.tmpSelectedAspect = aspect;
+	protected void setHostSelectedAspect(final Aspect aspect) {
+		tmpSelectedAspect = aspect;
 	}
 
 	@Override
-	public boolean canInteractWith( final EntityPlayer p_75145_1_ )
-	{
-		if( this.handler != null )
-		{
-			return this.handler.isConnected();
+	public boolean canInteractWith(final EntityPlayer p_75145_1_) {
+		if (handler != null) {
+			return handler.isConnected();
 		}
 		return false;
 	}
@@ -159,70 +146,64 @@ public class ContainerWirelessEssentiaTerminal
 	 * Transfers essentia, checks the network connectivity, and drains power.
 	 */
 	@Override
-	public void doWork( final int elapsedTicks )
-	{
+	public void doWork(final int elapsedTicks) {
 		// Validate the handler
-		if( this.handler == null )
-		{
+		if (handler == null) {
 			// Invalid handler.
 			return;
 		}
 
 		// Increment the tick counter.
-		this.powerTickCounter += elapsedTicks;
+		powerTickCounter += elapsedTicks;
 
-		if( this.powerTickCounter > ContainerWirelessEssentiaTerminal.EXTRACT_POWER_ON_TICK )
-		{
+		if (powerTickCounter > ContainerWirelessEssentiaTerminal.EXTRACT_POWER_ON_TICK) {
 			// Adjust the power multiplier
-			this.handler.updatePowerMultiplier();
+			handler.updatePowerMultiplier();
 
 			// Take power
-			this.handler.extractPower( this.powerTickCounter, Actionable.MODULATE );
+			handler.extractPower(powerTickCounter, Actionable.MODULATE);
 
 			// Update the item
-			this.player.inventory.mainInventory[this.terminalSlotIndex] = this.handler.getTerminalItem();
+			player.inventory.mainInventory[terminalSlotIndex] = handler.getTerminalItem();
 
 			// Reset the tick counter
-			this.powerTickCounter = 0;
+			powerTickCounter = 0;
 		}
 
 		// Transfer essentia if needed
-		this.transferEssentiaFromWorkSlots();
+		transferEssentiaFromWorkSlots();
 	}
 
 	@Override
-	public ICraftingIssuerHost getCraftingHost()
-	{
-		return this.handler;
+	public ICraftingIssuerHost getCraftingHost() {
+		return handler;
 	}
 
 	@Override
-	public void onClientRequestAutoCraft( final EntityPlayer player, final Aspect aspect )
-	{
+	public void onClientRequestAutoCraft(final EntityPlayer player, final Aspect aspect) {
 		// Launch the GUI
-		ThEGuiHandler.launchGui( ThEGuiHandler.AUTO_CRAFTING_AMOUNT, player, player.worldObj, 0, 0, 0 );
+		ThEGuiHandler.launchGui(ThEGuiHandler.AUTO_CRAFTING_AMOUNT, player, player.worldObj, 0, 0, 0);
 
 		// Setup the amount container
-		if( player.openContainer instanceof ContainerCraftAmount )
-		{
+		if (player.openContainer instanceof ContainerCraftAmount) {
 			// Get the container
-			ContainerCraftAmount cca = (ContainerCraftAmount)this.player.openContainer;
+			final ContainerCraftAmount cca = (ContainerCraftAmount) this.player.openContainer;
 
 			// Create the open context
-			cca.setOpenContext( new ContainerOpenContext( this.handler ) );
-			cca.getOpenContext().setWorld( player.worldObj );
+			cca.setOpenContext(new ContainerOpenContext(handler));
+			cca.getOpenContext().setWorld(player.worldObj);
 
 			// Create the result item
-			IAEItemStack result = AEApi.instance().storage().createItemStack( ItemCraftingAspect.createStackForAspect( aspect, 1 ) );
+			final IAEItemStack result = AEApi.instance().storage()
+					.createItemStack(ItemCraftingAspect.createStackForAspect(aspect, 1));
 
 			// Set the item
-			cca.getCraftingItem().putStack( result.getItemStack() );
-			cca.setItemToCraft( result );
+			cca.getCraftingItem().putStack(result.getItemStack());
+			cca.setItemToCraft(result);
 
 			// Issue update
-			if( player instanceof EntityPlayerMP )
-			{
-				( (EntityPlayerMP)player ).isChangingQuantityOnly = false;
+			if (player instanceof EntityPlayerMP) {
+				((EntityPlayerMP) player).isChangingQuantityOnly = false;
 			}
 			cca.detectAndSendChanges();
 		}
@@ -230,83 +211,71 @@ public class ContainerWirelessEssentiaTerminal
 	}
 
 	@Override
-	public void onClientRequestFullUpdate()
-	{
+	public void onClientRequestFullUpdate() {
 		// Send the sorting mode
-		Packet_C_EssentiaCellTerminal.sendViewingModes( this.player, this.handler.getSortingMode(), this.handler.getViewMode() );
+		Packet_C_EssentiaCellTerminal.sendViewingModes(player, handler.getSortingMode(), handler.getViewMode());
 
 		// Send the list
-		Packet_C_EssentiaCellTerminal.sendFullList( this.player, this.repo.getAll() );
+		Packet_C_EssentiaCellTerminal.sendFullList(player, repo.getAll());
 	}
 
 	@Override
-	public void onClientRequestSortModeChange( final EntityPlayer player, final boolean backwards )
-	{
+	public void onClientRequestSortModeChange(final EntityPlayer player, final boolean backwards) {
 		// Change the sorting mode
 		AspectStackComparatorMode sortingMode;
-		if( backwards )
-		{
-			sortingMode = this.handler.getSortingMode().previousMode();
-		}
-		else
-		{
-			sortingMode = this.handler.getSortingMode().nextMode();
+		if (backwards) {
+			sortingMode = handler.getSortingMode().previousMode();
+		} else {
+			sortingMode = handler.getSortingMode().nextMode();
 		}
 
 		// Set the sorting mode.
-		this.handler.setSortingMode( sortingMode );
+		handler.setSortingMode(sortingMode);
 
 		// Send confirmation back to client
-		Packet_C_EssentiaCellTerminal.sendViewingModes( player, sortingMode, this.handler.getViewMode() );
+		Packet_C_EssentiaCellTerminal.sendViewingModes(player, sortingMode, handler.getViewMode());
 	}
 
 	@Override
-	public void onClientRequestViewModeChange( final EntityPlayer player, final boolean backwards )
-	{
+	public void onClientRequestViewModeChange(final EntityPlayer player, final boolean backwards) {
 		// Change the view mode
-		ViewItems viewMode = Platform.rotateEnum( this.handler.getViewMode(), backwards, Settings.VIEW_MODE.getPossibleValues() );
+		final ViewItems viewMode = Platform.rotateEnum(handler.getViewMode(), backwards,
+				Settings.VIEW_MODE.getPossibleValues());
 
 		// Inform the handler of the change
-		this.handler.setViewMode( viewMode );
+		handler.setViewMode(viewMode);
 
 		// Send confirmation back to client
-		Packet_C_EssentiaCellTerminal.sendViewingModes( player, this.handler.getSortingMode(), viewMode );
+		Packet_C_EssentiaCellTerminal.sendViewingModes(player, handler.getSortingMode(), viewMode);
 	}
 
 	/**
 	 * Drops any items in the import and export inventory.
 	 */
 	@Override
-	public void onContainerClosed( final EntityPlayer player )
-	{
-		super.onContainerClosed( player );
+	public void onContainerClosed(final EntityPlayer player) {
+		super.onContainerClosed(player);
 
-		if( EffectiveSide.isServerSide() )
-		{
-			for( int i = 0; i < 2; i++ )
-			{
-				this.player.dropPlayerItemWithRandomChoice( ( (Slot)this.inventorySlots.get( i ) ).getStack(), false );
+		if (EffectiveSide.isServerSide()) {
+			for (int i = 0; i < 2; i++) {
+				this.player.dropPlayerItemWithRandomChoice(((Slot) inventorySlots.get(i)).getStack(), false);
 			}
 		}
 	}
 
 	@Override
-	public ItemStack slotClick( final int slotNumber, final int buttonPressed, final int flag, final EntityPlayer player )
-	{
-		try
-		{
-			Slot clickedSlot = this.getSlotOrNull( slotNumber );
+	public ItemStack slotClick(final int slotNumber, final int buttonPressed, final int flag,
+			final EntityPlayer player) {
+		try {
+			final Slot clickedSlot = getSlotOrNull(slotNumber);
 			// Protect the wireless terminal
-			if( ( clickedSlot.inventory == this.player.inventory ) && ( clickedSlot.getSlotIndex() == this.terminalSlotIndex ) )
-			{
+			if ((clickedSlot.inventory == this.player.inventory) && (clickedSlot.getSlotIndex() == terminalSlotIndex)) {
 				return null;
 			}
-		}
-		catch( Exception e )
-		{
+		} catch (@SuppressWarnings("unused") final Exception e) {
 		}
 
-		return super.slotClick( slotNumber, buttonPressed, flag, player );
+		return super.slotClick(slotNumber, buttonPressed, flag, player);
 
 	}
 

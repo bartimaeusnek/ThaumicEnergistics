@@ -30,7 +30,7 @@ public class GuiButtonSortingMode
 	@Override
 	public void getTooltip( final List<String> tooltip )
 	{
-		this.addAboutToTooltip( tooltip, ButtonToolTips.SortBy.getLocal(), EnumChatFormatting.GRAY + this.tooltipSortBy );
+		ThEStateButton.addAboutToTooltip( tooltip, ButtonToolTips.SortBy.getLocal(), EnumChatFormatting.GRAY + this.tooltipSortBy );
 	}
 
 	/**
@@ -50,6 +50,8 @@ public class GuiButtonSortingMode
 		case MODE_AMOUNT:
 			this.stateIcon = AEStateIconsEnum.SORT_MODE_AMOUNT;
 			this.tooltipSortBy = ButtonToolTips.NumberOfItems.getLocal();
+			break;
+		default:
 			break;
 
 		}
@@ -77,6 +79,8 @@ public class GuiButtonSortingMode
 		case NAME:
 			this.stateIcon = AEStateIconsEnum.SORT_MODE_ALPHABETIC;
 			this.tooltipSortBy = StatCollector.translateToLocal( "gui.tooltips.appliedenergistics2.ItemName" );
+			break;
+		default:
 			break;
 
 		}
