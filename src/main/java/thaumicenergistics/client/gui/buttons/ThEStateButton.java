@@ -27,14 +27,19 @@ public abstract class ThEStateButton
 	private IStateIconTexture backgroundIcon;
 
 	/**
-	 * Icon to draw on the button
+	 * Offset from the top-left corner of the button to draw the icon.
 	 */
-	protected IStateIconTexture stateIcon;
+	private int iconXOffset = 0;
 
 	/**
 	 * Offset from the top-left corner of the button to draw the icon.
 	 */
-	public int iconXOffset = 0, iconYOffset = 0;
+	private int iconYOffset = 0;
+
+	/**
+	 * Icon to draw on the button
+	 */
+	protected IStateIconTexture stateIcon;
 
 	/**
 	 *
@@ -80,6 +85,8 @@ public abstract class ThEStateButton
 		float maxU = ( u + textureWidth ) * magic_number;
 		float minV = v * magic_number;
 		float maxV = ( v + textureHeight ) * magic_number;
+		double dHeight = height;
+		double dWidth = width;
 
 		// Get the tessellator
 		Tessellator tessellator = Tessellator.instance;
@@ -88,13 +95,13 @@ public abstract class ThEStateButton
 		tessellator.startDrawingQuads();
 
 		// Top left corner
-		tessellator.addVertexWithUV( xPosition, yPosition + height, this.zLevel, minU, maxV );
+		tessellator.addVertexWithUV( xPosition, yPosition + dHeight, this.zLevel, minU, maxV );
 
 		// Top right corner
-		tessellator.addVertexWithUV( xPosition + width, yPosition + height, this.zLevel, maxU, maxV );
+		tessellator.addVertexWithUV( xPosition + dWidth, yPosition + dHeight, this.zLevel, maxU, maxV );
 
 		// Bottom right corner
-		tessellator.addVertexWithUV( xPosition + width, yPosition, this.zLevel, maxU, minV );
+		tessellator.addVertexWithUV( xPosition + dWidth, yPosition, this.zLevel, maxU, minV );
 
 		// Bottom left corner
 		tessellator.addVertexWithUV( xPosition, yPosition, this.zLevel, minU, minV );
@@ -140,7 +147,8 @@ public abstract class ThEStateButton
 		minecraftInstance.getTextureManager().bindTexture( icon.getTexture() );
 
 		// Draw the icon
-		this.drawScaledTexturedModalRect( xPos, yPos, icon.getU(), icon.getV(), iconWidth, iconHeight, icon.getWidth(), icon.getHeight() );
+		this.drawScaledTexturedModalRect( xPos + this.iconXOffset, yPos + this.iconYOffset, icon.getU(), icon.getV(), iconWidth, iconHeight,
+			icon.getWidth(), icon.getHeight() );
 	}
 
 	@Override
