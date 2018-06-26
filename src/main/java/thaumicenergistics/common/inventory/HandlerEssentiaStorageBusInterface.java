@@ -71,7 +71,7 @@ class HandlerEssentiaStorageBusInterface
 	public boolean canAccept( final IAEFluidStack fluidStack )
 	{
 		// Is the fluid an essentia gas?
-		if( this.isFluidEssentiaGas( fluidStack ) )
+		if( HandlerEssentiaStorageBusBase.isFluidEssentiaGas( fluidStack ) )
 		{
 			// Pass to handler
 			if( this.handler != null )
@@ -90,7 +90,7 @@ class HandlerEssentiaStorageBusInterface
 	public IAEFluidStack extractItems( final IAEFluidStack request, final Actionable mode, final BaseActionSource source )
 	{
 		// Is the fluid an essentia gas?
-		if( this.isFluidEssentiaGas( request ) )
+		if( HandlerEssentiaStorageBusBase.isFluidEssentiaGas( request ) )
 		{
 			if( this.handler != null )
 			{
@@ -118,7 +118,7 @@ class HandlerEssentiaStorageBusInterface
 			for( IAEFluidStack fluid : subGridFluids )
 			{
 				// Is the fluid as essentia gas?
-				if( this.isFluidEssentiaGas( fluid ) )
+				if( HandlerEssentiaStorageBusBase.isFluidEssentiaGas( fluid ) )
 				{
 					// Add to the output list
 					out.add( fluid );
@@ -137,7 +137,7 @@ class HandlerEssentiaStorageBusInterface
 	public IAEFluidStack injectItems( final IAEFluidStack input, final Actionable mode, final BaseActionSource source )
 	{
 		// Is the fluid an essentia gas?
-		if( this.isFluidEssentiaGas( input ) )
+		if( HandlerEssentiaStorageBusBase.isFluidEssentiaGas( input ) )
 		{
 			if( this.handler != null )
 			{
@@ -172,7 +172,7 @@ class HandlerEssentiaStorageBusInterface
 			{
 				this.partStorageBus.getGridBlock().getGrid().postEvent( new MENetworkCellArrayUpdate() );
 			}
-			catch( Exception e )
+			catch(@SuppressWarnings("unused") Exception e )
 			{
 
 			}
@@ -221,7 +221,7 @@ class HandlerEssentiaStorageBusInterface
 			{
 				this.partStorageBus.getGridBlock().getGrid().postEvent( new MENetworkCellArrayUpdate() );
 			}
-			catch( Exception e )
+			catch(@SuppressWarnings("unused") Exception e )
 			{
 
 			}
@@ -313,7 +313,7 @@ class HandlerEssentiaStorageBusInterface
 				}
 			}
 		}
-		catch( Exception e )
+		catch(@SuppressWarnings("unused") Exception e )
 		{
 
 		}

@@ -93,6 +93,8 @@ public class Packet_S_Priority
 			// Read the priority
 			this.priority = stream.readInt();
 			break;
+		default:
+			break;
 		}
 	}
 
@@ -105,6 +107,8 @@ public class Packet_S_Priority
 		case Packet_S_Priority.MODE_ADJUST:
 			// Write the priority
 			stream.writeInt( this.priority );
+			break;
+		default:
 			break;
 		}
 
@@ -140,6 +144,8 @@ public class Packet_S_Priority
 		case Packet_S_Priority.MODE_REQUEST:
 			// Request the priority
 			( (ContainerPriority)this.player.openContainer ).onClientRequestPriority();
+			break;
+		default:
 			break;
 		}
 	}

@@ -13,15 +13,15 @@ public class ClassTransformer_GuiMEMonitorable
 		super( "appeng.client.gui.implementations.GuiMEMonitorable" );
 	}
 
-	private void transformPostUpdate( final MethodNode method )
+	private static void transformPostUpdate( final MethodNode method )
 	{
 		// Search for:
 		// for( final IAEItemStack is : list )
 		int opSequence[] = new int[] { Opcodes.IFEQ, Opcodes.ALOAD, Opcodes.INVOKEINTERFACE, Opcodes.CHECKCAST, Opcodes.ASTORE };
-		AbstractInsnNode insertionPoint = this.findSequence( method.instructions, opSequence, true );
+		AbstractInsnNode insertionPoint = AClassTransformer.findSequence( method.instructions, opSequence, true );
 
 		// Get the end of loop jump
-		JumpInsnNode EOL_Jump = (JumpInsnNode)this.findNextOpCode( insertionPoint, Opcodes.GOTO );
+		JumpInsnNode EOL_Jump = (JumpInsnNode)AClassTransformer.findNextOpCode( insertionPoint, Opcodes.GOTO );
 
 		// Insert hook:
 		// if( AEHooks.isItemGUIBlacklisted( is ) ) continue;
@@ -57,7 +57,7 @@ public class ClassTransformer_GuiMEMonitorable
 			// Constructor
 			if( method.name.equals( "postUpdate" ) )
 			{
-				this.transformPostUpdate( method );
+				ClassTransformer_GuiMEMonitorable.transformPostUpdate( method );
 				return; // Stop searching.
 			}
 		}

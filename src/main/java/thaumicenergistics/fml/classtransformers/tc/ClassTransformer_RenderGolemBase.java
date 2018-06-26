@@ -23,10 +23,10 @@ public class ClassTransformer_RenderGolemBase
 		super( "thaumcraft.client.renderers.entity.RenderGolemBase" );
 	}
 
-	private void transformMethod_Render( final MethodNode method )
+	private static void transformMethod_Render( final MethodNode method )
 	{
 		// Find the return
-		AbstractInsnNode insertionPoint = this.findLastOpCode( method.instructions, Opcodes.RETURN );
+		AbstractInsnNode insertionPoint = AClassTransformer.findLastOpCode( method.instructions, Opcodes.RETURN );
 
 		// Insert the hook
 		// GolemHooks.hook_RenderGolem( e, e.hookHandlers, par2, par4, par6, par9 )
@@ -76,7 +76,7 @@ public class ClassTransformer_RenderGolemBase
 			if( method.name.equals( "render" ) )
 			{
 				// Render
-				this.transformMethod_Render( method );
+				ClassTransformer_RenderGolemBase.transformMethod_Render( method );
 				break; // Stop searching.
 			}
 		}

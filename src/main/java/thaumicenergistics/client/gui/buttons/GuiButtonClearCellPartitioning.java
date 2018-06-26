@@ -40,7 +40,7 @@ public class GuiButtonClearCellPartitioning
 	public void getTooltip( final List<String> tooltip )
 	{
 		// Add the info
-		this.addAboutToTooltip( tooltip, StatCollector.translateToLocal( "gui.tooltips.appliedenergistics2.Clear" ),
+		ThEStateButton.addAboutToTooltip( tooltip, StatCollector.translateToLocal( "gui.tooltips.appliedenergistics2.Clear" ),
 			StatCollector.translateToLocal( "gui.tooltips.appliedenergistics2.ClearSettings" ) );
 	}
 }

@@ -165,7 +165,7 @@ public class ContainerEssentiaCell
 		{
 			return this.hostChest.getActionableNode().getGrid();
 		}
-		catch( Exception e )
+		catch( @SuppressWarnings("unused") Exception e )
 		{
 			return null;
 		}
@@ -198,9 +198,9 @@ public class ContainerEssentiaCell
 				return new EssentiaMonitor( (IMEMonitor<IAEFluidStack>)handler, this.hostChest.getProxy().getEnergy(), this );
 			}
 		}
-		catch( Exception e )
+		catch( @SuppressWarnings("unused") Exception e )
 		{
-			e.printStackTrace();
+
 		}
 
 		return null;

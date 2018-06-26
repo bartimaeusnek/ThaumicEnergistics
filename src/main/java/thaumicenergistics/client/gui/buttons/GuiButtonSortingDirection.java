@@ -26,7 +26,7 @@ public class GuiButtonSortingDirection
 	@Override
 	public void getTooltip( final List<String> tooltip )
 	{
-		this.addAboutToTooltip( tooltip, StatCollector.translateToLocal( "gui.tooltips.appliedenergistics2.SortOrder" ),
+		ThEStateButton.addAboutToTooltip( tooltip, StatCollector.translateToLocal( "gui.tooltips.appliedenergistics2.SortOrder" ),
 			StatCollector.translateToLocal( "gui.tooltips.appliedenergistics2.ToggleSortDirection" ) );
 	}
 
@@ -40,6 +40,8 @@ public class GuiButtonSortingDirection
 
 		case DESCENDING:
 			this.stateIcon = AEStateIconsEnum.SORT_DIR_DEC;
+			break;
+		default:
 			break;
 		}
 	}

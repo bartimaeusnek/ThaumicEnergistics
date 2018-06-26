@@ -19,10 +19,10 @@ public class ClassTransformer_CraftingTreeProcess
 		super( "appeng.crafting.CraftingTreeProcess" );
 	}
 
-	private void transformConstructor( final MethodNode method )
+	private static void transformConstructor( final MethodNode method )
 	{
 		int opSequence[] = new int[] { Opcodes.ILOAD, Opcodes.PUTFIELD, Opcodes.ALOAD, Opcodes.INVOKEVIRTUAL, Opcodes.ASTORE };
-		AbstractInsnNode insertionPoint = this.findSequence( method.instructions, opSequence, true );
+		AbstractInsnNode insertionPoint = AClassTransformer.findSequence( method.instructions, opSequence, true );
 
 		// Insert this.world = world
 		InsnList instructionList = new InsnList();
@@ -45,7 +45,7 @@ public class ClassTransformer_CraftingTreeProcess
 	@Override
 	protected void onTransformFailure()
 	{
-		this.log( "Recipes containing Thaumcraft's primordial pearl will not function with AE2's crafting system." );
+		AClassTransformer.log( "Recipes containing Thaumcraft's primordial pearl will not function with AE2's crafting system." );
 	}
 
 	@Override
@@ -57,7 +57,7 @@ public class ClassTransformer_CraftingTreeProcess
 			// Constructor
 			if( method.name.equals( AClassTransformer.InstanceConstructorName ) )
 			{
-				this.transformConstructor( method );
+				ClassTransformer_CraftingTreeProcess.transformConstructor( method );
 				break; // Stop searching.
 			}
 		}

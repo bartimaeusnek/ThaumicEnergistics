@@ -227,7 +227,7 @@ public class GridEssentiaCache
 	}
 
 	@MENetworkEventSubscribe
-	public void onGridCacheReady( final MENetworkPostCacheConstruction event )
+	public void onGridCacheReady( @SuppressWarnings("unused") final MENetworkPostCacheConstruction event )
 	{
 		// Get the storage grid
 		IStorageGrid storage = (IStorageGrid)this.internalGrid.getCache( IStorageGrid.class );
@@ -266,7 +266,7 @@ public class GridEssentiaCache
 				this.updateCacheToMatchNetwork();
 			}
 		}
-		catch( Exception e )
+		catch( @SuppressWarnings("unused") Exception e )
 		{
 			// Ignored
 		}

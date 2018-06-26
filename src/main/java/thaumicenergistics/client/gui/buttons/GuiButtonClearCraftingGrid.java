@@ -48,7 +48,7 @@ public class GuiButtonClearCraftingGrid
 	{
 		if( this.showTooltip )
 		{
-			this.addAboutToTooltip( tooltip, ButtonToolTips.Stash.getLocal(),
+			ThEStateButton.addAboutToTooltip( tooltip, ButtonToolTips.Stash.getLocal(),
 				EnumChatFormatting.GRAY.toString() + ButtonToolTips.StashDesc.getLocal() );
 		}
 	}

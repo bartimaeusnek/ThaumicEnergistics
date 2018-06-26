@@ -70,9 +70,7 @@ import thaumicenergistics.common.utils.EffectiveSide;
  * @author Nividica
  *
  */
-public class TileArcaneAssembler
-	extends AENetworkInvTile
-	implements ICraftingProvider, IWailaSource
+public class TileArcaneAssembler extends AENetworkInvTile implements ICraftingProvider, IWailaSource
 {
 	private class AAInv
 		extends TheInternalInventory
@@ -324,7 +322,7 @@ public class TileArcaneAssembler
 			discount = VisCraftingHelper.INSTANCE.getScepterVisModifier( primal );
 
 			// Factor in the discount armor
-			discount -= VisCraftingHelper.INSTANCE.calculateArmorDiscount( this.internalInventory, DISCOUNT_ARMOR_INDEX, 4,
+			discount -= VisCraftingHelper.calculateArmorDiscount( this.internalInventory, DISCOUNT_ARMOR_INDEX, 4,
 				primal );
 
 			this.visDiscount.put( primal, discount );
@@ -334,7 +332,7 @@ public class TileArcaneAssembler
 		this.warpPowerMultiplier = 1.0F;
 
 		// Calculate warp power multiplier
-		this.warpPowerMultiplier += VisCraftingHelper.INSTANCE.calculateArmorWarp( this.internalInventory, DISCOUNT_ARMOR_INDEX, 4 ) *
+		this.warpPowerMultiplier += VisCraftingHelper.calculateArmorWarp( this.internalInventory, DISCOUNT_ARMOR_INDEX, 4 ) *
 						WARP_POWER_PERCENT;
 	}
 
@@ -391,7 +389,7 @@ public class TileArcaneAssembler
 					this.markForDelayedUpdate();
 				}
 			}
-			catch( GridAccessException e )
+			catch(@SuppressWarnings("unused") GridAccessException e )
 			{
 			}
 		}
@@ -429,7 +427,7 @@ public class TileArcaneAssembler
 					}
 				}
 			}
-			catch( GridAccessException e )
+			catch(@SuppressWarnings("unused") GridAccessException e )
 			{
 			}
 		}
@@ -524,7 +522,7 @@ public class TileArcaneAssembler
 			// Get the source
 			visSource = this.visSourceInfo.tryGetSource( this.getProxy().getGrid() );
 		}
-		catch( GridAccessException e )
+		catch(@SuppressWarnings("unused") GridAccessException e )
 		{
 		}
 
@@ -692,7 +690,7 @@ public class TileArcaneAssembler
 	}
 
 	@MENetworkEventSubscribe
-	public final void channelEvent( final MENetworkChannelsChanged event )
+	public final void channelEvent(@SuppressWarnings("unused") final MENetworkChannelsChanged event )
 	{
 		// Mark for update
 		this.markForUpdate();
@@ -702,7 +700,7 @@ public class TileArcaneAssembler
 	 * Inventory is not world accessible.
 	 */
 	@Override
-	public int[] getAccessibleSlotsBySide( final ForgeDirection whichSide )
+	public int[] getAccessibleSlotsBySide(ForgeDirection whichSide )
 	{
 		return new int[0];
 	}
@@ -846,7 +844,7 @@ public class TileArcaneAssembler
 		}
 
 		// Check basic usability
-		if( !this.internalInventory.isUseableByPlayer( player, this ) )
+		if( !TheInternalInventory.isUseableByPlayer( player, this ) )
 		{
 			return false;
 		}
@@ -860,7 +858,7 @@ public class TileArcaneAssembler
 			// Return true if the player has inject and extract permissions
 			return( ( sGrid.hasPermission( player, SecurityPermissions.INJECT ) ) && ( sGrid.hasPermission( player, SecurityPermissions.EXTRACT ) ) );
 		}
-		catch( GridAccessException e )
+		catch(@SuppressWarnings("unused") GridAccessException e )
 		{
 			return false;
 		}
@@ -1021,6 +1019,7 @@ public class TileArcaneAssembler
 	}
 
 	@TileEvent(TileEventType.NETWORK_WRITE)
+	@SuppressWarnings("unused")
 	public void onSendNetworkData( final ByteBuf stream ) throws IOException
 	{
 		// Write the active state
@@ -1088,7 +1087,7 @@ public class TileArcaneAssembler
 				// Mark they are no longer stale
 				this.stalePatterns = false;
 			}
-			catch( GridAccessException e )
+			catch(@SuppressWarnings("unused") GridAccessException e )
 			{
 			}
 		}
@@ -1137,7 +1136,7 @@ public class TileArcaneAssembler
 	}
 
 	@MENetworkEventSubscribe
-	public final void powerEvent( final MENetworkPowerStatusChange event )
+	public final void powerEvent(@SuppressWarnings("unused") final MENetworkPowerStatusChange event )
 	{
 		// Mark for update
 		this.markForUpdate();
@@ -1189,7 +1188,7 @@ public class TileArcaneAssembler
 								this.zCoord, (byte)( 10 + ( 9 * this.upgradeCount ) ), this.currentPattern.getResult() ),
 					where );
 			}
-			catch( IOException e )
+			catch(@SuppressWarnings("unused") IOException e )
 			{
 			}
 

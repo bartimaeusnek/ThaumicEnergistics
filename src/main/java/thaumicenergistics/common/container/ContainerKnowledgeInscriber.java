@@ -167,7 +167,7 @@ public class ContainerKnowledgeInscriber
 		else
 		{
 			// Get the recipe output
-			ItemStack recipeOutput = ArcaneRecipeHelper.INSTANCE.getRecipeOutput( this.internalInventory,
+			ItemStack recipeOutput = ArcaneRecipeHelper.getRecipeOutput( this.internalInventory,
 				ContainerKnowledgeInscriber.CRAFTING_MATRIX_SLOT, ContainerKnowledgeInscriber.CRAFTING_GRID_SIZE, this.activeRecipe );
 
 			// Ensure there is an output
@@ -312,7 +312,7 @@ public class ContainerKnowledgeInscriber
 			return ingList;
 		}
 		// Is this a wildcard item?
-		else if( ( input instanceof ItemStack ) && ( ( (ItemStack)input ).getItemDamage() == OreDictionary.WILDCARD_VALUE ) )
+		else if( ( input instanceof ItemStack ) && ( ( (ItemStack)input ).getMetadata() == OreDictionary.WILDCARD_VALUE ) )
 		{
 			// Create a list to hold the users preferred item, and the wildcard item
 			ArrayList<ItemStack> ingList = new ArrayList<ItemStack>();
@@ -511,7 +511,7 @@ public class ContainerKnowledgeInscriber
 			}
 
 			// Get the aspect cost
-			AspectList recipeAspects = ArcaneRecipeHelper.INSTANCE.getRecipeAspectCost( this.internalInventory,
+			AspectList recipeAspects = ArcaneRecipeHelper.getRecipeAspectCost( this.internalInventory,
 				ContainerKnowledgeInscriber.CRAFTING_MATRIX_SLOT, ContainerKnowledgeInscriber.CRAFTING_GRID_SIZE, this.activeRecipe );
 
 			// Create the pattern
@@ -574,7 +574,7 @@ public class ContainerKnowledgeInscriber
 	public void onCraftMatrixChanged( final IInventory inv )
 	{
 		// Set the active recipe
-		this.activeRecipe = ArcaneRecipeHelper.INSTANCE.findMatchingArcaneResult( inv, ContainerKnowledgeInscriber.CRAFTING_MATRIX_SLOT,
+		this.activeRecipe = ArcaneRecipeHelper.findMatchingArcaneResult( inv, ContainerKnowledgeInscriber.CRAFTING_MATRIX_SLOT,
 			ContainerKnowledgeInscriber.CRAFTING_GRID_SIZE,
 			this.player );
 
@@ -583,7 +583,7 @@ public class ContainerKnowledgeInscriber
 		// Set the result slot
 		if( this.activeRecipe != null )
 		{
-			craftResult = ArcaneRecipeHelper.INSTANCE.getRecipeOutput( inv, ContainerKnowledgeInscriber.CRAFTING_MATRIX_SLOT,
+			craftResult = ArcaneRecipeHelper.getRecipeOutput( inv, ContainerKnowledgeInscriber.CRAFTING_MATRIX_SLOT,
 				ContainerKnowledgeInscriber.CRAFTING_GRID_SIZE, this.activeRecipe );
 		}
 

@@ -95,11 +95,13 @@ public class GuiButtonRedstoneModes
 		case SIGNAL_PULSE:
 			explanation = StatCollector.translateToLocal( TOOLTIP_LOC_HEADER + "ActiveOnPulse" );
 			break;
+		default:
+			break;
 
 		}
 
 		// Add info
-		this.addAboutToTooltip( tooltip, StatCollector.translateToLocal( TOOLTIP_LOC_HEADER + "RedstoneMode" ), explanation );
+		ThEStateButton.addAboutToTooltip( tooltip, StatCollector.translateToLocal( TOOLTIP_LOC_HEADER + "RedstoneMode" ), explanation );
 
 	}
 
@@ -130,6 +132,8 @@ public class GuiButtonRedstoneModes
 
 		case SIGNAL_PULSE:
 			this.stateIcon = AEStateIconsEnum.REDSTONE_PULSE;
+			break;
+		default:
 			break;
 		}
 	}

@@ -92,7 +92,7 @@ public class ContainerEssentiaTerminal
 		{
 			return this.terminal.getGridBlock().getGrid();
 		}
-		catch( Exception e )
+		catch( @SuppressWarnings("unused") Exception e )
 		{
 			return null;
 		}
@@ -145,7 +145,7 @@ public class ContainerEssentiaTerminal
 		TileEntity te = this.terminal.getHostTile();
 
 		// Launch the GUI
-		ThEGuiHandler.launchGui( ThEGuiHandler.AUTO_CRAFTING_AMOUNT, player, te.getWorldObj(), te.xCoord, te.yCoord, te.zCoord );
+		ThEGuiHandler.launchGui( ThEGuiHandler.AUTO_CRAFTING_AMOUNT, player, te.getWorld(), te.xCoord, te.yCoord, te.zCoord );
 
 		// Setup the amount container
 		if( player.openContainer instanceof ContainerCraftAmount )
@@ -155,7 +155,7 @@ public class ContainerEssentiaTerminal
 
 			// Create the open context
 			cca.setOpenContext( new ContainerOpenContext( te ) );
-			cca.getOpenContext().setWorld( te.getWorldObj() );
+			cca.getOpenContext().setWorld( te.getWorld() );
 			cca.getOpenContext().setX( te.xCoord );
 			cca.getOpenContext().setY( te.yCoord );
 			cca.getOpenContext().setZ( te.zCoord );

@@ -115,7 +115,7 @@ public class EssentiaMonitor
 										final GaseousEssentia essentiaGas )
 	{
 		// Create the fluid request
-		IAEFluidStack fluidRequest = EssentiaConversionHelper.INSTANCE.createAEFluidStackInEssentiaUnits( essentiaGas, amount );
+		IAEFluidStack fluidRequest = EssentiaConversionHelper.createAEFluidStackInEssentiaUnits( essentiaGas, amount );
 
 		// Inject fluid
 		IAEFluidStack fluidRejected = this.fluidMonitor.injectItems( fluidRequest, mode, source );
@@ -130,7 +130,7 @@ public class EssentiaMonitor
 			}
 
 			// Calculate the adjusted amount, essentia gas can not be stored in partial units
-			long rejectedAdjustedAmount = EssentiaConversionHelper.INSTANCE.convertFluidAmountToEssentiaAmount( fluidRejected.getStackSize() );
+			long rejectedAdjustedAmount = EssentiaConversionHelper.convertFluidAmountToEssentiaAmount( fluidRejected.getStackSize() );
 			return rejectedAdjustedAmount;
 		}
 
@@ -273,7 +273,7 @@ public class EssentiaMonitor
 	 * Updates the cache to match the contents of the network and updates any
 	 * listeners of the changes.
 	 */
-	@SuppressWarnings("null")
+
 	protected void updateCacheToMatchNetwork()
 	{
 		// Changes made to the cache
@@ -318,7 +318,7 @@ public class EssentiaMonitor
 				Aspect aspect = ( (GaseousEssentia)fluidStack.getFluid() ).getAspect();
 
 				// Calculate the new amount
-				Long newAmount = EssentiaConversionHelper.INSTANCE.convertFluidAmountToEssentiaAmount( fluidStack.getStackSize() );
+				Long newAmount = EssentiaConversionHelper.convertFluidAmountToEssentiaAmount( fluidStack.getStackSize() );
 
 				// Update the cache
 				IAspectStack prevStack = this.cache.setAspect( aspect, newAmount, false );
@@ -424,7 +424,7 @@ public class EssentiaMonitor
 		}
 
 		// Create the fluid request
-		IAEFluidStack fluidRequest = EssentiaConversionHelper.INSTANCE.createAEFluidStackInEssentiaUnits( essentiaGas, amount );
+		IAEFluidStack fluidRequest = EssentiaConversionHelper.createAEFluidStackInEssentiaUnits( essentiaGas, amount );
 
 		// Attempt the extraction
 		IAEFluidStack fluidReceived = this.fluidMonitor.extractItems( fluidRequest, mode, source );
@@ -437,7 +437,7 @@ public class EssentiaMonitor
 		}
 
 		// Convert the received fluid into an aspect stack
-		long extractedAmount = EssentiaConversionHelper.INSTANCE.convertFluidAmountToEssentiaAmount( fluidReceived.getStackSize() );
+		long extractedAmount = EssentiaConversionHelper.convertFluidAmountToEssentiaAmount( fluidReceived.getStackSize() );
 
 		// Extract power if modulating
 		if( ( powered ) && ( mode == Actionable.MODULATE ) )
@@ -629,7 +629,7 @@ public class EssentiaMonitor
 				Aspect aspect = ( (GaseousEssentia)change.getFluid() ).getAspect();
 
 				// Calculate the difference
-				long changeAmount = EssentiaConversionHelper.INSTANCE.convertFluidAmountToEssentiaAmount( change.getStackSize() );
+				long changeAmount = EssentiaConversionHelper.convertFluidAmountToEssentiaAmount( change.getStackSize() );
 
 				// Update the cache
 				IAspectStack previous = this.cache.postChange( aspect, changeAmount, null );

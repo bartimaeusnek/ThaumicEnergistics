@@ -48,7 +48,7 @@ public class FeatureCells
 	 * @param ingredient
 	 * @param group
 	 */
-	private void replaceRecipeIngredientWithGroup( final ShapedArcaneRecipe recipe, final ItemStack ingredient, final ArrayList<ItemStack> group )
+	private static void replaceRecipeIngredientWithGroup( final ShapedArcaneRecipe recipe, final ItemStack ingredient, final ArrayList<ItemStack> group )
 	{
 		// Get the input
 		Object[] input = recipe.getInput();
@@ -151,7 +151,7 @@ public class FeatureCells
 						EssentiaCell_Housing ) );
 
 		// Replace regular certus quartz with any of the certus quartz variants in the 1K storage component
-		this.replaceRecipeIngredientWithGroup( (ShapedArcaneRecipe)RecipeRegistry.ITEM_STORAGE_COMPONENT_1K, cdi.CertusQuartz, GroupQuartz );
+		FeatureCells.replaceRecipeIngredientWithGroup( (ShapedArcaneRecipe)RecipeRegistry.ITEM_STORAGE_COMPONENT_1K, cdi.CertusQuartz, GroupQuartz );
 
 		// 4K ===================================================
 

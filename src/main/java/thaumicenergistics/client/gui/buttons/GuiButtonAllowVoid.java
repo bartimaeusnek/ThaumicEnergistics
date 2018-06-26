@@ -31,7 +31,7 @@ public class GuiButtonAllowVoid
 	/**
 	 * Cache the font renderer
 	 */
-	private static final FontRenderer FONT_RENDERER = Minecraft.getMinecraft().fontRenderer;
+	private static final FontRenderer FONT_RENDERER = Minecraft.getMinecraft().fontRendererObj;
 
 	/**
 	 * Height and width of the button

@@ -23,12 +23,12 @@ public class ClassTransformer_ItemGolemBell
 		super( "thaumcraft.common.entities.golems.ItemGolemBell" );
 	}
 
-	private void transformMethod_OnLeftClickEntity( final MethodNode method )
+	private static void transformMethod_OnLeftClickEntity( final MethodNode method )
 	{
 		int opSequence[] = new int[] { Opcodes.GETSTATIC, Opcodes.ICONST_1, Opcodes.ILOAD, Opcodes.INVOKESPECIAL, Opcodes.ASTORE };
 
 		// Locate the sequence
-		AbstractInsnNode insertionPoint = this.findSequence( method.instructions, opSequence, true );
+		AbstractInsnNode insertionPoint = AClassTransformer.findSequence( method.instructions, opSequence, true );
 
 		// Insert the hook
 		// GolemHooks.hook_Bell_OnLeftClickGolem( entity, dropped, player, ((EntityGolemBase)entity).hookHandlers )
@@ -74,7 +74,7 @@ public class ClassTransformer_ItemGolemBell
 			// Left click entity
 			if( method.name.equals( "onLeftClickEntity" ) )
 			{
-				this.transformMethod_OnLeftClickEntity( method );
+				ClassTransformer_ItemGolemBell.transformMethod_OnLeftClickEntity( method );
 				return; // Stop searching.
 			}
 		}

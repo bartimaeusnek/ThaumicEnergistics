@@ -66,6 +66,8 @@ public class TileAsItemRenderer
 		case FIRST_PERSON_MAP:
 		case EQUIPPED:
 			break;
+		default:
+			break;
 		}
 
 		// Render the entity

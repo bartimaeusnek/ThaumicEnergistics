@@ -268,6 +268,8 @@ public class GolemHooks
 				needsSync = true;
 				needsSetup = true;
 				break;
+			default:
+				break;
 			}
 
 			// Handled, dont show the GUI
@@ -347,7 +349,7 @@ public class GolemHooks
 					GolemHooks.DATAWATCHER_ID = i;
 					return;
 				}
-				catch( IllegalArgumentException e )
+				catch(@SuppressWarnings("unused") IllegalArgumentException e )
 				{
 				}
 			}
@@ -364,7 +366,7 @@ public class GolemHooks
 			{
 				watcher.addObject( GolemHooks.DATAWATCHER_ID, localRegistry.mappingsToString() );
 			}
-			catch( Exception e )
+			catch(@SuppressWarnings("unused") Exception e )
 			{
 				localRegistry.markDirty();
 			}
@@ -407,14 +409,14 @@ public class GolemHooks
 					{
 						golem.getDataWatcher().updateObject( GolemHooks.DATAWATCHER_ID, syncRegistry.mappingsToString() );
 					}
-					catch( NullPointerException e1 )
+					catch(@SuppressWarnings("unused") NullPointerException e1 )
 					{
 
 						try
 						{
 							golem.getDataWatcher().addObject( GolemHooks.DATAWATCHER_ID, syncRegistry.mappingsToString() );
 						}
-						catch( Exception e2 )
+						catch(@SuppressWarnings("unused") Exception e2 )
 						{
 							syncRegistry.markDirty();
 						}
@@ -449,7 +451,7 @@ public class GolemHooks
 					return;
 				}
 			}
-			catch( Exception e )
+			catch(@SuppressWarnings("unused") Exception e )
 			{
 				return;
 			}
@@ -651,7 +653,7 @@ public class GolemHooks
 			{
 				golem.getDataWatcher().updateObject( GolemHooks.DATAWATCHER_ID, localRegistry.mappingsToString() );
 			}
-			catch( NullPointerException e )
+			catch(@SuppressWarnings("unused") NullPointerException e )
 			{
 				localRegistry.markDirty();
 			}

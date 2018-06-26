@@ -14,22 +14,18 @@ import thaumicenergistics.common.parts.PartEssentiaImportBus;
 import thaumicenergistics.common.registries.EnumCache;
 
 /**
- * {@link PartEssentiaImportBus}, {@link PartEssentiaExportBus} client-bound packet.
+ * {@link PartEssentiaImportBus}, {@link PartEssentiaExportBus} client-bound
+ * packet.
  *
  * @author Nividica
  *
  */
-public class Packet_C_EssentiaIOBus
-	extends ThEClientPacket
-{
+public class Packet_C_EssentiaIOBus extends ThEClientPacket {
 	/**
 	 * Packet modes.
 	 */
-	private static final byte MODE_SET_REDSTONE_CONTROLLED = 0,
-					MODE_SET_REDSTONE_MODE = 1,
-					MODE_SET_FILTER_SIZE = 2,
-					MODE_SEND_FULL_UPDATE = 3,
-					MODE_SEND_VOID_MODE = 4;
+	private static final byte MODE_SET_REDSTONE_CONTROLLED = 0, MODE_SET_REDSTONE_MODE = 1, MODE_SET_FILTER_SIZE = 2,
+			MODE_SEND_FULL_UPDATE = 3, MODE_SEND_VOID_MODE = 4;
 
 	private RedstoneMode redstoneMode;
 
@@ -44,10 +40,9 @@ public class Packet_C_EssentiaIOBus
 	 * @param mode
 	 * @return
 	 */
-	private static Packet_C_EssentiaIOBus newPacket( final EntityPlayer player, final byte mode )
-	{
+	private static Packet_C_EssentiaIOBus newPacket(final EntityPlayer player, final byte mode) {
 		// Create the packet
-		Packet_C_EssentiaIOBus packet = new Packet_C_EssentiaIOBus();
+		final Packet_C_EssentiaIOBus packet = new Packet_C_EssentiaIOBus();
 
 		// Set the player & mode
 		packet.player = player;
@@ -56,10 +51,10 @@ public class Packet_C_EssentiaIOBus
 		return packet;
 	}
 
-	public static void sendBusState(	final EntityPlayer player, final RedstoneMode redstoneMode, final byte filterSize,
-										final boolean redstoneControlled )
-	{
-		Packet_C_EssentiaIOBus packet = newPacket( player, MODE_SEND_FULL_UPDATE );
+	public static void sendBusState(final EntityPlayer player, final RedstoneMode redstoneMode, final byte filterSize,
+			final boolean redstoneControlled) {
+		final Packet_C_EssentiaIOBus packet = Packet_C_EssentiaIOBus.newPacket(player,
+				Packet_C_EssentiaIOBus.MODE_SEND_FULL_UPDATE);
 
 		// Set the redstone mode
 		packet.redstoneMode = redstoneMode;
@@ -71,7 +66,7 @@ public class Packet_C_EssentiaIOBus
 		packet.redstoneControlled = redstoneControlled;
 
 		// Send it
-		NetworkHandler.sendPacketToClient( packet );
+		NetworkHandler.sendPacketToClient(packet);
 	}
 
 	/**
@@ -81,34 +76,34 @@ public class Packet_C_EssentiaIOBus
 	 * @param filterSize
 	 * @return
 	 */
-	public static void sendFilterSize( final EntityPlayer player, final byte filterSize )
-	{
-		Packet_C_EssentiaIOBus packet = newPacket( player, MODE_SET_FILTER_SIZE );
+	public static void sendFilterSize(final EntityPlayer player, final byte filterSize) {
+		final Packet_C_EssentiaIOBus packet = Packet_C_EssentiaIOBus.newPacket(player,
+				Packet_C_EssentiaIOBus.MODE_SET_FILTER_SIZE);
 
 		// Set the filter size
 		packet.filterSize = filterSize;
 
 		// Send it
-		NetworkHandler.sendPacketToClient( packet );
+		NetworkHandler.sendPacketToClient(packet);
 	}
 
 	/**
-	 * Create a packet to update the client whether the bus is controlled
-	 * by redstone or not.
+	 * Create a packet to update the client whether the bus is controlled by
+	 * redstone or not.
 	 *
 	 * @param player
 	 * @param redstoneControlled
 	 * @return
 	 */
-	public static void sendRedstoneControlled( final EntityPlayer player, final boolean redstoneControlled )
-	{
-		Packet_C_EssentiaIOBus packet = newPacket( player, MODE_SET_REDSTONE_CONTROLLED );
+	public static void sendRedstoneControlled(final EntityPlayer player, final boolean redstoneControlled) {
+		final Packet_C_EssentiaIOBus packet = Packet_C_EssentiaIOBus.newPacket(player,
+				Packet_C_EssentiaIOBus.MODE_SET_REDSTONE_CONTROLLED);
 
 		// Set controlled
 		packet.redstoneControlled = redstoneControlled;
 
 		// Send it
-		NetworkHandler.sendPacketToClient( packet );
+		NetworkHandler.sendPacketToClient(packet);
 	}
 
 	/**
@@ -118,15 +113,15 @@ public class Packet_C_EssentiaIOBus
 	 * @param redstoneMode
 	 * @return
 	 */
-	public static void sendRedstoneMode( final EntityPlayer player, final RedstoneMode redstoneMode )
-	{
-		Packet_C_EssentiaIOBus packet = newPacket( player, MODE_SET_REDSTONE_MODE );
+	public static void sendRedstoneMode(final EntityPlayer player, final RedstoneMode redstoneMode) {
+		final Packet_C_EssentiaIOBus packet = Packet_C_EssentiaIOBus.newPacket(player,
+				Packet_C_EssentiaIOBus.MODE_SET_REDSTONE_MODE);
 
 		// Set the redstone mode
 		packet.redstoneMode = redstoneMode;
 
 		// Send it
-		NetworkHandler.sendPacketToClient( packet );
+		NetworkHandler.sendPacketToClient(packet);
 	}
 
 	/**
@@ -136,137 +131,136 @@ public class Packet_C_EssentiaIOBus
 	 * @param isVoidAllowed
 	 * @return
 	 */
-	public static void sendVoidMode( final EntityPlayer player, final boolean isVoidAllowed )
-	{
-		Packet_C_EssentiaIOBus packet = newPacket( player, MODE_SEND_VOID_MODE );
+	public static void sendVoidMode(final EntityPlayer player, final boolean isVoidAllowed) {
+		final Packet_C_EssentiaIOBus packet = Packet_C_EssentiaIOBus.newPacket(player,
+				Packet_C_EssentiaIOBus.MODE_SEND_VOID_MODE);
 
 		// Set the void mode
 		packet.isVoidAllowed = isVoidAllowed;
 
 		// Send it
-		NetworkHandler.sendPacketToClient( packet );
+		NetworkHandler.sendPacketToClient(packet);
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	protected void wrappedExecute()
-	{
+	protected void wrappedExecute() {
 		// Get the gui
-		Gui gui = Minecraft.getMinecraft().currentScreen;
+		final Gui gui = Minecraft.getMinecraft().currentScreen;
 
 		// Ensure the gui is a GuiEssentiaIO
-		if( !( gui instanceof GuiEssentiaIO ) )
-		{
+		if (!(gui instanceof GuiEssentiaIO)) {
 			return;
 		}
 
-		switch ( this.mode )
-		{
+		switch (mode) {
 		case Packet_C_EssentiaIOBus.MODE_SET_REDSTONE_CONTROLLED:
 			// Set redstone controlled
-			( (GuiEssentiaIO)gui ).onReceiveRedstoneControlled( this.redstoneControlled );
+			((GuiEssentiaIO) gui).onReceiveRedstoneControlled(redstoneControlled);
 			break;
 
 		case Packet_C_EssentiaIOBus.MODE_SET_REDSTONE_MODE:
 			// Set redstone mode
-			( (GuiEssentiaIO)gui ).onReceiveRedstoneMode( this.redstoneMode );
+			((GuiEssentiaIO) gui).onReceiveRedstoneMode(redstoneMode);
 			break;
 
 		case Packet_C_EssentiaIOBus.MODE_SET_FILTER_SIZE:
 			// Set filter size
-			( (GuiEssentiaIO)gui ).onReceiveFilterSize( this.filterSize );
+			((GuiEssentiaIO) gui).onReceiveFilterSize(filterSize);
 			break;
 
 		case Packet_C_EssentiaIOBus.MODE_SEND_FULL_UPDATE:
 			// Set redstone mode
-			( (GuiEssentiaIO)gui ).onReceiveRedstoneMode( this.redstoneMode );
+			((GuiEssentiaIO) gui).onReceiveRedstoneMode(redstoneMode);
 
 			// Set redstone controlled
-			( (GuiEssentiaIO)gui ).onReceiveRedstoneControlled( this.redstoneControlled );
+			((GuiEssentiaIO) gui).onReceiveRedstoneControlled(redstoneControlled);
 
 			// Set filter size
-			( (GuiEssentiaIO)gui ).onReceiveFilterSize( this.filterSize );
+			((GuiEssentiaIO) gui).onReceiveFilterSize(filterSize);
 			break;
 
 		case Packet_C_EssentiaIOBus.MODE_SEND_VOID_MODE:
 			// Set void mode
-			( (GuiEssentiaIO)gui ).onServerSendVoidMode( this.isVoidAllowed );
+			((GuiEssentiaIO) gui).onServerSendVoidMode(isVoidAllowed);
+			break;
+		default:
 			break;
 		}
 	}
 
 	@Override
-	public void readData( final ByteBuf stream )
-	{
-		switch ( this.mode )
-		{
+	public void readData(final ByteBuf stream) {
+		switch (mode) {
 		case Packet_C_EssentiaIOBus.MODE_SET_REDSTONE_CONTROLLED:
 			// Read redstone controlled
-			this.redstoneControlled = stream.readBoolean();
+			redstoneControlled = stream.readBoolean();
 			break;
 
 		case Packet_C_EssentiaIOBus.MODE_SET_REDSTONE_MODE:
 			// Read the redstone mode ordinal
-			this.redstoneMode = EnumCache.AE_REDSTONE_MODES[stream.readByte()];
+			redstoneMode = EnumCache.AE_REDSTONE_MODES[stream.readByte()];
 			break;
 
 		case Packet_C_EssentiaIOBus.MODE_SET_FILTER_SIZE:
 			// Read the filter size
-			this.filterSize = stream.readByte();
+			filterSize = stream.readByte();
 			break;
 
 		case Packet_C_EssentiaIOBus.MODE_SEND_FULL_UPDATE:
 			// Read redstone controlled
-			this.redstoneControlled = stream.readBoolean();
+			redstoneControlled = stream.readBoolean();
 
 			// Read the redstone mode ordinal
-			this.redstoneMode = EnumCache.AE_REDSTONE_MODES[stream.readByte()];
+			redstoneMode = EnumCache.AE_REDSTONE_MODES[stream.readByte()];
 
 			// Read the filter size
-			this.filterSize = stream.readByte();
+			filterSize = stream.readByte();
 			break;
 
 		case Packet_C_EssentiaIOBus.MODE_SEND_VOID_MODE:
 			// Read void mode
-			this.isVoidAllowed = stream.readBoolean();
+			isVoidAllowed = stream.readBoolean();
+			break;
+		default:
 			break;
 		}
 	}
 
 	@Override
-	public void writeData( final ByteBuf stream )
-	{
-		switch ( this.mode )
-		{
+	public void writeData(final ByteBuf stream) {
+		switch (mode) {
 		case Packet_C_EssentiaIOBus.MODE_SET_REDSTONE_CONTROLLED:
 			// Write redstone controlled
-			stream.writeBoolean( this.redstoneControlled );
+			stream.writeBoolean(redstoneControlled);
 			break;
 
 		case Packet_C_EssentiaIOBus.MODE_SET_REDSTONE_MODE:
 			// Write the redstone mode ordinal
-			stream.writeByte( (byte)this.redstoneMode.ordinal() );
+			stream.writeByte((byte) redstoneMode.ordinal());
 			break;
 
 		case Packet_C_EssentiaIOBus.MODE_SET_FILTER_SIZE:
 			// Write the filter size
-			stream.writeByte( this.filterSize );
+			stream.writeByte(filterSize);
 			break;
 
 		case Packet_C_EssentiaIOBus.MODE_SEND_FULL_UPDATE:
 			// Write redstone controlled
-			stream.writeBoolean( this.redstoneControlled );
+			stream.writeBoolean(redstoneControlled);
 
 			// Write the redstone mode ordinal
-			stream.writeByte( (byte)this.redstoneMode.ordinal() );
+			stream.writeByte((byte) redstoneMode.ordinal());
 
 			// Write the filter size
-			stream.writeByte( this.filterSize );
+			stream.writeByte(filterSize);
 			break;
 
 		case Packet_C_EssentiaIOBus.MODE_SEND_VOID_MODE:
 			// Write void mode
-			stream.writeBoolean( this.isVoidAllowed );
+			stream.writeBoolean(isVoidAllowed);
+			break;
+		default:
 			break;
 
 		}

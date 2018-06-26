@@ -42,7 +42,8 @@ public class RenderTileArcaneAssembler
 	 */
 	private final Block assemblerBlock = ThEApi.instance().blocks().ArcaneAssembler.getBlock();
 
-	private void renderAssembler( final TileArcaneAssembler assemblerTile, final World world, final int x, final int y, final int z )
+	@SuppressWarnings("unused")
+	private void renderAssembler(final TileArcaneAssembler assemblerTile, final World world, final int x, final int y, final int z )
 	{
 		// Ensure there is a world object
 		if( world != null )
@@ -101,7 +102,7 @@ public class RenderTileArcaneAssembler
 		TileArcaneAssembler assemblerTile = (TileArcaneAssembler)tileEntity;
 
 		// Render the gearbox
-		this.renderAssembler( assemblerTile, tileEntity.getWorldObj(), tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord );
+		this.renderAssembler( assemblerTile, tileEntity.getWorld(), tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord );
 
 		// Pop the GL matrix
 		GL11.glPopMatrix();

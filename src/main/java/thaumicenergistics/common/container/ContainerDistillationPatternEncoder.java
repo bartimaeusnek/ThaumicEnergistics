@@ -300,7 +300,7 @@ public class ContainerDistillationPatternEncoder
 		}
 
 		// Generate hash
-		int hash = ScanManager.generateItemHash( this.cachedSource.getItem(), this.cachedSource.getItemDamage() );
+		int hash = ScanManager.generateItemHash( this.cachedSource.getItem(), this.cachedSource.getMetadata() );
 
 		// Get the list of scanned objects
 		List<String> list = Thaumcraft.proxy.getScannedObjects().get( this.player.getCommandSenderName() );

@@ -29,7 +29,7 @@ public abstract class ThETileInventory
 	}
 
 	@Override
-	public void closeInventory()
+	public void closeChest()
 	{
 	}
 
@@ -70,15 +70,15 @@ public abstract class ThETileInventory
 	}
 
 	@Override
-	public boolean hasCustomInventoryName()
+	public boolean isCustomInventoryName()
 	{
-		return this.internalInventory.hasCustomInventoryName();
+		return this.internalInventory.isCustomInventoryName();
 	}
 
 	@Override
 	public boolean isUseableByPlayer( final EntityPlayer player )
 	{
-		return this.internalInventory.isUseableByPlayer( player, this );
+		return TheInternalInventory.isUseableByPlayer( player, this );
 	}
 
 	@Override
@@ -88,7 +88,7 @@ public abstract class ThETileInventory
 	}
 
 	@Override
-	public void openInventory()
+	public void openChest()
 	{
 	}
 

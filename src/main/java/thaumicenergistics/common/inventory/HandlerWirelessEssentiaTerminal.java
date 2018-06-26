@@ -1,6 +1,7 @@
 package thaumicenergistics.common.inventory;
 
 import java.util.Set;
+
 import appeng.api.config.Actionable;
 import appeng.api.config.PowerMultiplier;
 import appeng.api.config.ViewItems;
@@ -31,6 +32,7 @@ import thaumicenergistics.common.network.packet.server.Packet_S_ChangeGui;
 import thaumicenergistics.common.registries.EnumCache;
 import thaumicenergistics.common.storage.AspectStackComparator.AspectStackComparatorMode;
 import thaumicenergistics.common.utils.EffectiveSide;
+import thaumicenergistics.common.utils.ThELog;
 
 /**
  * Handles an {@link ItemWirelessEssentiaTerminal}
@@ -38,139 +40,117 @@ import thaumicenergistics.common.utils.EffectiveSide;
  * @author Nividica
  *
  */
-public class HandlerWirelessEssentiaTerminal
-	extends WirelessAELink
-	implements IActionHost, ICraftingIssuerHost, IGuiItemObject
-{
+public class HandlerWirelessEssentiaTerminal extends WirelessAELink
+		implements IActionHost, ICraftingIssuerHost, IGuiItemObject {
 	/**
 	 * Redirects power requests to the wireless terminal.
 	 *
 	 * @author Nividica
 	 *
 	 */
-	private class PowerRedirector
-		implements IEnergyGrid
-	{
+	private class PowerRedirector implements IEnergyGrid {
 
-		public PowerRedirector()
-		{
+		public PowerRedirector() {
 		}
 
 		@Override
-		public void addNode( final IGridNode gridNode, final IGridHost machine )
-		{
+		public void addNode(final IGridNode gridNode, final IGridHost machine) {
 			// Ignored
 		}
 
 		@Override
-		public double extractAEPower( final double amt, final Actionable mode, final PowerMultiplier usePowerMultiplier )
-		{
-			return HandlerWirelessEssentiaTerminal.this.extractPower( amt, mode );
+		public double extractAEPower(final double amt, final Actionable mode,
+				final PowerMultiplier usePowerMultiplier) {
+			return extractPower(amt, mode);
 		}
 
 		@Override
-		public double extractAEPower( final double amt, final Actionable mode, final Set<IEnergyGrid> seen )
-		{
-			return HandlerWirelessEssentiaTerminal.this.extractPower( amt, mode );
+		public double extractAEPower(final double amt, final Actionable mode, final Set<IEnergyGrid> seen) {
+			return extractPower(amt, mode);
 		}
 
 		@Override
-		public double getAvgPowerInjection()
-		{
+		public double getAvgPowerInjection() {
 			// Ignored
 			return 0;
 		}
 
 		@Override
-		public double getAvgPowerUsage()
-		{
+		public double getAvgPowerUsage() {
 			// Ignored
 			return 0;
 		}
 
 		@Override
-		public double getEnergyDemand( final double maxRequired )
-		{
+		public double getEnergyDemand(final double maxRequired) {
 			// Ignored
 			return 0;
 		}
 
 		@Override
-		public double getEnergyDemand( final double d, final Set<IEnergyGrid> seen )
-		{
+		public double getEnergyDemand(final double d, final Set<IEnergyGrid> seen) {
 			// Ignored
 			return 0;
 		}
 
 		@Override
-		public double getIdlePowerUsage()
-		{
+		public double getIdlePowerUsage() {
 			// Ignored
 			return 0;
 		}
 
 		@Override
-		public double getMaxStoredPower()
-		{
+		public double getMaxStoredPower() {
 			// Ignored
 			return 0;
 		}
 
 		@Override
-		public double getStoredPower()
-		{
+		public double getStoredPower() {
 			// Ignored
 			return 0;
 		}
 
 		@Override
-		public double injectAEPower( final double amt, final Actionable mode, final Set<IEnergyGrid> seen )
-		{
+		public double injectAEPower(final double amt, final Actionable mode, final Set<IEnergyGrid> seen) {
 			// Ignored
 			return amt;
 		}
 
 		@Override
-		public double injectPower( final double amt, final Actionable mode )
-		{
+		public double injectPower(final double amt, final Actionable mode) {
 			// Ignored
 			return amt;
 		}
 
 		@Override
-		public boolean isNetworkPowered()
-		{
+		public boolean isNetworkPowered() {
 			// Ignored
 			return true;
 		}
 
 		@Override
-		public void onJoin( final IGridStorage sourceStorage )
-		{
+		public void onJoin(final IGridStorage sourceStorage) {
 			// Ignored
 		}
 
 		@Override
-		public void onSplit( final IGridStorage destinationStorage )
-		{
+		public void onSplit(final IGridStorage destinationStorage) {
 			// Ignored
 		}
 
 		@Override
-		public void onUpdateTick()
-		{
+		public void onUpdateTick() {
 			// Ignored
 		}
 
 		@Override
-		public void populateGridStorage( final IGridStorage destinationStorage )
-		{
+		public void populateGridStorage(final IGridStorage destinationStorage) {
 			// Ignored
 		}
 
 		@Override
-		public void removeNode( final IGridNode gridNode, final IGridHost machine )
-		{
+		public void removeNode(final IGridNode gridNode, final IGridHost machine) {
 			// Ignored
 		}
 
@@ -196,18 +176,16 @@ public class HandlerWirelessEssentiaTerminal
 	 */
 	private double wirelessPowerMultiplier = 1.0D;
 
-	public HandlerWirelessEssentiaTerminal(	final EntityPlayer player, final String encryptionKey,
-											final IThEWirelessEssentiaTerminal wirelessTerminalInterface,
-											final ItemStack wirelessTerminalItemstack )
-	{
+	public HandlerWirelessEssentiaTerminal(final EntityPlayer player, final String encryptionKey,
+			final ItemWirelessEssentiaTerminal wirelessTerminalInterface, final ItemStack wirelessTerminalItemstack) {
 		// Call super
-		super( player, encryptionKey );
+		super(player, encryptionKey);
 
 		// Set the terminal interface
-		this.wirelessTerminal = wirelessTerminalInterface;
+		wirelessTerminal = wirelessTerminalInterface;
 
 		// Set the itemstack
-		this.wirelessItemstack = wirelessTerminalItemstack;
+		wirelessItemstack = wirelessTerminalItemstack;
 	}
 
 	/**
@@ -216,78 +194,69 @@ public class HandlerWirelessEssentiaTerminal
 	 * @param wirelessTerminal
 	 * @return
 	 */
-	public static boolean isTerminalLinked( final IThEWirelessEssentiaTerminal wirelessTerminal, final ItemStack wirelessTerminalItemstack )
-	{
-		return( !wirelessTerminal.getEncryptionKey( wirelessTerminalItemstack ).isEmpty() );
+	public static boolean isTerminalLinked(final ItemWirelessEssentiaTerminal wirelessTerminal,
+			final ItemStack wirelessTerminalItemstack) {
+
+		return (!(wirelessTerminal.getEncryptionKey(wirelessTerminalItemstack).isEmpty()));
 	}
 
 	@Override
-	protected int getUserPositionX()
-	{
-		return (int)this.player.posX;
+	protected int getUserPositionX() {
+		return (int) player.posX;
 	}
 
 	@Override
-	protected int getUserPositionY()
-	{
-		return (int)this.player.posY;
+	protected int getUserPositionY() {
+		return (int) player.posY;
 	}
 
 	@Override
-	protected int getUserPositionZ()
-	{
-		return (int)this.player.posZ;
+	protected int getUserPositionZ() {
+		return (int) player.posZ;
 	}
 
 	@Override
-	protected World getUserWorld()
-	{
-		return this.player.worldObj;
+	protected World getUserWorld() {
+		return player.worldObj;
 	}
 
 	/**
-	 * Uses some of the terminals stored power. This does take into account the extra power required for wireless operations.
+	 * Uses some of the terminals stored power. This does take into account the
+	 * extra power required for wireless operations.
 	 *
 	 * @param amount
 	 * @return Returns the amount extracted.
 	 */
-	public double extractPower( final double amount, final Actionable mode )
-	{
+	public double extractPower(final double amount, final Actionable mode) {
 		// Has power usage been disabled?
-		if( ItemWirelessEssentiaTerminal.GLOBAL_POWER_MULTIPLIER == 0 )
-		{
+		if (ItemWirelessEssentiaTerminal.GLOBAL_POWER_MULTIPLIER == 0) {
 			// Lie and say it was taken.
 			return amount;
 		}
 
 		// Adjust by the power multiplier
-		double adjustedAmount = amount * this.wirelessPowerMultiplier;
+		final double adjustedAmount = amount * wirelessPowerMultiplier;
 
 		double extractedAmount = 0;
 		// Simulation?
-		if( mode == Actionable.SIMULATE )
-		{
+		if (mode == Actionable.SIMULATE) {
 			// Return the amount stored, capped at amount
-			extractedAmount = Math.min( this.wirelessTerminal.getAECurrentPower( this.wirelessItemstack ), adjustedAmount );
-		}
-		else
-		{
+			extractedAmount = Math.min(wirelessTerminal.getAECurrentPower(wirelessItemstack), adjustedAmount);
+		} else {
 			// Return the amount extracted.
-			extractedAmount = this.wirelessTerminal.extractAEPower( this.wirelessItemstack, adjustedAmount );
+			extractedAmount = wirelessTerminal.extractAEPower(wirelessItemstack, adjustedAmount);
 		}
 
 		// Adjust by the power multiplier
-		extractedAmount /= this.wirelessPowerMultiplier;
+		extractedAmount /= wirelessPowerMultiplier;
 
 		return extractedAmount;
 	}
 
 	@Override
-	public IGridNode getActionableNode()
-	{
-		if( this.accessPoint != null )
-		{
-			return this.accessPoint.getActionableNode();
+	public IGridNode getActionableNode() {
+		if (accessPoint != null) {
+			return accessPoint.getActionableNode();
 		}
 		return null;
 	}
@@ -297,20 +266,17 @@ public class HandlerWirelessEssentiaTerminal
 	 *
 	 * @return
 	 */
-	public BaseActionSource getActionHost()
-	{
-		return this.actionSource;
+	public BaseActionSource getActionHost() {
+		return actionSource;
 	}
 
 	@Override
-	public AECableType getCableConnectionType( final ForgeDirection dir )
-	{
+	public AECableType getCableConnectionType(final ForgeDirection dir) {
 		return AECableType.NONE;
 	}
 
 	@Override
-	public IConfigManager getConfigManager()
-	{
+	public IConfigManager getConfigManager() {
 		// Ignored.
 		return null;
 	}
@@ -321,40 +287,35 @@ public class HandlerWirelessEssentiaTerminal
 	 * @return
 	 */
 	@Override
-	public IMEEssentiaMonitor getEssentiaInventory()
-	{
+	public IMEEssentiaMonitor getEssentiaInventory() {
 
 		// Get the network essentia monitor
-		IMEEssentiaMonitor essMonitor = super.getEssentiaInventory();
-		if( essMonitor == null )
-		{
+		final IMEEssentiaMonitor essMonitor = super.getEssentiaInventory();
+		if (essMonitor == null) {
 			return null;
 		}
 
 		// Create the power redirector
-		PowerRedirector pr = new PowerRedirector();
+		final PowerRedirector pr = new PowerRedirector();
 
 		// Create and return the passthrough essentia monitor
-		IMEEssentiaMonitor monitor = new EssentiaPassThroughMonitor( essMonitor, pr );
+		final IMEEssentiaMonitor monitor = new EssentiaPassThroughMonitor(essMonitor, pr);
 		return monitor;
 	}
 
 	@Override
-	public IGridNode getGridNode( final ForgeDirection dir )
-	{
-		return this.getActionableNode();
+	public IGridNode getGridNode(final ForgeDirection dir) {
+		return getActionableNode();
 	}
 
 	@Override
-	public ItemStack getIcon()
-	{
+	public ItemStack getIcon() {
 		return ItemEnum.WIRELESS_TERMINAL.getStack();
 	}
 
 	@Override
-	public ItemStack getItemStack()
-	{
-		return this.wirelessItemstack;
+	public ItemStack getItemStack() {
+		return wirelessItemstack;
 	}
 
 	/**
@@ -362,15 +323,14 @@ public class HandlerWirelessEssentiaTerminal
 	 *
 	 * @return
 	 */
-	public AspectStackComparatorMode getSortingMode()
-	{
+	public AspectStackComparatorMode getSortingMode() {
 		// Get the data tag
-		NBTTagCompound dataTagCompound = this.wirelessTerminal.getWETerminalTag( this.wirelessItemstack );
+		final NBTTagCompound dataTagCompound = wirelessTerminal.getWETerminalTag(wirelessItemstack);
 
 		// Does the tag have the mode stored?
-		if( dataTagCompound.hasKey( NBT_KEY_SORTING_MODE ) )
-		{
-			return AspectStackComparatorMode.VALUES[dataTagCompound.getInteger( NBT_KEY_SORTING_MODE )];
+		if (dataTagCompound.hasKey(HandlerWirelessEssentiaTerminal.NBT_KEY_SORTING_MODE)) {
+			return AspectStackComparatorMode.VALUES[dataTagCompound
+					.getInteger(HandlerWirelessEssentiaTerminal.NBT_KEY_SORTING_MODE)];
 		}
 
 		return AspectStackComparatorMode.MODE_ALPHABETIC;
@@ -381,20 +341,18 @@ public class HandlerWirelessEssentiaTerminal
 	 *
 	 * @return
 	 */
-	public ItemStack getTerminalItem()
-	{
-		return this.wirelessItemstack;
+	public ItemStack getTerminalItem() {
+		return wirelessItemstack;
 	}
 
-	public ViewItems getViewMode()
-	{
+	public ViewItems getViewMode() {
 		// Get the data tag
-		NBTTagCompound dataTagCompound = this.wirelessTerminal.getWETerminalTag( this.wirelessItemstack );
+		final NBTTagCompound dataTagCompound = wirelessTerminal.getWETerminalTag(wirelessItemstack);
 
 		// Does the tag have the mode stored?
-		if( dataTagCompound.hasKey( NBT_KEY_VIEW_MODE ) )
-		{
-			return EnumCache.AE_VIEW_ITEMS[dataTagCompound.getInteger( NBT_KEY_VIEW_MODE )];
+		if (dataTagCompound.hasKey(HandlerWirelessEssentiaTerminal.NBT_KEY_VIEW_MODE)) {
+			return EnumCache.AE_VIEW_ITEMS[dataTagCompound
+					.getInteger(HandlerWirelessEssentiaTerminal.NBT_KEY_VIEW_MODE)];
 		}
 
 		return ViewItems.ALL;
@@ -407,29 +365,24 @@ public class HandlerWirelessEssentiaTerminal
 	 * @return
 	 */
 	@Override
-	public boolean hasPowerToCommunicate()
-	{
-		return( this.wirelessTerminal.getAECurrentPower( this.wirelessItemstack ) > 0 );
+	public boolean hasPowerToCommunicate() {
+		return (wirelessTerminal.getAECurrentPower(wirelessItemstack) > 0);
 	}
 
 	@Override
-	public void launchGUI( final EntityPlayer player )
-	{
-		if( EffectiveSide.isClientSide() )
-		{
+	public void launchGUI(final EntityPlayer player) {
+		ThELog.log.warn("launchGUI - Handler");
+		if (EffectiveSide.isClientSide()) {
 			// Ask server to change GUI's
-			Packet_S_ChangeGui.sendGuiChangeToWirelessTerminal( player );
-		}
-		else
-		{
+			Packet_S_ChangeGui.sendGuiChangeToWirelessTerminal(player);
+		} else {
 			// Open the gui
-			ThEApi.instance().interact().openWirelessTerminalGui( player );
+			ThEApi.instance().interact().openWirelessTerminalGui(player);
 		}
 	}
 
 	@Override
-	public void securityBreak()
-	{
+	public void securityBreak() {
 	}
 
 	/**
@@ -437,22 +390,20 @@ public class HandlerWirelessEssentiaTerminal
 	 *
 	 * @param mode
 	 */
-	public void setSortingMode( final AspectStackComparatorMode mode )
-	{
+	public void setSortingMode(final AspectStackComparatorMode mode) {
 		// Get the data tag
-		NBTTagCompound dataTag = this.wirelessTerminal.getWETerminalTag( this.wirelessItemstack );
+		final NBTTagCompound dataTag = wirelessTerminal.getWETerminalTag(wirelessItemstack);
 
 		// Set the sorting mode
-		dataTag.setInteger( NBT_KEY_SORTING_MODE, mode.ordinal() );
+		dataTag.setInteger(HandlerWirelessEssentiaTerminal.NBT_KEY_SORTING_MODE, mode.ordinal());
 	}
 
-	public void setViewMode( final ViewItems viewMode )
-	{
+	public void setViewMode(final ViewItems viewMode) {
 		// Get the data tag
-		NBTTagCompound dataTag = this.wirelessTerminal.getWETerminalTag( this.wirelessItemstack );
+		final NBTTagCompound dataTag = wirelessTerminal.getWETerminalTag(wirelessItemstack);
 
 		// Set the viewing mode
-		dataTag.setInteger( NBT_KEY_VIEW_MODE, viewMode.ordinal() );
+		dataTag.setInteger(HandlerWirelessEssentiaTerminal.NBT_KEY_VIEW_MODE, viewMode.ordinal());
 	}
 
 	/**
@@ -460,19 +411,15 @@ public class HandlerWirelessEssentiaTerminal
 	 *
 	 * @return
 	 */
-	public void updatePowerMultiplier()
-	{
+	public void updatePowerMultiplier() {
 		// Get the squared distance
-		double distance = WirelessAELink.getSquaredDistanceFromAP( this.apLocation,
-			this.getUserPositionX(),
-			this.getUserPositionY(),
-			this.getUserPositionZ() );
+		double distance = WirelessAELink.getSquaredDistanceFromAP(apLocation, getUserPositionX(), getUserPositionY(),
+				getUserPositionZ());
 
 		// Calculate the distance
-		distance = Math.sqrt( distance );
+		distance = Math.sqrt(distance);
 
 		// Calculate the power multiplier
-		this.wirelessPowerMultiplier = AEConfig.instance.wireless_getDrainRate( distance );
+		wirelessPowerMultiplier = AEConfig.instance.wireless_getDrainRate(distance);
 	}
-
 }

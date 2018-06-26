@@ -2,6 +2,7 @@ package thaumicenergistics.common.inventory;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import appeng.api.config.AccessRestriction;
 import appeng.api.config.Actionable;
 import appeng.api.config.ViewItems;
@@ -18,7 +19,6 @@ import thaumcraft.api.aspects.Aspect;
 import thaumicenergistics.api.storage.IAspectStack;
 import thaumicenergistics.common.fluids.GaseousEssentia;
 import thaumicenergistics.common.integration.tc.EssentiaConversionHelper;
-import thaumicenergistics.common.items.ItemEnum;
 import thaumicenergistics.common.items.ItemEssentiaCell;
 import thaumicenergistics.common.registries.EnumCache;
 import thaumicenergistics.common.storage.AspectStack;
@@ -122,10 +122,10 @@ public class HandlerItemEssentiaCell
 		this.cellData = storageStack.getTagCompound();
 
 		// Get the total types we can store
-		this.totalTypes = ( (ItemEssentiaCell)ItemEnum.ESSENTIA_CELL.getItem() ).maxTypes( storageStack );
+		this.totalTypes = ItemEssentiaCell.maxTypes( storageStack );
 
 		// Get the total bytes we can hold
-		this.totalBytes = ( (ItemEssentiaCell)ItemEnum.ESSENTIA_CELL.getItem() ).maxStorage( storageStack );
+		this.totalBytes = ItemEssentiaCell.maxStorage( storageStack );
 
 		// Calculate how many essentia we can hold
 		this.totalEssentiaStorage = this.totalBytes * HandlerItemEssentiaCell.ESSENTIA_PER_BYTE;
@@ -529,7 +529,7 @@ public class HandlerItemEssentiaCell
 		Aspect requestAspect = ( (GaseousEssentia)request.getFluid() ).getAspect();
 
 		// Calculate the amount of essentia to extract
-		long essentiaAmountRequested = EssentiaConversionHelper.INSTANCE.convertFluidAmountToEssentiaAmount( request.getStackSize() );
+		long essentiaAmountRequested = EssentiaConversionHelper.convertFluidAmountToEssentiaAmount( request.getStackSize() );
 
 		// Is the requested amount a whole essentia?
 		if( essentiaAmountRequested == 0 )
@@ -552,7 +552,7 @@ public class HandlerItemEssentiaCell
 		IAEFluidStack extractedFluid = request.copy();
 
 		// Set the amount extracted
-		extractedFluid.setStackSize( EssentiaConversionHelper.INSTANCE.convertEssentiaAmountToFluidAmount( extractedEssentiaAmount ) );
+		extractedFluid.setStackSize( EssentiaConversionHelper.convertEssentiaAmountToFluidAmount( extractedEssentiaAmount ) );
 		return extractedFluid;
 
 	}
@@ -584,7 +584,7 @@ public class HandlerItemEssentiaCell
 			GaseousEssentia essentiaGas = GaseousEssentia.getGasFromAspect( essentiaStack.getAspect() );
 
 			// Create the AE fluid stack
-			availableList.add( EssentiaConversionHelper.INSTANCE.createAEFluidStackInEssentiaUnits( essentiaGas, essentiaStack.getStackSize() ) );
+			availableList.add( EssentiaConversionHelper.createAEFluidStackInEssentiaUnits( essentiaGas, essentiaStack.getStackSize() ) );
 
 		}
 
@@ -762,7 +762,7 @@ public class HandlerItemEssentiaCell
 		Aspect essentiaAspect = ( (GaseousEssentia)input.getFluid() ).getAspect();
 
 		// Calculate the amount to store
-		long amountToStore = EssentiaConversionHelper.INSTANCE.convertFluidAmountToEssentiaAmount( input.getStackSize() );
+		long amountToStore = EssentiaConversionHelper.convertFluidAmountToEssentiaAmount( input.getStackSize() );
 
 		// Is the amount a whole essentia?
 		if( amountToStore == 0 )
@@ -785,7 +785,7 @@ public class HandlerItemEssentiaCell
 		IAEFluidStack result = input.copy();
 
 		// Set the size to how much was left over
-		result.setStackSize( EssentiaConversionHelper.INSTANCE.convertEssentiaAmountToFluidAmount( amountNotStored ) );
+		result.setStackSize( EssentiaConversionHelper.convertEssentiaAmountToFluidAmount( amountNotStored ) );
 
 		return result;
 	}
@@ -795,6 +795,7 @@ public class HandlerItemEssentiaCell
 	 *
 	 * @return
 	 */
+	@SuppressWarnings("static-method")
 	public boolean isCreative()
 	{
 		return false;

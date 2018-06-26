@@ -167,6 +167,8 @@ public class Packet_C_ArcaneCraftingTerminal
 			case Packet_C_ArcaneCraftingTerminal.MODE_UPDATE_COSTS:
 				( (GuiArcaneCraftingTerminal)gui ).onServerSendForceUpdateCost();
 				break;
+			default:
+				break;
 			}
 		}
 	}
@@ -222,6 +224,8 @@ public class Packet_C_ArcaneCraftingTerminal
 			this.sortingOrder = EnumCache.AE_SORT_ORDERS[stream.readInt()];
 			this.viewMode = EnumCache.AE_VIEW_ITEMS[stream.readInt()];
 			break;
+		default:
+			break;
 		}
 	}
 
@@ -265,6 +269,8 @@ public class Packet_C_ArcaneCraftingTerminal
 			stream.writeInt( this.sortingDirection.ordinal() );
 			stream.writeInt( this.sortingOrder.ordinal() );
 			stream.writeInt( this.viewMode.ordinal() );
+			break;
+		default:
 			break;
 		}
 

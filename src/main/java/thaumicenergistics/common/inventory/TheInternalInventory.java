@@ -53,7 +53,7 @@ public class TheInternalInventory
 	}
 
 	@Override
-	public void closeInventory()
+	public void closeChest()
 	{
 	}
 
@@ -141,7 +141,7 @@ public class TheInternalInventory
 	}
 
 	@Override
-	public boolean hasCustomInventoryName()
+	public boolean isCustomInventoryName()
 	{
 		return false;
 	}
@@ -223,7 +223,7 @@ public class TheInternalInventory
 		return true;
 	}
 
-	public boolean isUseableByPlayer( @Nonnull final EntityPlayer player, @Nonnull final TileEntity tile )
+	public static boolean isUseableByPlayer( @Nonnull final EntityPlayer player, @Nonnull final TileEntity tile )
 	{
 		return ThEUtils.canPlayerInteractWith( player, tile );
 	}
@@ -234,7 +234,7 @@ public class TheInternalInventory
 	}
 
 	@Override
-	public void openInventory()
+	public void openChest()
 	{
 	}
 

@@ -78,7 +78,7 @@ public class GuiCraftAmountBridge
 				// Ask server to show confirm gui
 				Packet_S_ConfirmCraftingJob.sendConfirmAutoCraft( this.player, amount, isShiftKeyDown() );
 			}
-			catch( final NumberFormatException e )
+			catch( @SuppressWarnings("unused") final NumberFormatException e )
 			{
 				// Reset amount to 1
 				this.amountToCraft.setText( "1" );
@@ -126,7 +126,7 @@ public class GuiCraftAmountBridge
 			atcField.setAccessible( true );
 			this.amountToCraft = (GuiNumberBox)atcField.get( this );
 		}
-		catch( Exception e )
+		catch(@SuppressWarnings("unused") Exception e )
 		{
 		}
 

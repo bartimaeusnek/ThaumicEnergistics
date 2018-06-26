@@ -265,6 +265,7 @@ public abstract class TileProviderBase
 	}
 
 	@MENetworkEventSubscribe
+	@SuppressWarnings("unused")
 	public final void channelEvent( final MENetworkChannelsChanged event )
 	{
 		// Check that our color is still valid
@@ -508,6 +509,7 @@ public abstract class TileProviderBase
 	}
 
 	@TileEvent(TileEventType.NETWORK_WRITE)
+	@SuppressWarnings("unused")
 	public void onSendNetworkData( final ByteBuf data ) throws IOException
 	{
 		// Write the color data to the stream
@@ -518,6 +520,7 @@ public abstract class TileProviderBase
 	}
 
 	@MENetworkEventSubscribe
+	@SuppressWarnings("unused")
 	public final void powerEvent( final MENetworkPowerStatusChange event )
 	{
 		this.markForUpdate();

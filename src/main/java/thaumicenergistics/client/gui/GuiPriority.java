@@ -280,7 +280,7 @@ public class GuiPriority
 			{
 				newPriority = Integer.parseInt( this.amountField.getText() );
 			}
-			catch( NumberFormatException e )
+			catch( @SuppressWarnings("unused") NumberFormatException e )
 			{
 			}
 
@@ -302,7 +302,7 @@ public class GuiPriority
 			TileEntity host = this.part.getHostTile();
 
 			// Ask the server to change to the priority gui
-			Packet_S_ChangeGui.sendGuiChangeToPart( this.part, this.player, host.getWorldObj(), host.xCoord, host.yCoord, host.zCoord );
+			Packet_S_ChangeGui.sendGuiChangeToPart( this.part, this.player, host.getWorld(), host.xCoord, host.yCoord, host.zCoord );
 			return;
 
 		}
@@ -316,7 +316,7 @@ public class GuiPriority
 			// Send the adjustment to the server
 			Packet_S_Priority.sendPriorityDelta( abDef.amount, this.player );
 		}
-		catch( IndexOutOfBoundsException e )
+		catch(@SuppressWarnings("unused") IndexOutOfBoundsException e )
 		{
 			return;
 		}

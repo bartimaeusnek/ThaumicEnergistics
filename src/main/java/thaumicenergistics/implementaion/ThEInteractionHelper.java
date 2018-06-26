@@ -1,6 +1,7 @@
 package thaumicenergistics.implementaion;
 
 import java.util.ArrayList;
+
 import appeng.api.AEApi;
 import appeng.api.implementations.tiles.IWirelessAccessPoint;
 import appeng.api.storage.data.IAEItemStack;
@@ -10,6 +11,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.common.util.FakePlayer;
 import thaumcraft.api.aspects.Aspect;
 import thaumicenergistics.api.IThEInteractionHelper;
@@ -23,6 +25,7 @@ import thaumicenergistics.common.grid.WirelessAELink;
 import thaumicenergistics.common.integration.tc.EssentiaConversionHelper;
 import thaumicenergistics.common.integration.tc.GolemHooks;
 import thaumicenergistics.common.inventory.HandlerWirelessEssentiaTerminal;
+import thaumicenergistics.common.items.ItemWirelessEssentiaTerminal;
 import thaumicenergistics.common.network.packet.server.Packet_S_ArcaneCraftingTerminal;
 import thaumicenergistics.common.storage.AspectStack;
 import thaumicenergistics.common.utils.ThELog;
@@ -37,13 +40,13 @@ public class ThEInteractionHelper
 	@Override
 	public long convertEssentiaAmountToFluidAmount( final long essentiaAmount )
 	{
-		return EssentiaConversionHelper.INSTANCE.convertEssentiaAmountToFluidAmount( essentiaAmount );
+		return EssentiaConversionHelper.convertEssentiaAmountToFluidAmount( essentiaAmount );
 	}
 
 	@Override
 	public long convertFluidAmountToEssentiaAmount( final long milibuckets )
 	{
-		return EssentiaConversionHelper.INSTANCE.convertFluidAmountToEssentiaAmount( milibuckets );
+		return EssentiaConversionHelper.convertFluidAmountToEssentiaAmount( milibuckets );
 	}
 
 	@Override
@@ -65,6 +68,7 @@ public class ThEInteractionHelper
 		// Valid player?
 		if( ( player == null ) || ( player instanceof FakePlayer ) )
 		{
+			ThELog.log.warn("InValid player");
 			return;
 		}
 
@@ -73,29 +77,31 @@ public class ThEInteractionHelper
 		{
 			return;
 		}
-
+		
 		// Get the item the player is holding.
 		ItemStack wirelessTerminal = player.getHeldItem();
 
 		// Ensure the stack is valid
 		if( ( wirelessTerminal == null ) )
 		{
+			player.addChatMessage(new ChatComponentText("wirelessTerminal == null"));
 			// Invalid terminal
 			return;
 		}
 
 		// Ensure the stack's item implements the wireless interface
-		if( !( wirelessTerminal.getItem() instanceof IThEWirelessEssentiaTerminal ) )
+		if( !( wirelessTerminal.getItem() instanceof ItemWirelessEssentiaTerminal ) )
 		{
+			player.addChatMessage(new ChatComponentText("!( wirelessTerminal.getItem() instanceof ItemWirelessEssentiaTerminal )"));
 			// Invalid item.
 			return;
 		}
 
 		// Get the interface
-		IThEWirelessEssentiaTerminal terminalInterface = (IThEWirelessEssentiaTerminal)wirelessTerminal.getItem();
+		ItemWirelessEssentiaTerminal terminalInterface = (ItemWirelessEssentiaTerminal)wirelessTerminal.getItem();
 
 		// Ensure the terminal has power
-		if( terminalInterface.getAECurrentPower( wirelessTerminal ) == 0 )
+		if( (terminalInterface).getAECurrentPower( wirelessTerminal ) == 0 )
 		{
 			// Terminal is dead
 			player.addChatMessage( PlayerMessages.DeviceNotPowered.get() );
@@ -107,6 +113,7 @@ public class ThEInteractionHelper
 		{
 			// Unlinked terminal
 			player.addChatMessage( PlayerMessages.CommunicationError.get() );
+			player.addChatMessage(new ChatComponentText("Unlinked terminal"));
 			return;
 		}
 
@@ -120,6 +127,7 @@ public class ThEInteractionHelper
 		if( accessPoints == null )
 		{
 			player.addChatMessage( PlayerMessages.CommunicationError.get() );
+			player.addChatMessage(new ChatComponentText("No access Points"));
 		}
 		// None in range
 		else if( accessPoints.isEmpty() )

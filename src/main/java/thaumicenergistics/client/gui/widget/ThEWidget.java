@@ -57,7 +57,7 @@ public abstract class ThEWidget
 
 	public boolean isMouseOverWidget( final int mouseX, final int mouseY )
 	{
-		return ThEGuiHelper.INSTANCE.isPointInGuiRegion(
+		return ThEGuiHelper.isPointInGuiRegion(
 			this.yPosition, this.xPosition,
 			ThEWidget.WIDGET_SIZE - 1, ThEWidget.WIDGET_SIZE - 1,
 			mouseX, mouseY,

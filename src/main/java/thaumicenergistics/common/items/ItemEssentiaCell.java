@@ -63,7 +63,7 @@ public class ItemEssentiaCell
 		this.setMaxStackSize( 1 );
 
 		// No damage
-		this.setMaxDamage( 0 );
+		this.setMaxDurability( 0 );
 
 		// Has sub-types
 		this.setHasSubtypes( true );
@@ -76,7 +76,7 @@ public class ItemEssentiaCell
 	 * @param displayList
 	 * @param player
 	 */
-	private void addContentsToCellDescription( final HandlerItemEssentiaCell cellHandler, final List displayList, final EntityPlayer player )
+	private static void addContentsToCellDescription( final HandlerItemEssentiaCell cellHandler, final List displayList, final EntityPlayer player )
 	{
 		// Get the list of stored aspects
 		List<IAspectStack> cellAspects = cellHandler.getStoredEssentia();
@@ -144,7 +144,7 @@ public class ItemEssentiaCell
 			if( Keyboard.isKeyDown( Keyboard.KEY_LSHIFT ) || ( Keyboard.isKeyDown( Keyboard.KEY_RSHIFT ) ) )
 			{
 				// Add information about the essentia types in the cell
-				this.addContentsToCellDescription( cellHandler, displayList, player );
+				ItemEssentiaCell.addContentsToCellDescription( cellHandler, displayList, player );
 			}
 			else
 			{
@@ -162,7 +162,7 @@ public class ItemEssentiaCell
 	@Override
 	public double cellIdleDrain( final ItemStack itemStack, final IMEInventory handler )
 	{
-		return EnumEssentiaStorageTypes.fromIndex[itemStack.getItemDamage()].idleAEPowerDrain;
+		return EnumEssentiaStorageTypes.fromIndex[itemStack.getMetadata()].idleAEPowerDrain;
 	}
 
 	/**
@@ -178,7 +178,7 @@ public class ItemEssentiaCell
 		}
 
 		// Is the type creative?
-		if( essentiaCell.getItemDamage() == EnumEssentiaStorageTypes.Type_Creative.index )
+		if( essentiaCell.getMetadata() == EnumEssentiaStorageTypes.Type_Creative.index )
 		{
 			// Return a creative handler.
 			return new HandlerItemEssentiaCellCreative( essentiaCell, saveProvider );
@@ -208,7 +208,7 @@ public class ItemEssentiaCell
 	public EnumRarity getRarity( final ItemStack itemStack )
 	{
 		// Get the index based off of the meta data
-		int index = MathHelper.clamp_int( itemStack.getItemDamage(), 0, EnumEssentiaStorageTypes.fromIndex.length - 1 );
+		int index = MathHelper.clamp_int( itemStack.getMetadata(), 0, EnumEssentiaStorageTypes.fromIndex.length - 1 );
 
 		// Return the rarity
 		return EnumEssentiaStorageTypes.fromIndex[index].rarity;
@@ -306,7 +306,7 @@ public class ItemEssentiaCell
 	@Override
 	public String getUnlocalizedName( final ItemStack itemStack )
 	{
-		return EnumEssentiaStorageTypes.fromIndex[itemStack.getItemDamage()].cellName.getUnlocalized();
+		return EnumEssentiaStorageTypes.fromIndex[itemStack.getMetadata()].cellName.getUnlocalized();
 	}
 
 	/**
@@ -324,9 +324,9 @@ public class ItemEssentiaCell
 	 * @param essentiaCell
 	 * @return
 	 */
-	public int maxStorage( final ItemStack essentiaCell )
+	public static int maxStorage( final ItemStack essentiaCell )
 	{
-		return EnumEssentiaStorageTypes.fromIndex[essentiaCell.getItemDamage()].capacity;
+		return EnumEssentiaStorageTypes.fromIndex[essentiaCell.getMetadata()].capacity;
 	}
 
 	/**
@@ -335,9 +335,9 @@ public class ItemEssentiaCell
 	 * @param essentiaCell
 	 * @return
 	 */
-	public int maxTypes( final ItemStack essentiaCell )
+	public static int maxTypes( final ItemStack essentiaCell )
 	{
-		return EnumEssentiaStorageTypes.fromIndex[essentiaCell.getItemDamage()].maxStoredTypes;
+		return EnumEssentiaStorageTypes.fromIndex[essentiaCell.getMetadata()].maxStoredTypes;
 	}
 
 	/**
@@ -353,7 +353,7 @@ public class ItemEssentiaCell
 		}
 
 		// Ensure this is not a creative cell
-		if( essentiaCell.getItemDamage() == EnumEssentiaStorageTypes.Type_Creative.index )
+		if( essentiaCell.getMetadata() == EnumEssentiaStorageTypes.Type_Creative.index )
 		{
 			return essentiaCell;
 		}
@@ -375,7 +375,7 @@ public class ItemEssentiaCell
 		if( ( cellHandler.getUsedBytes() == 0 ) && ( player.inventory.addItemStackToInventory( ItemEnum.STORAGE_CASING.getStack() ) ) )
 		{
 			// Return the storage component
-			return EnumEssentiaStorageTypes.fromIndex[essentiaCell.getItemDamage()].getComponent( 1 );
+			return EnumEssentiaStorageTypes.fromIndex[essentiaCell.getMetadata()].getComponent( 1 );
 		}
 
 		// Can not remove storage component, return the current cell as is.
@@ -408,7 +408,7 @@ public class ItemEssentiaCell
 				TileEntity chestEntity = (TileEntity)chest;
 
 				// Show the terminal gui
-				ThEGuiHandler.launchGui( ThEGuiHandler.ESSENTIA_CELL_ID, player, chestEntity.getWorldObj(), chestEntity.xCoord, chestEntity.yCoord,
+				ThEGuiHandler.launchGui( ThEGuiHandler.ESSENTIA_CELL_ID, player, chestEntity.getWorld(), chestEntity.xCoord, chestEntity.yCoord,
 					chestEntity.zCoord );
 			}
 		}

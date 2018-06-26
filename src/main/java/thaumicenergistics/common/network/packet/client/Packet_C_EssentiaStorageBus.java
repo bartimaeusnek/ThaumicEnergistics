@@ -52,6 +52,8 @@ public class Packet_C_EssentiaStorageBus
 			// Read void mode
 			this.isVoidAllowed = stream.readBoolean();
 			break;
+		default:
+			break;
 		}
 	}
 
@@ -74,6 +76,8 @@ public class Packet_C_EssentiaStorageBus
 			// Set void mode
 			( (GuiEssentiaStorageBus)gui ).onServerSentVoidMode( this.isVoidAllowed );
 			break;
+		default:
+			break;
 		}
 
 	}
@@ -86,6 +90,8 @@ public class Packet_C_EssentiaStorageBus
 		case Packet_C_EssentiaStorageBus.MODE_SET_VOID:
 			// Write void mode
 			stream.writeBoolean( this.isVoidAllowed );
+			break;
+		default:
 			break;
 		}
 	}

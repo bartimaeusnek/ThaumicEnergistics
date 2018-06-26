@@ -72,6 +72,8 @@ public class GuiButtonSaveDelete
 			this.stateIcon = null;
 			this.cachedTooltip = ThEStrings.TooltipButton_InscriberMissing.getLocalized();
 			break;
+		default:
+			break;
 
 		}
 	}

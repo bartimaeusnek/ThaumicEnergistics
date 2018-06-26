@@ -140,7 +140,7 @@ public class WirelessGolemHandler
 	 * @param skin
 	 * @return
 	 */
-	private Character backpackSkinToSyncChar( final BackpackSkins skin )
+	private static Character backpackSkinToSyncChar( final BackpackSkins skin )
 	{
 		int id = 0;
 		if( skin != null )
@@ -159,7 +159,7 @@ public class WirelessGolemHandler
 	 * @param side
 	 * @return
 	 */
-	private InteractionLevel canHandleInteration_Backpack(	final EntityGolemBase golem, final Object handlerData, final EntityPlayer player,
+	private static InteractionLevel canHandleInteration_Backpack(	final EntityGolemBase golem, final Object handlerData, final EntityPlayer player,
 															final Side side )
 	{
 		// Does the golem already have a backpack on?
@@ -333,7 +333,7 @@ public class WirelessGolemHandler
 	 * @param skinSyncChar
 	 * @return
 	 */
-	private BackpackSkins syncCharToBackpackSkin( final char skinSyncChar )
+	private static BackpackSkins syncCharToBackpackSkin( final char skinSyncChar )
 	{
 		int id = skinSyncChar - SYNCFIELD_SKIN;
 		if( ( id < 0 ) || ( id > BackpackSkins.VALUES.length ) )
@@ -350,7 +350,7 @@ public class WirelessGolemHandler
 		this.wifiSyncID = syncRegistry.registerSyncChar( this, SYNCFLAG_NO_WIFI );
 
 		// Register facade item
-		this.skinSyncID = syncRegistry.registerSyncChar( this, this.backpackSkinToSyncChar( BackpackSkins.Thaumium ) );
+		this.skinSyncID = syncRegistry.registerSyncChar( this, WirelessGolemHandler.backpackSkinToSyncChar( BackpackSkins.Thaumium ) );
 	}
 
 	@Override
@@ -396,7 +396,7 @@ public class WirelessGolemHandler
 		// Backpack?
 		if( heldItem.getItem() == this.backpackItem )
 		{
-			return this.canHandleInteration_Backpack( golem, handlerData, player, side );
+			return WirelessGolemHandler.canHandleInteration_Backpack( golem, handlerData, player, side );
 		}
 
 		// Facade?
@@ -462,7 +462,7 @@ public class WirelessGolemHandler
 
 			// Set the skin
 			wsd.skin = this.getSkinFromFacade( wsd.facade );
-			syncData.updateSyncChar( this, this.skinSyncID, this.backpackSkinToSyncChar( wsd.skin ) );
+			syncData.updateSyncChar( this, this.skinSyncID, WirelessGolemHandler.backpackSkinToSyncChar( wsd.skin ) );
 
 			// Play sound
 			golem.worldObj.playSoundAtEntity( golem, "thaumcraft:cameraticks", 0.5F, 1.0F );
@@ -489,7 +489,7 @@ public class WirelessGolemHandler
 
 				// Set sync data
 				syncData.updateSyncChar( this, this.wifiSyncID, ( wsd.isInRange ? SYNCFLAG_HAS_WIFI_IN_RANGE : SYNCFLAG_HAS_WIFI_OUT_OF_RANGE ) );
-				syncData.updateSyncChar( this, this.skinSyncID, this.backpackSkinToSyncChar( wsd.skin ) );
+				syncData.updateSyncChar( this, this.skinSyncID, WirelessGolemHandler.backpackSkinToSyncChar( wsd.skin ) );
 			}
 		}
 	}
@@ -525,7 +525,7 @@ public class WirelessGolemHandler
 					wsd.facade = ItemStack.loadItemStackFromNBT( nbtTag.getCompoundTag( NBTKEY_FACADE ) );
 					wsd.skin = this.getSkinFromFacade( wsd.facade );
 				}
-				catch( Exception e )
+				catch( @SuppressWarnings("unused") Exception e )
 				{
 					// Invalid facade
 				}
@@ -705,7 +705,7 @@ public class WirelessGolemHandler
 
 		// Get the skin
 		char skinChar = syncData.getSyncCharOrDefault( this.skinSyncID, SYNCFIELD_SKIN );
-		wcd.skin = this.syncCharToBackpackSkin( skinChar );
+		wcd.skin = WirelessGolemHandler.syncCharToBackpackSkin( skinChar );
 
 		return wcd;
 	}

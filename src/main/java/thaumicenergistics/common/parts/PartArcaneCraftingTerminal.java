@@ -16,7 +16,6 @@ import appeng.api.parts.IPartCollisionHelper;
 import appeng.api.parts.IPartRenderHelper;
 import appeng.api.parts.PartItemStack;
 import appeng.api.storage.IMEMonitor;
-import appeng.api.storage.ITerminalHost;
 import appeng.api.storage.data.IAEFluidStack;
 import appeng.api.storage.data.IAEItemStack;
 import appeng.api.util.AEColor;
@@ -60,7 +59,7 @@ import thaumicenergistics.common.utils.ThEUtils;
  */
 public class PartArcaneCraftingTerminal
 	extends ThERotateablePart
-	implements IInventory, IGridTickable, ICraftingIssuerHost, ITerminalHost
+	implements IInventory, IGridTickable, ICraftingIssuerHost
 {
 	/**
 	 * Number of slots in the internal inventory
@@ -167,7 +166,7 @@ public class PartArcaneCraftingTerminal
 	 * @param slotIndex
 	 * @return
 	 */
-	private boolean isSlotInRange( final int slotIndex )
+	private static boolean isSlotInRange( final int slotIndex )
 	{
 		// Is the slot in range?
 		return( ( slotIndex >= 0 ) && ( slotIndex < PartArcaneCraftingTerminal.MY_INVENTORY_SIZE ) );
@@ -213,7 +212,7 @@ public class PartArcaneCraftingTerminal
 	}
 
 	@Override
-	public void closeInventory()
+	public void closeChest()
 	{
 		// Ignored
 	}
@@ -229,7 +228,7 @@ public class PartArcaneCraftingTerminal
 		ItemStack returnStack = null;
 
 		// Is the slot in range?
-		if( this.isSlotInRange( slotIndex ) )
+		if( PartArcaneCraftingTerminal.isSlotInRange( slotIndex ) )
 		{
 			// Get the stack
 			ItemStack slotStack = this.slots[slotIndex];
@@ -438,7 +437,7 @@ public class PartArcaneCraftingTerminal
 	public ItemStack getStackInSlot( final int slotIndex )
 	{
 		// Is the slot in range?
-		if( this.isSlotInRange( slotIndex ) )
+		if( PartArcaneCraftingTerminal.isSlotInRange( slotIndex ) )
 		{
 			// Return the contents of the slot
 			return this.slots[slotIndex];
@@ -455,7 +454,7 @@ public class PartArcaneCraftingTerminal
 	public ItemStack getStackInSlotOnClosing( final int slotIndex )
 	{
 		// Is the slot in range?
-		if( this.isSlotInRange( slotIndex ) )
+		if( PartArcaneCraftingTerminal.isSlotInRange( slotIndex ) )
 		{
 			return this.slots[slotIndex];
 		}
@@ -485,16 +484,16 @@ public class PartArcaneCraftingTerminal
 	 *
 	 * @return
 	 */
-	public World getWorldObj()
+	public World getWorld()
 	{
-		return this.getHostTile().getWorldObj();
+		return this.getHostTile().getWorld();
 	}
 
 	/**
 	 * Returns true.
 	 */
 	@Override
-	public boolean hasCustomInventoryName()
+	public boolean isCustomInventoryName()
 	{
 		return true;
 	}
@@ -506,7 +505,7 @@ public class PartArcaneCraftingTerminal
 	public boolean isItemValidForSlot( final int slotIndex, final ItemStack proposedStack )
 	{
 		// Is the slot in range?
-		if( this.isSlotInRange( slotIndex ) )
+		if( PartArcaneCraftingTerminal.isSlotInRange( slotIndex ) )
 		{
 			// Is the stack null?
 			if( proposedStack == null )
@@ -552,12 +551,12 @@ public class PartArcaneCraftingTerminal
 		if( EffectiveSide.isServerSide() )
 		{
 			// Launch the gui
-			ThEGuiHandler.launchGui( this, player, host.getWorldObj(), host.xCoord, host.yCoord, host.zCoord );
+			ThEGuiHandler.launchGui( this, player, host.getWorld(), host.xCoord, host.yCoord, host.zCoord );
 		}
 		else
 		{
 			// Ask the server to change the GUI
-			Packet_S_ChangeGui.sendGuiChangeToPart( this, player, host.getWorldObj(), host.xCoord, host.yCoord, host.zCoord );
+			Packet_S_ChangeGui.sendGuiChangeToPart( this, player, host.getWorld(), host.xCoord, host.yCoord, host.zCoord );
 		}
 	}
 
@@ -628,7 +627,7 @@ public class PartArcaneCraftingTerminal
 	}
 
 	@Override
-	public void openInventory()
+	public void openChest()
 	{
 		// Ignored
 	}
@@ -657,7 +656,7 @@ public class PartArcaneCraftingTerminal
 				int slotIndex = nbtCompound.getByte( PartArcaneCraftingTerminal.SLOT_NBT_KEY );
 
 				// Is it in range?
-				if( this.isSlotInRange( slotIndex ) )
+				if( PartArcaneCraftingTerminal.isSlotInRange( slotIndex ) )
 				{
 					// Load the stack
 					ItemStack slotStack = ItemStack.loadItemStackFromNBT( nbtCompound );
@@ -755,7 +754,7 @@ public class PartArcaneCraftingTerminal
 		helper.renderInventoryFace( BlockTextureManager.ARCANE_CRAFTING_TERMINAL.getTextures()[1], ForgeDirection.SOUTH, renderer );
 
 		helper.setBounds( 5.0F, 5.0F, 13.0F, 11.0F, 11.0F, 14.0F );
-		this.renderInventoryBusLights( helper, renderer );
+		ThEPartBase.renderInventoryBusLights( helper, renderer );
 	}
 
 	/**
@@ -836,7 +835,7 @@ public class PartArcaneCraftingTerminal
 	public boolean setInventorySlotContentsWithoutNotify( final int slotIndex, final ItemStack slotStack )
 	{
 		// Is the slot in range?
-		if( this.isSlotInRange( slotIndex ) )
+		if( PartArcaneCraftingTerminal.isSlotInRange( slotIndex ) )
 		{
 			// Set the slot
 			this.slots[slotIndex] = slotStack;

@@ -21,7 +21,7 @@ public class ItemKnowledgeCore
 	public ItemKnowledgeCore()
 	{
 		// Can not be damaged
-		this.setMaxDamage( 0 );
+		this.setMaxDurability( 0 );
 
 		// Has no subtypes
 		this.setHasSubtypes( false );

@@ -118,7 +118,7 @@ public abstract class ThEStateButton
 	 * @param title
 	 * @param text
 	 */
-	protected void addAboutToTooltip( final List<String> tooltip, final String title, final String text )
+	protected static void addAboutToTooltip( final List<String> tooltip, final String title, final String text )
 	{
 		// Title
 		tooltip.add( EnumChatFormatting.WHITE + title );

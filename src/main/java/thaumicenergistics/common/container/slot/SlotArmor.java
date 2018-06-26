@@ -54,7 +54,7 @@ public class SlotArmor
 	@SideOnly(Side.CLIENT)
 	public IIcon getBackgroundIconIndex()
 	{
-		return ItemArmor.func_94602_b( this.armorType );
+		return ItemArmor.getBackgroundIcon( this.armorType );
 	}
 
 	@Override

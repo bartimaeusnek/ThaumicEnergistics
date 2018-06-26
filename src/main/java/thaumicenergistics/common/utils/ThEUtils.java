@@ -35,7 +35,7 @@ public final class ThEUtils
 	private static final void playLocalSound( final ResourceLocation sound )
 	{
 		Minecraft.getMinecraft().getSoundHandler()
-						.playSound( PositionedSoundRecord.func_147674_a( sound, 1.0F ) );
+						.playSound( PositionedSoundRecord.createPositionedSoundRecord( sound, 1.0F ) );
 	}
 
 	/**
@@ -68,10 +68,10 @@ public final class ThEUtils
 
 		// Check damage
 		// Are either NOT wildcard?
-		if( ( stack1.getItemDamage() != OreDictionary.WILDCARD_VALUE ) && ( stack2.getItemDamage() != OreDictionary.WILDCARD_VALUE ) )
+		if( ( stack1.getMetadata() != OreDictionary.WILDCARD_VALUE ) && ( stack2.getMetadata() != OreDictionary.WILDCARD_VALUE ) )
 		{
 			// Does damage match?
-			if( stack1.getItemDamage() != stack2.getItemDamage() )
+			if( stack1.getMetadata() != stack2.getMetadata() )
 			{
 				return false;
 			}
@@ -99,7 +99,7 @@ public final class ThEUtils
 	 */
 	public static final boolean canPlayerInteractWith( @Nonnull final EntityPlayer player, @Nonnull final TileEntity tile )
 	{
-		TileEntity tileAtCoords = tile.getWorldObj().getTileEntity( tile.xCoord, tile.yCoord, tile.zCoord );
+		TileEntity tileAtCoords = tile.getWorld().getTileEntity( tile.xCoord, tile.yCoord, tile.zCoord );
 
 		// Null check
 		if( tileAtCoords == null )
@@ -150,7 +150,7 @@ public final class ThEUtils
 		{
 			wand.getAspectsWithRoom( stack );
 		}
-		catch( Exception e )
+		catch( @SuppressWarnings("unused") Exception e )
 		{
 			// Internal failure
 			return false;

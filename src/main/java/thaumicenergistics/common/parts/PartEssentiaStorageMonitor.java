@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.io.IOException;
 import org.lwjgl.opengl.GL11;
 import appeng.api.AEApi;
-import appeng.api.implementations.IPowerChannelState;
 import appeng.api.implementations.parts.IPartStorageMonitor;
 import appeng.api.parts.IPartCollisionHelper;
 import appeng.api.parts.IPartRenderHelper;
@@ -57,7 +56,7 @@ import thaumicenergistics.common.utils.EffectiveSide;
  */
 public class PartEssentiaStorageMonitor
 	extends ThEPartBase
-	implements IPartStorageMonitor, IEssentiaWatcherHost, IPowerChannelState
+	implements IPartStorageMonitor, IEssentiaWatcherHost
 {
 	/**
 	 * All the data about what is being tracked.
@@ -142,7 +141,7 @@ public class PartEssentiaStorageMonitor
 		 * @param as
 		 * @return Returns true if the tracker was changed, false otherwise.
 		 */
-		@SuppressWarnings("null")
+
 		public Boolean setTracked( final IAspectStack as )
 		{
 			Boolean didChange = false;
@@ -338,7 +337,7 @@ public class PartEssentiaStorageMonitor
 	 * @param aspect
 	 */
 	@SideOnly(Side.CLIENT)
-	private void renderAspect( final Tessellator tessellator, final Aspect aspect )
+	private static void renderAspect( final Tessellator tessellator, final Aspect aspect )
 	{
 		// Get the aspect color
 		Color aspectColor = new Color( aspect.getColor() );
@@ -507,13 +506,13 @@ public class PartEssentiaStorageMonitor
 			OpenGlHelper.setLightmapTextureCoords( OpenGlHelper.lightmapTexUnit, brightnessComponent1 * 0.8F, brightnessComponent2 * 0.8F );
 
 			// Render the aspect
-			this.renderAspect( tessellator, aspectStack.getAspect() );
+			PartEssentiaStorageMonitor.renderAspect( tessellator, aspectStack.getAspect() );
 
 			// Render the lock
 			this.renderLock( tessellator );
 
 		}
-		catch( Exception e )
+		catch(@SuppressWarnings("unused") Exception e )
 		{
 		}
 
@@ -525,7 +524,7 @@ public class PartEssentiaStorageMonitor
 		final String renderedStackSize = ReadableNumberConverter.INSTANCE.toWideReadableForm( aspectStack.getStackSize() );
 
 		// Get the font renderer
-		FontRenderer fr = Minecraft.getMinecraft().fontRenderer;
+		FontRenderer fr = Minecraft.getMinecraft().fontRendererObj;
 
 		// Adjust position based on string width
 		GL11.glTranslatef( -0.5f * fr.getStringWidth( renderedStackSize ), 0.0f, -1.0f );
@@ -964,7 +963,7 @@ public class PartEssentiaStorageMonitor
 
 		// Cable lights
 		helper.setBounds( 5.0F, 5.0F, 13.0F, 11.0F, 11.0F, 14.0F );
-		this.renderInventoryBusLights( helper, renderer );
+		ThEPartBase.renderInventoryBusLights( helper, renderer );
 
 	}
 

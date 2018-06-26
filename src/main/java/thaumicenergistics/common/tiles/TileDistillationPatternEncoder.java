@@ -65,7 +65,7 @@ public class TileDistillationPatternEncoder
 	}
 
 	@Override
-	public int[] getAccessibleSlotsFromSide( final int p_94128_1_ )
+	public int[] getSlotsForFace( final int p_94128_1_ )
 	{
 		return new int[0];
 	}

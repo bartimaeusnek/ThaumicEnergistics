@@ -110,6 +110,8 @@ public class Packet_C_Sync
 			// Read the sound location
 			this.syncString = ThEBasePacket.readString( stream );
 			break;
+		default:
+			break;
 		}
 	}
 
@@ -125,6 +127,9 @@ public class Packet_C_Sync
 		case MODE_SOUND:
 			// Play the sound
 			ThEUtils.playClientSound( null, this.syncString );
+			break;
+		default:
+			break;
 		}
 	}
 
@@ -145,6 +150,8 @@ public class Packet_C_Sync
 		case MODE_SOUND:
 			// Write the sound location
 			ThEBasePacket.writeString( this.syncString, stream );
+			break;
+		default:
 			break;
 		}
 	}

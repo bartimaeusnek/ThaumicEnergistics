@@ -30,7 +30,7 @@ public class ItemWirelessEssentiaTerminal
 	/**
 	 * NBT keys
 	 */
-	private static final String NBT_AE_SOURCE_KEY = "SourceKey";
+	private static final String NBT_AE_SOURCE_KEY = "securityKey";
 
 	/**
 	 * Amount of power the wireless terminal can store.
@@ -48,23 +48,29 @@ public class ItemWirelessEssentiaTerminal
 	public ItemWirelessEssentiaTerminal()
 	{
 		super( POWER_STORAGE, Optional.<String> absent() );
+		
 	}
 
 	/**
 	 * Gets or creates the NBT compound tag for the terminal.
 	 *
 	 * @param wirelessTerminal
+	 * @param the source key
 	 * @return
 	 */
-	private NBTTagCompound getOrCreateCompoundTag( final ItemStack wirelessTerminal )
+	@SuppressWarnings("unused")
+	@Deprecated
+	private static NBTTagCompound getOrCreateCompoundTag( final ItemStack wirelessTerminal, final String sourceKey)
 	{
-		NBTTagCompound dataTag;
+		NBTTagCompound dataTag = new NBTTagCompound();
 
 		// Ensure the terminal has a tag
 		if( !wirelessTerminal.hasTagCompound() )
 		{
+			dataTag.setString( ItemWirelessEssentiaTerminal.NBT_AE_SOURCE_KEY, sourceKey );
 			// Create a new tag.
-			wirelessTerminal.setTagCompound( ( dataTag = new NBTTagCompound() ) );
+			wirelessTerminal.setTagCompound( ( dataTag ) );
+			
 		}
 		else
 		{
@@ -84,20 +90,21 @@ public class ItemWirelessEssentiaTerminal
 	@Override
 	public String getEncryptionKey( final ItemStack wirelessTerminal )
 	{
+		String key = "";
 		// Ensure the terminal has a tag
 		if( wirelessTerminal.hasTagCompound() )
 		{
 			// Get the security terminal source key
-			String sourceKey = wirelessTerminal.getTagCompound().getString( ItemWirelessEssentiaTerminal.NBT_AE_SOURCE_KEY );
+			NBTTagCompound sourceKey = wirelessTerminal.getTagCompound();
+				if (sourceKey != null)
+			key = sourceKey.getString( ItemWirelessEssentiaTerminal.NBT_AE_SOURCE_KEY );
 
 			// Ensure the source is not empty nor null
-			if( ( sourceKey != null ) && ( !sourceKey.isEmpty() ) )
-			{
+			if( ( key != null ) && ( !key.isEmpty() ) ){
 				// The terminal is linked.
-				return sourceKey;
+				return key;
 			}
 		}
-
 		// Terminal is unlinked.
 		return "";
 	}
@@ -120,7 +127,8 @@ public class ItemWirelessEssentiaTerminal
 	@Override
 	public NBTTagCompound getWETerminalTag( final ItemStack wirelessTerminal )
 	{
-		return this.getOrCreateCompoundTag( wirelessTerminal );
+		
+		return wirelessTerminal.getTagCompound();//this.getOrCreateCompoundTag( wirelessTerminal,null );
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -169,7 +177,12 @@ public class ItemWirelessEssentiaTerminal
 	public void setEncryptionKey( final ItemStack wirelessTerminal, final String sourceKey, final String name )
 	{
 		// Set the key
-		this.getOrCreateCompoundTag( wirelessTerminal ).setString( ItemWirelessEssentiaTerminal.NBT_AE_SOURCE_KEY, sourceKey );
+		NBTTagCompound data = wirelessTerminal.getTagCompound();
+		if (data == null)
+			data = new NBTTagCompound();
+		data.setString(ItemWirelessEssentiaTerminal.NBT_AE_SOURCE_KEY, sourceKey);
+		wirelessTerminal.setTagCompound(data);
+		//this.getOrCreateCompoundTag( wirelessTerminal,sourceKey );
 	}
 
 	/**
@@ -183,4 +196,5 @@ public class ItemWirelessEssentiaTerminal
 	{
 		return true;
 	}
+	
 }

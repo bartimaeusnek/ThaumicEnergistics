@@ -345,6 +345,7 @@ public abstract class TileEVCBase
 	}
 
 	@TileEvent(TileEventType.NETWORK_WRITE)
+	@SuppressWarnings("unused")
 	public final void onNetworkWrite( final ByteBuf stream ) throws IOException
 	{
 		// Is there anything stored?

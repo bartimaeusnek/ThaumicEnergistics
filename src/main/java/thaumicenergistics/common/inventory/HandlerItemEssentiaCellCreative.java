@@ -2,6 +2,7 @@ package thaumicenergistics.common.inventory;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import appeng.api.config.Actionable;
 import appeng.api.networking.security.BaseActionSource;
 import appeng.api.storage.ISaveProvider;
@@ -76,7 +77,7 @@ public class HandlerItemEssentiaCellCreative
 			GaseousEssentia essentiaGas = GaseousEssentia.getGasFromAspect( aspect );
 
 			// Create the AE fluid stack
-			availableList.add( EssentiaConversionHelper.INSTANCE.createAEFluidStackInEssentiaUnits( essentiaGas, 2000000000 ) );
+			availableList.add( EssentiaConversionHelper.createAEFluidStackInEssentiaUnits( essentiaGas, 2000000000 ) );
 
 		}
 

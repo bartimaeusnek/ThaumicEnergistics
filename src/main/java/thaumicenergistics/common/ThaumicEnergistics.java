@@ -25,6 +25,7 @@ import thaumicenergistics.common.network.NetworkHandler;
 import thaumicenergistics.common.registries.AEAspectRegister;
 import thaumicenergistics.common.utils.ThELog;
 
+
 /**
  * <strong>Thaumic Energistics</strong>
  * <hr>
@@ -49,7 +50,7 @@ public class ThaumicEnergistics
 	/**
 	 * Current version of the mod.
 	 */
-	public static final String VERSION = "1.1.3.0"; // NOTE: don't forget to change the build.gradle file as well
+	public static final String VERSION = "@version@"; 
 
 	/**
 	 * Singleton instance
@@ -105,7 +106,7 @@ public class ThaumicEnergistics
 	 * @param event
 	 */
 	@EventHandler
-	public void load( final FMLInitializationEvent event )
+	public static void load( final FMLInitializationEvent event )
 	{
 		// Mark that ThE is in Init
 		long startTime = ThELog.beginSection( "Load" );
@@ -114,7 +115,7 @@ public class ThaumicEnergistics
 		ThaumicEnergistics.proxy.registerRenderers();
 
 		// Register tile entities
-		ThaumicEnergistics.proxy.registerTileEntities();
+		CommonProxy.registerTileEntities();
 
 		// Register packets
 		NetworkHandler.registerPackets();
@@ -139,7 +140,7 @@ public class ThaumicEnergistics
 	 * @param event
 	 */
 	@EventHandler
-	public void postInit( final FMLPostInitializationEvent event )
+	public static void postInit( final FMLPostInitializationEvent event )
 	{
 		// Mark that ThE is in PostInit
 		long startTime = ThELog.beginSection( "PostInit" );
@@ -149,13 +150,13 @@ public class ThaumicEnergistics
 		EssentiaItemContainerHelper.INSTANCE.registerDefaultContainers();
 
 		// Register features
-		ThaumicEnergistics.proxy.registerFeatures();
+		CommonProxy.registerFeatures();
 
 		// Register my tiles with SpatialIO
-		ThaumicEnergistics.proxy.registerSpatialIOMovables();
+		CommonProxy.registerSpatialIOMovables();
 
 		// Register fluids
-		ThaumicEnergistics.proxy.registerFluids();
+		CommonProxy.registerFluids();
 
 		// Give AE items aspects
 		try
@@ -194,10 +195,10 @@ public class ThaumicEnergistics
 		NetworkRegistry.INSTANCE.registerGuiHandler( this, new ThEGuiHandler() );
 
 		// Register items
-		ThaumicEnergistics.proxy.registerItems();
+		CommonProxy.registerItems();
 
 		// Register blocks
-		ThaumicEnergistics.proxy.registerBlocks();
+		CommonProxy.registerBlocks();
 
 		// Mark that ThE has finished PreInit
 		ThELog.endSection( "PreInit", startTime );

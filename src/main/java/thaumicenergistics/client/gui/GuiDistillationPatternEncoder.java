@@ -273,7 +273,7 @@ public class GuiDistillationPatternEncoder
 		// Was the mouse clicked over a widget?
 		for( Slot slot : this.deContainer.slotSourceAspects )
 		{
-			if( slot.getHasStack() && ThEGuiHelper.INSTANCE.isPointInGuiRegion(
+			if( slot.getHasStack() && ThEGuiHelper.isPointInGuiRegion(
 				slot.yDisplayPosition, slot.xDisplayPosition,
 				18, 18, mouseX, mouseY,
 				this.guiLeft, this.guiTop ) )

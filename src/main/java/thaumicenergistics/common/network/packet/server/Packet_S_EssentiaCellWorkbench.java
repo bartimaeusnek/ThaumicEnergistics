@@ -146,6 +146,8 @@ public class Packet_S_EssentiaCellWorkbench
 			// Read the replacement aspect
 			this.replaceAspect = ThEBasePacket.readAspect( stream );
 			break;
+		default:
+			break;
 		}
 	}
 
@@ -169,6 +171,8 @@ public class Packet_S_EssentiaCellWorkbench
 
 			// Write the replacement aspect
 			ThEBasePacket.writeAspect( this.replaceAspect, stream );
+			break;
+		default:
 			break;
 		}
 
@@ -215,6 +219,8 @@ public class Packet_S_EssentiaCellWorkbench
 
 		case Packet_S_EssentiaCellWorkbench.MODE_REQUEST_PARITION_CONTENTS:
 			this.workbench.partitionToCellContents();
+			break;
+		default:
 			break;
 		}
 	}

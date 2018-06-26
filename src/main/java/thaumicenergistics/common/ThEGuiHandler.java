@@ -12,10 +12,26 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import thaumicenergistics.api.grid.ICraftingIssuerHost;
 import thaumicenergistics.api.gui.ICraftingIssuerContainer;
-import thaumicenergistics.client.gui.*;
-import thaumicenergistics.common.container.*;
+import thaumicenergistics.client.gui.GuiArcaneAssembler;
+import thaumicenergistics.client.gui.GuiCraftAmountBridge;
+import thaumicenergistics.client.gui.GuiCraftConfirmBridge;
+import thaumicenergistics.client.gui.GuiDistillationPatternEncoder;
+import thaumicenergistics.client.gui.GuiEssentiaCellTerminal;
+import thaumicenergistics.client.gui.GuiEssentiaCellWorkbench;
+import thaumicenergistics.client.gui.GuiEssentiaVibrationChamber;
+import thaumicenergistics.client.gui.GuiKnowledgeInscriber;
+import thaumicenergistics.client.gui.GuiPriority;
+import thaumicenergistics.common.container.ContainerArcaneAssembler;
+import thaumicenergistics.common.container.ContainerDistillationPatternEncoder;
+import thaumicenergistics.common.container.ContainerEssentiaCell;
+import thaumicenergistics.common.container.ContainerEssentiaCellWorkbench;
+import thaumicenergistics.common.container.ContainerEssentiaVibrationChamber;
+import thaumicenergistics.common.container.ContainerKnowledgeInscriber;
+import thaumicenergistics.common.container.ContainerPriority;
+import thaumicenergistics.common.container.ContainerWirelessEssentiaTerminal;
 import thaumicenergistics.common.inventory.HandlerWirelessEssentiaTerminal;
 import thaumicenergistics.common.parts.ThEPartBase;
+import thaumicenergistics.common.utils.ThELog;
 
 /**
  * Handles ThE GUI launching.
@@ -280,6 +296,7 @@ public class ThEGuiHandler
 	@Override
 	public Object getClientGuiElement( int ID, final EntityPlayer player, final World world, final int x, final int y, final int z )
 	{
+		ThELog.log.warn("getClientGuiElement");
 		// Is the ID a forge direction?
 		ForgeDirection side = ForgeDirection.getOrientation( ID );
 
@@ -292,7 +309,8 @@ public class ThEGuiHandler
 
 		// This is not an AE part, adjust the ID
 		ID -= ThEGuiHandler.DIRECTION_OFFSET;
-
+		ThELog.log.warn(Integer.toString(ID));
+		ThELog.log.warn(Integer.toString(ThEGuiHandler.WIRELESS_TERMINAL_ID));
 		// Check basic ID's
 		switch ( ID )
 		{
@@ -341,6 +359,8 @@ public class ThEGuiHandler
 				return new GuiCraftConfirmBridge( player, confirmHost );
 			}
 			return null;
+		default:
+			break;
 
 		}
 
@@ -381,6 +401,7 @@ public class ThEGuiHandler
 		// This is not an AE part, adjust the ID
 		ID -= ThEGuiHandler.DIRECTION_OFFSET;
 
+		
 		switch ( ID )
 		{
 		// Is this the essentia cell?
@@ -393,6 +414,8 @@ public class ThEGuiHandler
 
 		// Is this the wireless gui?
 		case ThEGuiHandler.WIRELESS_TERMINAL_ID:
+			
+			//working till here
 			HandlerWirelessEssentiaTerminal handler = (HandlerWirelessEssentiaTerminal)ThEGuiHandler.extraData[0];
 			return new ContainerWirelessEssentiaTerminal( player, handler );
 
@@ -429,6 +452,8 @@ public class ThEGuiHandler
 				return new ContainerCraftConfirm( player.inventory, confirmHost );
 			}
 			return null;
+		default:
+			break;
 
 		}
 

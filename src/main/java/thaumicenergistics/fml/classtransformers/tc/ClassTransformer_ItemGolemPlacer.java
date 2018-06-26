@@ -23,11 +23,11 @@ public class ClassTransformer_ItemGolemPlacer
 		super( "thaumcraft.common.entities.golems.ItemGolemPlacer" );
 	}
 
-	private void transformMethod_SpawnCreature( final MethodNode method )
+	private static void transformMethod_SpawnCreature( final MethodNode method )
 	{
 		// Locate "golem.setup(side);"
 		int opSequence[] = new int[] { Opcodes.PUTFIELD, Opcodes.ALOAD, Opcodes.ILOAD, Opcodes.INVOKEVIRTUAL };
-		AbstractInsnNode insertionPoint = this.findSequence( method.instructions, opSequence, true );
+		AbstractInsnNode insertionPoint = AClassTransformer.findSequence( method.instructions, opSequence, true );
 
 		// Move back to the aload
 		insertionPoint = insertionPoint.getPrevious().getPrevious();
@@ -72,7 +72,7 @@ public class ClassTransformer_ItemGolemPlacer
 			// Spawn creature
 			if( method.name.equals( "spawnCreature" ) )
 			{
-				this.transformMethod_SpawnCreature( method );
+				ClassTransformer_ItemGolemPlacer.transformMethod_SpawnCreature( method );
 				break; // Stop searching.
 			}
 		}

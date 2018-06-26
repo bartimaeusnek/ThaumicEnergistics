@@ -74,6 +74,7 @@ public abstract class TheContainerBase
 	 *
 	 * @return
 	 */
+	@SuppressWarnings("static-method")
 	protected boolean detectAndSendChangesMP( @Nonnull final EntityPlayerMP playerMP )
 	{
 		return false;

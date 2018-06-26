@@ -33,7 +33,7 @@ public class VisCraftingHelper
 	 * @param aspect
 	 * @return
 	 */
-	public float calculateArmorDiscount( final IInventory inventory, final int firstSlotIndex, final int slotCount, final Aspect aspect )
+	public static float calculateArmorDiscount( final IInventory inventory, final int firstSlotIndex, final int slotCount, final Aspect aspect )
 	{
 		float discount = 0.0F;
 
@@ -50,7 +50,7 @@ public class VisCraftingHelper
 					// Get the discount
 					discount += ( ( (IVisDiscountGear)armor.getItem() ).getVisDiscount( armor, null, aspect ) / 100.0F );
 				}
-				catch( Exception e )
+				catch(@SuppressWarnings("unused") Exception e )
 				{
 				}
 			}
@@ -67,7 +67,7 @@ public class VisCraftingHelper
 	 * @param slotCount
 	 * @return
 	 */
-	public int calculateArmorWarp( final IInventory inventory, final int firstSlotIndex, final int slotCount )
+	public static int calculateArmorWarp( final IInventory inventory, final int firstSlotIndex, final int slotCount )
 	{
 		int warp = 0;
 
@@ -84,7 +84,7 @@ public class VisCraftingHelper
 					// Get the warp
 					warp += ( (IWarpingGear)armor.getItem() ).getWarp( armor, null );
 				}
-				catch( Exception e )
+				catch(@SuppressWarnings("unused") Exception e )
 				{
 				}
 			}

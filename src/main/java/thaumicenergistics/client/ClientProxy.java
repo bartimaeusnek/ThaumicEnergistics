@@ -20,14 +20,16 @@ public class ClientProxy
 	{
 		MinecraftForge.EVENT_BUS.register( this );
 	}
-
+	
 	@Override
 	public void registerRenderers()
 	{
-		// Register the custom block renderers
 		Renderers.registerRenderers();
 	}
+	
+	
 
+	@SuppressWarnings("static-method")
 	@SubscribeEvent
 	public void registerTextures( final TextureStitchEvent.Pre event )
 	{

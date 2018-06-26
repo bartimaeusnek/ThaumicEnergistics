@@ -332,7 +332,7 @@ public class AEAspectRegister
 					}
 				}
 			}
-			catch( Exception e )
+			catch(@SuppressWarnings("unused") Exception e )
 			{
 			}
 
@@ -367,7 +367,7 @@ public class AEAspectRegister
 					}
 				}
 			}
-			catch( Exception e )
+			catch(@SuppressWarnings("unused") Exception e )
 			{
 			}
 			return false;
@@ -407,7 +407,7 @@ public class AEAspectRegister
 				}
 
 			}
-			catch( Exception e )
+			catch(@SuppressWarnings("unused") Exception e )
 			{
 			}
 
@@ -581,7 +581,7 @@ public class AEAspectRegister
 						}
 
 					}
-					catch( Exception e )
+					catch(@SuppressWarnings("unused") Exception e )
 					{
 					}
 
@@ -725,7 +725,7 @@ public class AEAspectRegister
 		@Override
 		public int hashCode()
 		{
-			return this.itemStack.getItem().hashCode() + this.itemStack.getItemDamage();
+			return this.itemStack.getItem().hashCode() + this.itemStack.getMetadata();
 		}
 
 		/**
@@ -990,26 +990,26 @@ public class AEAspectRegister
 
 		// Glass
 		aspects = cableAspects.copy();
-		this.registerCableSet( aeParts.cableGlass(), aspects );
+		AEAspectRegister.registerCableSet( aeParts.cableGlass(), aspects );
 
 		// Covered
 		aspects = cableAspects.copy();
 		aspects.add( Aspect.CLOTH, 1 );
-		this.registerCableSet( aeParts.cableCovered(), aspects );
+		AEAspectRegister.registerCableSet( aeParts.cableCovered(), aspects );
 
 		// Smart
 		aspects = cableAspects.copy();
 		aspects.add( Aspect.CLOTH, 1 );
 		aspects.add( Aspect.LIGHT, 1 );
 		aspects.add( Aspect.ENERGY, 1 );
-		this.registerCableSet( aeParts.cableSmart(), aspects );
+		AEAspectRegister.registerCableSet( aeParts.cableSmart(), aspects );
 
 		// Dense
 		aspects = cableAspects.copy();
 		aspects.add( Aspect.CLOTH, 1 );
 		aspects.add( Aspect.LIGHT, 2 );
 		aspects.add( Aspect.ENERGY, 3 );
-		this.registerCableSet( aeParts.cableDense(), aspects );
+		AEAspectRegister.registerCableSet( aeParts.cableDense(), aspects );
 
 		// Anchor
 		aspects = new AspectList();
@@ -1072,7 +1072,7 @@ public class AEAspectRegister
 	 * @param cableSet
 	 * @param aspects
 	 */
-	private void registerCableSet( final AEColoredItemDefinition cableSet, final AspectList aspects )
+	private static void registerCableSet( final AEColoredItemDefinition cableSet, final AspectList aspects )
 	{
 		// Get the colors
 		AEColor[] colors = AEColor.values();
@@ -1112,7 +1112,7 @@ public class AEAspectRegister
 	/**
 	 * Updates the aspects for the thaumic energistics items.
 	 */
-	private void registerThEItems()
+	private static void registerThEItems()
 	{
 		IThEItems teItems = ThEApi.instance().items();
 		thaumicenergistics.api.IThEBlocks teBlocks = ThEApi.instance().blocks();
@@ -1253,7 +1253,7 @@ public class AEAspectRegister
 
 				}
 			}
-			catch( Exception e )
+			catch(@SuppressWarnings("unused") Exception e )
 			{
 				continue;
 			}
@@ -1339,7 +1339,7 @@ public class AEAspectRegister
 		}
 
 		// Finally register my items
-		this.registerThEItems();
+		AEAspectRegister.registerThEItems();
 
 		// Cleanup
 		this.NORMAL_RECIPES = null;

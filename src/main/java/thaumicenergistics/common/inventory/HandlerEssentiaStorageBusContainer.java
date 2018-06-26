@@ -52,7 +52,7 @@ class HandlerEssentiaStorageBusContainer
 	 *
 	 * @param essentiaList
 	 */
-	private void addListToDictionary( final List<IAspectStack> essentiaList, final Hashtable<Aspect, Long> dictionary )
+	private static void addListToDictionary( final List<IAspectStack> essentiaList, final Hashtable<Aspect, Long> dictionary )
 	{
 		// Add each essentia
 		if( essentiaList != null )
@@ -119,7 +119,7 @@ class HandlerEssentiaStorageBusContainer
 		}
 
 		// Get the essentia and amounts in the container
-		List<IAspectStack> containerStacks = EssentiaTileContainerHelper.INSTANCE.getAspectStacksFromContainer( this.aspectContainer );
+		List<IAspectStack> containerStacks = EssentiaTileContainerHelper.getAspectStacksFromContainer( this.aspectContainer );
 
 		// Ensure there is essentia in the container
 		if( ( containerStacks == null ) || containerStacks.isEmpty() )
@@ -172,7 +172,7 @@ class HandlerEssentiaStorageBusContainer
 		}
 
 		// Ensure the fluid is an essentia gas
-		if( !this.isFluidEssentiaGas( fluidStack ) )
+		if( !HandlerEssentiaStorageBusBase.isFluidEssentiaGas( fluidStack ) )
 		{
 			// Not essentia gas.
 			return false;
@@ -202,7 +202,7 @@ class HandlerEssentiaStorageBusContainer
 		}
 
 		// Get the essentia, if any, in the container
-		IAspectStack containerStack = EssentiaTileContainerHelper.INSTANCE.getAspectStackFromContainer( this.aspectContainer );
+		IAspectStack containerStack = EssentiaTileContainerHelper.getAspectStackFromContainer( this.aspectContainer );
 
 		// Is the container empty?
 		if( containerStack == null )
@@ -232,7 +232,7 @@ class HandlerEssentiaStorageBusContainer
 		}
 
 		// Ensure the fluid is an essentia gas
-		if( !this.isFluidEssentiaGas( request ) )
+		if( !HandlerEssentiaStorageBusBase.isFluidEssentiaGas( request ) )
 		{
 			// Not essentia gas fluid.
 			return null;
@@ -259,7 +259,7 @@ class HandlerEssentiaStorageBusContainer
 		}
 
 		// Convert the drain amount to essentia units
-		int drainedAmount_EU = (int)EssentiaConversionHelper.INSTANCE.convertFluidAmountToEssentiaAmount( drained.amount );
+		int drainedAmount_EU = (int)EssentiaConversionHelper.convertFluidAmountToEssentiaAmount( drained.amount );
 
 		// Do we have the power to drain this?
 		if( !this.partStorageBus.extractPowerForEssentiaTransfer( drainedAmount_EU, Actionable.SIMULATE ) )
@@ -303,7 +303,7 @@ class HandlerEssentiaStorageBusContainer
 
 			// Update the cache
 			this.cachedContainerAspects.clear();
-			this.addListToDictionary( essentiaList, this.cachedContainerAspects );
+			HandlerEssentiaStorageBusContainer.addListToDictionary( essentiaList, this.cachedContainerAspects );
 
 			if( essentiaList != null )
 			{
@@ -313,7 +313,7 @@ class HandlerEssentiaStorageBusContainer
 					GaseousEssentia gas = GaseousEssentia.getGasFromAspect( essentia.getAspect() );
 
 					// Add to the item list
-					out.add( EssentiaConversionHelper.INSTANCE.createAEFluidStackInEssentiaUnits( gas, essentia.getStackSize() ) );
+					out.add( EssentiaConversionHelper.createAEFluidStackInEssentiaUnits( gas, essentia.getStackSize() ) );
 				}
 			}
 		}
@@ -363,7 +363,7 @@ class HandlerEssentiaStorageBusContainer
 		}
 
 		// Get how much the filled amount is in essentia units
-		int filled_EU = (int)EssentiaConversionHelper.INSTANCE.convertFluidAmountToEssentiaAmount( filled_FU );
+		int filled_EU = (int)EssentiaConversionHelper.convertFluidAmountToEssentiaAmount( filled_FU );
 
 		// Do we have the power to complete this operation?
 		if( !this.partStorageBus.extractPowerForEssentiaTransfer( filled_EU, Actionable.SIMULATE ) )
@@ -382,7 +382,7 @@ class HandlerEssentiaStorageBusContainer
 			this.partStorageBus.extractPowerForEssentiaTransfer( filled_EU, Actionable.MODULATE );
 
 			// Convert the actual amount injected into Essentia units.
-			filled_EU = (int)EssentiaConversionHelper.INSTANCE.convertFluidAmountToEssentiaAmount( filled_FU );
+			filled_EU = (int)EssentiaConversionHelper.convertFluidAmountToEssentiaAmount( filled_FU );
 
 			// Update the cache
 			this.adjustCache( ( (GaseousEssentia)toFill.getFluid() ).getAspect(), filled_EU );
@@ -476,7 +476,7 @@ class HandlerEssentiaStorageBusContainer
 		Hashtable<Aspect, Long> currentContainerAspects = new Hashtable<Aspect, Long>();
 		if( currentContainerContents != null )
 		{
-			this.addListToDictionary( currentContainerContents, currentContainerAspects );
+			HandlerEssentiaStorageBusContainer.addListToDictionary( currentContainerContents, currentContainerAspects );
 
 			// Add the current aspects to check list
 			aspectsToCheck.addAll( currentContainerAspects.keySet() );
@@ -526,7 +526,7 @@ class HandlerEssentiaStorageBusContainer
 				}
 
 				// Create the alteration
-				alterations.add( EssentiaConversionHelper.INSTANCE.createAEFluidStackInEssentiaUnits( aspect, diff ) );
+				alterations.add( EssentiaConversionHelper.createAEFluidStackInEssentiaUnits( aspect, diff ) );
 
 				// Update the cache
 				this.adjustCache( aspect, diff );
@@ -555,7 +555,7 @@ class HandlerEssentiaStorageBusContainer
 		if( this.aspectContainer != null )
 		{
 			boolean hasFilters = !this.allowAny();
-			boolean hasStored = !EssentiaTileContainerHelper.INSTANCE.getAspectStacksFromContainer( this.aspectContainer ).isEmpty();
+			boolean hasStored = !EssentiaTileContainerHelper.getAspectStacksFromContainer( this.aspectContainer ).isEmpty();
 
 			// Is this the priority pass?
 			if( pass == 1 )

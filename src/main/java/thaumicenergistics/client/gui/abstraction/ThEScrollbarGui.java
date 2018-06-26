@@ -167,7 +167,7 @@ public abstract class ThEScrollbarGui
 	protected void mouseClicked( final int mouseX, final int mouseY, final int mouseButton )
 	{
 		// Is the mouse over the scroll bar area?
-		if( ThEGuiHelper.INSTANCE.isPointInGuiRegion( this.scrollParams.scrollbarPosY, this.scrollParams.scrollbarPosX,
+		if( ThEGuiHelper.isPointInGuiRegion( this.scrollParams.scrollbarPosY, this.scrollParams.scrollbarPosX,
 			this.scrollParams.scrollbarHeight, this.scrollBar.getWidth(), mouseX, mouseY, this.guiLeft, this.guiTop ) )
 		{
 			// The scroll bar now has mouse focus

@@ -157,7 +157,7 @@ public class ArcaneCraftingPattern
 		// Does the item damage mean something besides damaged?
 		if( !target.isItemStackDamageable() )
 		{
-			return( ( target.getItemDamage() == OreDictionary.WILDCARD_VALUE ) || ( target.getItemDamage() == input.getItemDamage() ) );
+			return( ( target.getMetadata() == OreDictionary.WILDCARD_VALUE ) || ( target.getMetadata() == input.getMetadata() ) );
 		}
 
 		// Items match, has no tag or tags match, and damage is damage
@@ -534,7 +534,7 @@ public class ArcaneCraftingPattern
 					// Set the stack
 					this.ingredients[slotNumber] = ing;
 				}
-				catch( Exception e )
+				catch(@SuppressWarnings("unused") Exception e )
 				{
 					// Recipe is invalid.
 					this.setPatternValidity( false );
@@ -564,7 +564,7 @@ public class ArcaneCraftingPattern
 					// Set the stack
 					this.ingredients[slotNumber] = ing;
 				}
-				catch( Exception e )
+				catch(@SuppressWarnings("unused") Exception e )
 				{
 					this.setPatternValidity( false );
 					return;
@@ -606,7 +606,7 @@ public class ArcaneCraftingPattern
 							itemList.add( stack );
 						}
 					}
-					catch( Exception e )
+					catch(@SuppressWarnings("unused") Exception e )
 					{
 						// Ignore invalid items
 					}
@@ -656,7 +656,7 @@ public class ArcaneCraftingPattern
 					return;
 				}
 			}
-			catch( Exception e )
+			catch(@SuppressWarnings("unused") Exception e )
 			{
 				this.setPatternValidity( false );
 				return;

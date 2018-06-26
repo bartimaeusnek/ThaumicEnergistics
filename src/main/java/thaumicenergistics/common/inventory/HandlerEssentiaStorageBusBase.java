@@ -173,7 +173,7 @@ public abstract class HandlerEssentiaStorageBusBase
 		}
 
 		// Is the host in a loaded world?
-		if( hostTile.getWorldObj() == null )
+		if( hostTile.getWorld() == null )
 		{
 			// No world.
 			return null;
@@ -183,7 +183,7 @@ public abstract class HandlerEssentiaStorageBusBase
 		ForgeDirection orientation = this.partStorageBus.getSide();
 
 		// Return the tile entity the storage bus is facing.
-		return hostTile.getWorldObj().getTileEntity( hostTile.xCoord + orientation.offsetX, hostTile.yCoord + orientation.offsetY,
+		return hostTile.getWorld().getTileEntity( hostTile.xCoord + orientation.offsetX, hostTile.yCoord + orientation.offsetY,
 			hostTile.zCoord + orientation.offsetZ );
 	}
 
@@ -215,7 +215,7 @@ public abstract class HandlerEssentiaStorageBusBase
 	 * @param fluid
 	 * @return
 	 */
-	protected boolean isFluidEssentiaGas( final FluidStack fluid )
+	protected static boolean isFluidEssentiaGas( final FluidStack fluid )
 	{
 		// Ensure the request is not null
 		if( fluid == null )
@@ -233,7 +233,7 @@ public abstract class HandlerEssentiaStorageBusBase
 	 * @param fluidStack
 	 * @return
 	 */
-	protected boolean isFluidEssentiaGas( final IAEFluidStack fluidStack )
+	protected static boolean isFluidEssentiaGas( final IAEFluidStack fluidStack )
 	{
 		// Ensure the request is not null
 		if( fluidStack == null )
@@ -241,7 +241,7 @@ public abstract class HandlerEssentiaStorageBusBase
 			return false;
 		}
 
-		return this.isFluidEssentiaGas( fluidStack.getFluidStack() );
+		return HandlerEssentiaStorageBusBase.isFluidEssentiaGas( fluidStack.getFluidStack() );
 	}
 
 	/**
@@ -258,7 +258,7 @@ public abstract class HandlerEssentiaStorageBusBase
 				this.partStorageBus.getGridBlock().getStorageGrid().postAlterationOfStoredItems( StorageChannel.FLUIDS, change, this.machineSource );
 			}
 		}
-		catch( Exception e )
+		catch(@SuppressWarnings("unused") Exception e )
 		{
 
 		}
@@ -333,7 +333,7 @@ public abstract class HandlerEssentiaStorageBusBase
 	public final boolean isPrioritized( final IAEFluidStack fluidStack )
 	{
 		// Ensure the fluid stack is an essentia gas
-		if( !this.isFluidEssentiaGas( fluidStack ) )
+		if( !HandlerEssentiaStorageBusBase.isFluidEssentiaGas( fluidStack ) )
 		{
 			// Not an essentia gas.
 			return false;
@@ -344,7 +344,7 @@ public abstract class HandlerEssentiaStorageBusBase
 		{
 			return this.filteredAspects.contains( ( (GaseousEssentia)fluidStack.getFluidStack().getFluid() ).getAspect() );
 		}
-		catch( Exception e )
+		catch(@SuppressWarnings("unused") Exception e )
 		{
 			return false;
 		}

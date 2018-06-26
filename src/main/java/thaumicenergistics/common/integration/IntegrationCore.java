@@ -76,7 +76,7 @@ public final class IntegrationCore
 			// Log success
 			ThELog.info( "Successfully integrated with %s", modID );
 		}
-		catch( Throwable e )
+		catch(@SuppressWarnings("unused") Throwable e )
 		{
 
 			// Log failure
@@ -134,7 +134,7 @@ public final class IntegrationCore
 			FMLInterModComms.sendMessage( "ThaumicTinkerer", "AddCCBlacklist", TileEssentiaProvider.class.getName() );
 
 		}
-		catch( Throwable e )
+		catch(@SuppressWarnings("unused") Throwable e )
 		{
 		}
 

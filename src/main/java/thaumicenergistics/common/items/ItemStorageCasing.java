@@ -17,7 +17,7 @@ public class ItemStorageCasing
 {
 	public ItemStorageCasing()
 	{
-		this.setMaxDamage( 0 );
+		this.setMaxDurability( 0 );
 
 		this.setHasSubtypes( false );
 	}

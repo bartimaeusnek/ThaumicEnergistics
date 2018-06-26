@@ -34,7 +34,7 @@ public class ItemCraftingAspect
 	{
 		this.setMaxStackSize( 64 );
 		this.setHasSubtypes( true );
-		this.setMaxDamage( 0 );
+		this.setMaxDurability( 0 );
 		this.setCreativeTab( ThaumicEnergistics.ThETab );
 		this.setUnlocalizedName( "itemCraftingAspect" );
 	}

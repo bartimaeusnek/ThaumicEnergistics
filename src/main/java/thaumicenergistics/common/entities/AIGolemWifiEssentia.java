@@ -187,7 +187,7 @@ public class AIGolemWifiEssentia
 		}
 
 		// In range of golem?
-		double distance = jar.getDistanceFrom( gHomePos.posX, gHomePos.posY, gHomePos.posZ );
+		double distance = jar.getDistanceSq( gHomePos.posX, gHomePos.posY, gHomePos.posZ );
 		if( distance > this.golemRange )
 		{
 			return 1;

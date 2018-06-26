@@ -101,7 +101,7 @@ public class HandlerKnowledgeCore
 						this.patterns.add( pattern );
 					}
 				}
-				catch( Exception e )
+				catch(@SuppressWarnings("unused") Exception e )
 				{
 					// Ignore invalid patterns
 				}

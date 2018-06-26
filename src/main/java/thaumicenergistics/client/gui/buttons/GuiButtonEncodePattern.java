@@ -26,7 +26,7 @@ public class GuiButtonEncodePattern
 	@Override
 	public void getTooltip( final List<String> tooltip )
 	{
-		this.addAboutToTooltip( tooltip, ButtonToolTips.Encode.getLocal(), ButtonToolTips.EncodeDescription.getLocal() );
+		ThEStateButton.addAboutToTooltip( tooltip, ButtonToolTips.Encode.getLocal(), ButtonToolTips.EncodeDescription.getLocal() );
 	}
 
 }

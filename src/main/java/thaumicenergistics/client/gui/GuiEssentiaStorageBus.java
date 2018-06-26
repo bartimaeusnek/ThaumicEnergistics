@@ -275,7 +275,7 @@ public class GuiEssentiaStorageBus
 
 			// Ask the server to change to the priority gui
 			Packet_S_ChangeGui.sendGuiChange( ThEGuiHandler.generateSidedID( ThEGuiHandler.PRIORITY_ID, side ), this.player,
-				host.getWorldObj(), host.xCoord, host.yCoord, host.zCoord );
+				host.getWorld(), host.xCoord, host.yCoord, host.zCoord );
 
 		}
 		else if( button.id == GuiEssentiaStorageBus.BUTTON_ALLOW_VOID_ID )

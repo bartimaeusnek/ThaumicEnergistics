@@ -32,6 +32,7 @@ public abstract class AbstractBlockAEWrenchable
 	 * @param player
 	 * @return
 	 */
+	@SuppressWarnings({ "static-method" })
 	protected boolean onBlockActivated( final World world, final int x, final int y, final int z, final EntityPlayer player )
 	{
 		return false;
@@ -41,6 +42,7 @@ public abstract class AbstractBlockAEWrenchable
 	 * Called when the block is being removed via AE wrench.
 	 * Return an itemstack that represents the block. Can be null.
 	 */
+	@SuppressWarnings({ "static-method", "unused" })
 	protected ItemStack onDismantled( final World world, final int x, final int y, final int z )
 	{
 		return null;
@@ -51,6 +53,7 @@ public abstract class AbstractBlockAEWrenchable
 	 *
 	 * @return
 	 */
+	@SuppressWarnings({ "static-method", "unused" })
 	public boolean canPlayerInteract( final EntityPlayer player )
 	{
 		return true;
@@ -60,7 +63,7 @@ public abstract class AbstractBlockAEWrenchable
 	 * The block was right-clicked
 	 */
 	@Override
-	public final boolean onBlockActivated(	final World world, final int x, final int y, final int z, final EntityPlayer player, final int side,
+	public boolean onBlockActivated(	final World world, final int x, final int y, final int z, final EntityPlayer player, final int side,
 											final float hitX, final float hitY, final float hitZ )
 	{
 		// Can the player interact with the block?

@@ -185,7 +185,7 @@ public class ItemFocusAEWrench
 	 * @param action
 	 * @return
 	 */
-	private boolean onUse(	final World world, final EntityPlayer player, final MovingObjectPosition position, final ItemStack wandStack,
+	private static boolean onUse(	final World world, final EntityPlayer player, final MovingObjectPosition position, final ItemStack wandStack,
 							final Action action )
 	{
 		// For all current actions the player must be sneaking
@@ -354,7 +354,7 @@ public class ItemFocusAEWrench
 				return ThEStrings.Item_FocusAEWrench.getUnlocalized();
 			}
 		}
-		catch( Exception e )
+		catch( @SuppressWarnings("unused") Exception e )
 		{
 
 		}
@@ -395,7 +395,7 @@ public class ItemFocusAEWrench
 			if( ( position != null ) && ( position.typeOfHit == MovingObjectType.BLOCK ) )
 			{
 				// Use the focus
-				return this.onUse( player.worldObj, player, position, wandStack, Action.LEFT_CLICK_BLOCK );
+				return ItemFocusAEWrench.onUse( player.worldObj, player, position, wandStack, Action.LEFT_CLICK_BLOCK );
 			}
 		}
 
@@ -414,7 +414,7 @@ public class ItemFocusAEWrench
 		if( ( position != null ) && ( position.typeOfHit == MovingObjectType.BLOCK ) )
 		{
 			// Use the focus
-			this.onUse( world, player, position, wandStack, Action.RIGHT_CLICK_BLOCK );
+			ItemFocusAEWrench.onUse( world, player, position, wandStack, Action.RIGHT_CLICK_BLOCK );
 		}
 
 		return wandStack;

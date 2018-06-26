@@ -26,7 +26,7 @@ public class GuiButtonSwapArmor
 	@Override
 	public void getTooltip( final List<String> tooltip )
 	{
-		this.addAboutToTooltip( tooltip, ThEStrings.TooltipButton_SwapArmor_Title.getLocalized(), ThEStrings.TooltipButton_SwapArmor.getLocalized() );
+		ThEStateButton.addAboutToTooltip( tooltip, ThEStrings.TooltipButton_SwapArmor_Title.getLocalized(), ThEStrings.TooltipButton_SwapArmor.getLocalized() );
 	}
 
 }

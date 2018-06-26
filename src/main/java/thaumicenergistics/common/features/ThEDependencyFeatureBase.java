@@ -33,7 +33,7 @@ public abstract class ThEDependencyFeatureBase
 	 * @param items
 	 * @return
 	 */
-	private final boolean checkItemReqs( final Object[] items )
+	private final static boolean checkItemReqs( final Object[] items )
 	{
 		// Are there no item reqs?
 		if( items == null )
@@ -84,7 +84,7 @@ public abstract class ThEDependencyFeatureBase
 		{
 			// Ask for the features config settings and required items
 			this.available = this.checkConfigs( ThEApi.instance().config() ) &&
-							this.checkItemReqs( this.getItemReqs( FeatureRegistry.instance().cdi ) );
+							ThEDependencyFeatureBase.checkItemReqs( this.getItemReqs( FeatureRegistry.instance().cdi ) );
 			this.hasCheckedReqs = true;
 		}
 

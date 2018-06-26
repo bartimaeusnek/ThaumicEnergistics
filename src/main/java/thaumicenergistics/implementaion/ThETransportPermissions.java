@@ -221,9 +221,9 @@ class ThETransportPermissions
 		try
 		{
 			this.addEssentiaContainerItemToTransportPermissions( (Class<? extends IEssentiaContainerItem>)containerItem.getItem().getClass(),
-				capacity, containerItem.getItemDamage(), canHoldPartialAmount );
+				capacity, containerItem.getMetadata(), canHoldPartialAmount );
 		}
-		catch( Throwable t )
+		catch( @SuppressWarnings("unused") Throwable t )
 		{
 		}
 
